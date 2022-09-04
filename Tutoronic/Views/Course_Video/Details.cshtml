@@ -1,0 +1,58 @@
+﻿@model Tutoronic.Models.Course_Video
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Course_Video</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <b>Course Name</b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cours.course_name)
+        </dd>
+
+        <dt>
+            <b>Teacher Name</b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Teacher.teacher_name)
+        </dd>
+
+        <dt>
+            <b>Video</b>
+        </dt>
+
+        <dd>
+            <video src="@Url.Content(Model.video)" height="300px" width="300px"></video>
+        </dd>
+
+        <dt>
+            <b>Video Title</b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.video_title)
+        </dd>
+
+        <dt>
+            <b>Video Description</b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.video_description)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Course_vid_id }) |
+    @Html.ActionLink("Back to List", "Index", new { id = Model.Cours.Course_id })
+</p>

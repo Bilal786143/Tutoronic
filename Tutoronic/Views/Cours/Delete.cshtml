@@ -1,0 +1,72 @@
+﻿@model Tutoronic.Models.Cours
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Cours</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <b>SubCategory Name</b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubCategory.subcat_name)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Teacher.teacher_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Teacher.teacher_name)
+        </dd>*@
+
+        <dt>
+            <b>Course Name</b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.course_name)
+        </dd>
+
+        <dt>
+            <b>Course Description</b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.course_description)
+        </dd>
+
+        <dt>
+            <b>Course Image</b>
+        </dt>
+
+        <dd>
+            <img src="@Url.Content(Model.course_pic)" height="250" width="250" />
+        </dd>
+
+        <dt>
+            <b>Course Price</b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.course_price)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

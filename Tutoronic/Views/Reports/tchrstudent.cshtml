@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Tutoronic.Models.Student>
+
+@{
+    ViewBag.Title = "Studnets";
+}
+
+<h2>Students</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Image
+        </th>
+        <th>
+            <b>Student Name</b>
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.student_email)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.student_contact)
+        </th>*@
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        <img height="20px" width="20px" class="rounded" src="@Url.Content(item.student_pic)" />
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.student_name)
+    </td>
+    @*<td>
+            @Html.DisplayFor(modelItem => item.student_email)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.student_contact)
+        </td>*@
+
+
+
+</tr>
+}
+
+</table>

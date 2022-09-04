@@ -1,0 +1,50 @@
+﻿@model Tutoronic.Models.Course_teacher_registration
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Course_teacher_registration</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cours.course_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cours.course_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Teacher.teacher_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Teacher.teacher_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.course_price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.course_price)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Course_tch_reg_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

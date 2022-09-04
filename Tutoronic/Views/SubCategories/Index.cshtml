@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Tutoronic.Models.SubCategory>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_adminpanel.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.cat_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.subcat_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.subcat_pic)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.cat_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.subcat_name)
+        </td>
+        <td>
+            <img src="@Url.Content(item.subcat_pic)" height="100" width="100" />
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Subcat_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Subcat_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Subcat_id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,158 @@
+﻿@model IEnumerable<Tutoronic.Models.OrderDetail>
+
+
+@{
+    Layout = "~/Views/Shared/_Layout_admin.cshtml";
+    ViewBag.Title = "coursesalereport";
+    decimal total = 0, commission = 0;
+
+}
+
+<h2>Courses Sale Report</h2>
+<div class="db-breadcrumb">
+    <h4 class="breadcrumb-title">Sale Report</h4>
+    <ul class="db-breadcrumb-list">
+        <li><a href="#"><i class="fa fa-home"></i>Home</a></li>
+        <li>Report</li>
+    </ul>
+</div>
+<table class="table">
+    @*<tr>
+            <th>
+                <b>Course Name</b>
+            </th>
+            <th>
+                <b>Student Name</b>
+            </th>
+            <th>
+                <b>Price</b>
+            </th>
+            <th></th>
+        </tr>*@
+
+    @foreach (var item in Model)
+    {
+
+        @*<tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cours.course_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Order.Customer_Name)
+                </td>
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.sale_price)
+                </td>
+
+            </tr>*@
+        total += item.sale_price;
+
+    }
+
+    <tr>
+        <td colspan="2" style="text-align:right">
+
+            Total
+        </td>
+        <td style="text-align:left">
+
+            @total
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align:right">
+
+            Commission:
+        </td>
+        <td style="text-align:left">
+            @{
+                commission = total * 10 / 100;
+            }
+            @commission
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align:right">
+
+            Your Revenue:
+        </td>
+        <td style="text-align:left">
+
+            @(total=total-commission)
+
+        </td>
+    </tr>
+
+
+
+</table>
+
+
+
+
+
+
+
+
+
+<div class="row">
+    <!-- Your Profile Views Chart -->
+    <div class="col-lg-12 m-b30">
+        <div class="widget-box">
+            <div class="wc-title">
+                <h4>Courses Report</h4>
+            </div>
+            <div class="widget-inner">
+                @foreach (var item in Model)
+                {
+                    <div class="card-courses-list bookmarks-bx">
+                        <div class="card-courses-media">
+                            <img src="@Url.Content(item.Cours.course_pic)" alt="" />
+                        </div>
+                        <div class="card-courses-full-dec">
+                            <div class="card-courses-title">
+                                <h4 class="m-b5">@item.Cours.course_name</h4>
+                            </div>
+                            <div class="card-courses-list-bx">
+                                <ul class="card-courses-view">
+                                    <li class="card-courses-categories">
+                                        <h5>Categories</h5>
+                                        <h4>@item.Cours.SubCategory.Category.cat_name > @item.Cours.SubCategory.subcat_name</h4>
+                                    </li>
+                                    <li class="card-courses-review">
+                                        @*<h5>3 Review</h5>*@
+                                        <ul class="cours-star">
+                                            <li class="active"><i class="fa fa-star"></i></li>
+                                            <li class="active"><i class="fa fa-star"></i></li>
+                                            <li class="active"><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                        </ul>
+                                    </li>
+                                    <li class="card-courses-price">
+                                        @*<del>$190</del>*@
+                                        <h5 class="text-primary m-b0">$ @item.sale_price</h5>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="row card-courses-dec">
+                                <div class="col-md-12">
+                                    <p>@item.Cours.course_description</p>
+                                </div>
+                                <div class="col-md-12">
+                                    <a href="#" class="btn radius-xl">@item.Order.Customer_Name</a>
+                                    @*<a href="#" class="btn red outline radius-xl ">Cancel</a>*@
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+    <!-- Your Profile Views Chart END-->
+</div>
+

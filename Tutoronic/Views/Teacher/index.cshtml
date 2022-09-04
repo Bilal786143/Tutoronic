@@ -1,0 +1,299 @@
+@model IEnumerable<Tutoronic.Models.OrderDetail>
+@using Tutoronic.Models;
+@{ Layout = "~/Views/Shared/_Layout_admin.cshtml";
+    Model1 db = new Model1();
+    Teacher t = (Teacher)Session["tch"];
+    decimal total = 0;
+    int comment = 0, students=0, orders=0;
+
+    }
+
+
+
+
+@foreach (var item in db.OrderDetails.Where(x => x.Cours.teacher_fid == t.Teacher_id))
+{
+    students++;
+    orders++;
+    total += item.sale_price;
+
+}
+
+@foreach (var item in db.Course_video_comment.Where(x => x.Course_Video.Cours.teacher_fid==t.Teacher_id))
+{
+    comment++;
+
+            }
+
+
+
+
+<div class="db-breadcrumb">
+    <h4 class="breadcrumb-title">Dashboard</h4>
+    <ul class="db-breadcrumb-list">
+        <li><a href="#"><i class="fa fa-home"></i>Home</a></li>
+        <li>Dashboard</li>
+    </ul>
+</div>
+<!-- Card -->
+<div class="row">
+    <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-12">
+        <div class="widget-card widget-bg1">
+            <div class="wc-item">
+                <h4 class="wc-title">
+                    Total Profit
+                </h4>
+                <span class="wc-des">
+                    All Customs Value
+                </span>
+                <span class="wc-stats">
+                    $<span class="counter">@total</span>
+                </span>
+                <div class="progress wc-progress">
+                    <div class="progress-bar" role="progressbar" style="width: 78%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <span class="wc-progress-bx">
+                    <span class="wc-change">
+                        Change
+                    </span>
+                    <span class="wc-number ml-auto">
+                        78%
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-12">
+        <div class="widget-card widget-bg2">
+            <div class="wc-item">
+                <h4 class="wc-title">
+                    Comments
+                </h4>
+                <span class="wc-des">
+                    Students Comments
+                </span>
+                <span class="wc-stats counter">
+                    @comment
+                </span>
+                <div class="progress wc-progress">
+                    <div class="progress-bar" role="progressbar" style="width: 88%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <span class="wc-progress-bx">
+                    <span class="wc-change">
+                        Change
+                    </span>
+                    <span class="wc-number ml-auto">
+                        88%
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-12">
+        <div class="widget-card widget-bg3">
+            <div class="wc-item">
+                <h4 class="wc-title">
+                    New Orders
+                </h4>
+                <span class="wc-des">
+                    Total Order Amount
+                </span>
+                <span class="wc-stats counter">
+                    @orders
+                </span>
+                <div class="progress wc-progress">
+                    <div class="progress-bar" role="progressbar" style="width: 65%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <span class="wc-progress-bx">
+                    <span class="wc-change">
+                        Change
+                    </span>
+                    <span class="wc-number ml-auto">
+                        65%
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-12">
+        <div class="widget-card widget-bg4">
+            <div class="wc-item">
+                <h4 class="wc-title">
+                    Total Students
+                </h4>
+                <span class="wc-des">
+                    New Studnets
+                </span>
+                <span class="wc-stats counter">
+                    @students
+                </span>
+                <div class="progress wc-progress">
+                    <div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <span class="wc-progress-bx">
+                    <span class="wc-change">
+                        Change
+                    </span>
+                    <span class="wc-number ml-auto">
+                        90%
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Card END -->
+<div class="row">
+    <!-- Your Profile Views Chart -->
+    <div class="col-lg-8 m-b30">
+        <div class="widget-box">
+            <div class="wc-title">
+                <h4>Your Profile Views</h4>
+            </div>
+            <div class="widget-inner">
+                <canvas id="chart" width="100" height="45"></canvas>
+            </div>
+        </div>
+    </div>
+    <!-- Your Profile Views Chart END-->
+    <div class="col-lg-4 m-b30">
+        <div class="widget-box">
+            <div class="wc-title">
+                <h4>Notifications</h4>
+            </div>
+            <div class="widget-inner">
+                <div class="noti-box-list">
+                    <ul>
+                        @*<li>
+            <span class="notification-icon dashbg-gray">
+                <i class="fa fa-check"></i>
+            </span>
+            <span class="notification-text">
+                <span>Sneha Jogi</span> sent you a message.
+            </span>
+            <span class="notification-time">
+                <a href="#" class="fa fa-close"></a>
+                <span> 02:14</span>
+            </span>
+        </li>
+        <li>
+            <span class="notification-icon dashbg-yellow">
+                <i class="fa fa-shopping-cart"></i>
+            </span>
+            <span class="notification-text">
+                <a href="#">Your order is placed</a> sent you a message.
+            </span>
+            <span class="notification-time">
+                <a href="#" class="fa fa-close"></a>
+                <span> 7 Min</span>
+            </span>
+        </li>
+        <li>
+            <span class="notification-icon dashbg-red">
+                <i class="fa fa-bullhorn"></i>
+            </span>
+            <span class="notification-text">
+                <span>Your item is shipped</span> sent you a message.
+            </span>
+            <span class="notification-time">
+                <a href="#" class="fa fa-close"></a>
+                <span> 2 May</span>
+            </span>
+        </li>*@
+
+                        @foreach (var item in db.Course_video_comment.Where(x => x.Course_Video.Cours.teacher_fid == t.Teacher_id))
+                        {
+                            <li>
+                                <span class="notification-icon dashbg-green">
+                            <i class="fa fa-comments-o"></i>
+                                </span>
+                                <span class="notification-text">
+                            <a href="#">@item.Student.student_name</a> Commented on Video(<b>@item.Course_Video.video_title</b>).
+                                </span><br/>
+                                <span class="notification-time">
+                            <a href="#" class="fa fa-close"></a>
+                            <span></span>
+                                </span>
+                            </li>
+                        }
+
+
+
+
+
+
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 m-b30">
+        <div class="widget-box">
+            <div class="wc-title">
+                <h4>New Users</h4>
+            </div>
+            <div class="widget-inner">
+                <div class="new-user-list">
+                    <ul>
+                        @foreach (var item in db.OrderDetails.Where(x => x.Cours.teacher_fid == t.Teacher_id))
+                        {
+
+                            <li>
+                                <span class="new-users-pic">
+                                    <img src="@Url.Content(item.Order.Student.student_pic)" alt="@item.Order.Student.student_name" />
+                                </span>
+                                <span class="new-users-text">
+                                    <a href="#" class="new-users-name">@item.Order.Student.student_name</a>
+                                    <span class="new-users-info">@item.Cours.course_name</span>
+                                </span>
+                                <span class="new-users-btn">
+                                    <a href="#" class="btn button-sm outline">@item.sale_price</a>
+                                </span>
+                            </li>
+
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 m-b30">
+        <div class="widget-box">
+            <div class="wc-title">
+                <h4>Orders</h4>
+            </div>
+            <div class="widget-inner">
+                <div class="orders-list">
+                    <ul>
+                        @foreach (var item in db.OrderDetails.Where(x => x.Cours.teacher_fid == t.Teacher_id))
+                        {
+                            <li>
+                                <span class="orders-title">
+                                    <a href="#" class="orders-title-name">@item.Order.Student.student_name</a>
+                                    <span class="orders-info">Order #@item.Order.order_id | Date @item.Order.Order_Date</span>
+                                </span>
+                                <span class="orders-btn">
+                                    <a href="#" class="btn button-sm green">Paid</a>
+                                </span>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<div class="col-lg-12 m-b30">
+        <div class="widget-box">
+            <div class="wc-title">
+                <h4>Basic Calendar</h4>
+            </div>
+            <div class="widget-inner">
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </div>*@
+</div>
+

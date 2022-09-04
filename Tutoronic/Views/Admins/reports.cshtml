@@ -1,0 +1,31 @@
+﻿@using Tutoronic.Models;
+
+@{
+    ViewBag.Title = "reports";
+    Layout = "~/Views/Shared/_Layout_adminpanel.cshtml";
+    Model1 db = new Model1();
+    decimal totalrevenue=0;
+}
+
+<h2>Reports</h2>
+@foreach (var item1 in db.OrderDetails)
+{
+    totalrevenue += item1.sale_price;
+
+}
+<h3>Total Revenue : $ @totalrevenue</h3>
+<table><thead><tr>
+    <td>Student Name</td>
+    <td>Course Name</td>
+    <td>Price</td>
+</tr></thead>
+    @foreach (var item in db.OrderDetails)
+    {
+        <tr>
+            <td>@item.Order.Customer_Name</td>
+            <td>@item.Cours.course_name</td>
+            <td>$ @item.sale_price</td>
+    </tr>
+    }
+
+</table>

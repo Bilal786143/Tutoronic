@@ -1,0 +1,152 @@
+﻿@model IEnumerable<Tutoronic.Models.Cours>
+    @using Tutoronic.Models;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model1 db = new Model1();
+
+}
+
+<!-- Content -->
+<div class="page-content bg-white">
+    <!-- inner page banner -->
+    <div class="page-banner ovbl-dark" style="background-image:url(~/content/customer/images/banner/banner3.jpg);">
+        <div class="container">
+            <div class="page-banner-entry">
+                <h1 class="text-white">Searched Courses</h1>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb row -->
+    <div class="breadcrumb-row">
+        <div class="container">
+            <ul class="list-inline">
+                <li><a href="/home/index">Home</a></li>
+                <li><a href="/home/courses">Searched Courses</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- Breadcrumb row END -->
+    <!-- inner page banner END -->
+    <div class="content-block">
+        <!-- About Us -->
+        <div class="section-area section-sp1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
+
+                        <div class="widget widget_archive">
+                            <h5 class="widget-title style-1">All Courses</h5>
+                            <ul>
+                                @foreach (var cat in db.Categories)
+                                {
+                                    <li>
+                                        <a href="">@cat.cat_name</a>
+                                        <ul style="line-height:normal">
+                                            @foreach (var subcat in db.SubCategories)
+                                            {
+                                                <li><a href="">@subcat.subcat_name</a></li>
+                                            }
+
+                                        </ul>
+                                    </li>
+
+                                }
+
+
+                            </ul>
+                        </div>
+                        <div class="widget">
+                            <a href="#"><img src="~/content/customer/images/adv/adv.jpg" alt="" /></a>
+                        </div>
+                        <div class="widget recent-posts-entry widget-courses">
+                            <h5 class="widget-title style-1">Recent Courses</h5>
+                            <div class="widget-post-bx">
+                                @foreach (var item in db.Courses)
+                                {
+
+                                    if (item.approve == true)
+                                    {
+
+                                        <div class="widget-post clearfix">
+                                            <div class="ttr-post-media"> <img onclick="@Url.Action("coursesdetails","Home", new { id=item.Course_id})" src="@Url.Content(item.course_pic)" width="200" height="143" alt=""> </div>
+                                            <div class="ttr-post-info">
+                                                <div class="ttr-post-header">
+                                                    <h6 class="post-title"><a href="@Url.Action("coursesdetails","Home", new { id=item.Course_id})">@item.course_name</a></h6>
+                                                </div>
+                                                <div class="ttr-post-meta">
+                                                    <ul>
+                                                        <li class="price">
+
+                                                            <h5>$ @item.course_price</h5>
+                                                        </li>
+                                                        <!--li class="review">03 Review</li-->
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+                                }
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-8 col-sm-12">
+                        <div class="row">
+
+
+                            @foreach (var item in Model)
+                            {
+                                if (item.approve == true) { 
+
+                                    <div class="col-md-6 col-lg-4 col-sm-6 m-b30">
+                                        <div onclick="@Url.Action("coursesdetails","Home", new { id=item.Course_id})" class="cours-bx">
+                                            <div class="action-box">
+                                                <img onclick="@Url.Action("coursesdetails","Home", new { id=item.Course_id})" style="width:100%;height:200px;" src="@Url.Content(item.course_pic)" alt="@item.course_name">
+                                                <a href="@Url.Action("coursesdetails","Home", new { id=item.Course_id})" class="btn">Read More</a>
+                                            </div>
+                                            <div class="info-bx text-center">
+                                                <h5><a href="@Url.Action("coursesdetails","Home", new { id=item.Course_id})">@item.course_name</a></h5>
+                                                <span>@item.SubCategory.Category.cat_name</span>
+                                            </div>
+                                            <div class="cours-more-info">
+                                                <div class="review">
+                                                    <span>3 Review</span>
+                                                    <ul class="cours-star">
+                                                        <li class="active"><i class="fa fa-star"></i></li>
+                                                        <li class="active"><i class="fa fa-star"></i></li>
+                                                        <li class="active"><i class="fa fa-star"></i></li>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="price">
+                                                    <!--del>$190</!--del-->
+                                                    <h5>@item.course_price</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+
+
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- contact area END -->
+
+
+<!-- Content END-->
+
+
+
+

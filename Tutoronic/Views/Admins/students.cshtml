@@ -1,0 +1,57 @@
+﻿@using Tutoronic.Models;
+@{ Layout = "~/Views/Shared/_Layout_adminpanel.cshtml";
+    Model1 db = new Model1();
+    int count = 0;
+
+    }
+
+<table class="table">
+    <tr>
+        <th>
+            <b>Student Image</b>
+        </th>
+        <th>
+            <b>Student Name</b>
+        </th>
+        <th>
+            <b>Email</b>
+        </th>
+        <th>
+            <b>Phone #</b>
+        </th>
+        <th>
+            <b>Course Enrolled</b>
+        </th>
+        <th></th>
+    </tr>
+
+
+    @foreach (var item in db.Students)
+    {
+        count = db.OrderDetails.Where(x=>x.Order.Student.Student_id==item.Student_id).Count();
+        
+            
+        
+<tr>
+    <td>
+        <img src="@Url.Content(item.student_pic)" height="120" width="120" />
+
+
+    </td>
+    <td>
+        @item.student_name
+    </td>
+    <td>
+        @item.student_email
+    </td>
+    <td>
+        @item.student_contact
+    </td>
+    <td>
+       @count
+    </td>
+</tr>
+    }
+
+
+</table>

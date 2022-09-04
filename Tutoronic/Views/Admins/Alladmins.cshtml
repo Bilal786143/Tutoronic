@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Tutoronic.Models.Admin>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+    <h2>Admin Panel</h2>
+
+    <p>
+        <a href="/admins/create" class="btn btn-primary" >Create New</a>
+        
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Password
+            </th>
+            <th>
+                Image
+            </th>
+            <th>
+               Address
+            </th>
+            <th>
+                Contact #
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.admin_name
+                </td>
+                <td>
+                    @item.admin_email
+                </td>
+                <td>
+                    @item.admin_password
+                </td>
+                <td>
+                    <img src="@Url.Content(item.admin_pic)" height="80" width="120" />
+                </td>
+                <td>
+                    @item.admin_adress
+                </td>
+                <td>
+                    @item.admin_contact
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit","Admins", new { id = item.Admin_id })" class="fa fa-edit"></a> |
+                    <a href="@Url.Action("Details","Admins", new { id = item.Admin_id })" class="fa fa-book"></a> |
+                    <a href="@Url.Action("Delete","Admins", new { id = item.Admin_id })" class="fa fa-remove"></a>
+                   
+                </td>
+            </tr>
+        }
+
+    </table>
+   

@@ -1,0 +1,90 @@
+﻿@model Tutoronic.Models.Teacher
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Teacher</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Comment_reply.reply)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comment_reply.reply)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.teacher_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.teacher_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.teacher_email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.teacher_email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.teacher_password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.teacher_password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.teacher_contact)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.teacher_contact)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.teacher_pic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.teacher_pic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.teacher_address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.teacher_address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.teacher_intro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.teacher_intro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.total_enrolment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.total_enrolment)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Teacher_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

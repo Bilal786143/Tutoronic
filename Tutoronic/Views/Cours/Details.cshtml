@@ -1,0 +1,66 @@
+﻿@model Tutoronic.Models.Cours
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Cours</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <b>SubCategory Name</b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubCategory.subcat_name)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Teacher.teacher_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Teacher.teacher_name)
+        </dd>*@
+
+        <dt>
+            <b>Course Name</b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.course_name)
+        </dd>
+
+        <dt>
+            <b>Course Description</b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.course_description)
+        </dd>
+
+        <dt>
+            <b>Course Image</b>
+        </dt>
+
+        <dd>
+            <img src="@Url.Content(Model.course_pic)" height="250" width="250" />
+        </dd>
+
+        <dt>
+            <b>Course Price (0 For Free)</b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.course_price)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Course_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

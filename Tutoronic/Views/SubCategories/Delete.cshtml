@@ -1,0 +1,49 @@
+﻿@model Tutoronic.Models.SubCategory
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout_adminpanel.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>SubCategory</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.cat_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.cat_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.subcat_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.subcat_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.subcat_pic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.subcat_pic)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

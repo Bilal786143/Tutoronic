@@ -1,0 +1,155 @@
+@{ 
+
+    Layout = "~/Views/Shared/_Layout_login.cshtml";
+    
+}
+
+<div class="page-wraper">
+	<div id="loading-icon-bx"></div>
+	<div class="account-form">
+		<div class="account-head" style="background-image:url(assets/images/background/bg2.jpg);">
+			<a href="index.html"><img src="~/content/assets/images/logo-white-2.png" alt=""></a>
+		</div>
+		<div class="account-form-inner">
+            <div class="account-container">
+                <div class="heading-bx left">
+                    <h2 class="title-head">Login to your <span>Account</span></h2>
+                    <p>Don't have an account? <a href="/Home/register">Create one here</a></p>
+                </div>
+                
+                <p style="color:red">@ViewBag.message</p>
+                    <div class="row placeani">
+                        <div>
+
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation"><a href="#home" class="btn button-sm" aria-controls="home" role="tab" data-toggle="tab" style="font-size:12px">Login as Student</a></li>
+                                <li role="presentation"><a href="#profile" class="btn button-sm" aria-controls="profile" role="tab" data-toggle="tab" style="font-size:12px">Login as Teacher</a></li>
+                                <li role="presentation"><a href="#messages" class="btn button-sm" aria-controls="messages" role="tab" data-toggle="tab" style="font-size:12px">Login as Admin</a></li>
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                    <h2>Login as a Student</h2>
+                                    <form class="contact-bx" method="post" action="/home/stdlogin">
+
+                                        <div class="row placeani">
+                                            
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <label>Email Address</label>
+                                                        <input name="student_email" autocomplete="off" type="email" required="" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <label>Password</label>
+                                                        <input name="student_password" type="password" class="form-control" required="">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12 m-b30">
+                                                <button type="submit" class="btn button-md">Login</button>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <h6>Sign Up with Social media</h6>
+                                                <div class="d-flex">
+                                                    <a class="btn flex-fill m-r5 facebook" href="#"><i class="fa fa-facebook"></i>Facebook</a>
+                                                    <a class="btn flex-fill m-l5 google-plus" href="#"><i class="fa fa-google-plus"></i>Google Plus</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="profile">
+
+                                    <h2>Login as a Teacher</h2>
+                                    <form class="contact-bx" method="post" action="/Home/tchlogin">
+
+                                        <div class="row placeani">
+                                            
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <label>Email Address</label>
+                                                        <input name="teacher_email" type="email" required="" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <label>Password</label>
+                                                        <input name="teacher_password" type="password" class="form-control" required="">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12 m-b30">
+                                                <button type="submit" class="btn button-md">Login</button>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <h6>Sign Up with Social media</h6>
+                                                <div class="d-flex">
+                                                    <a class="btn flex-fill m-r5 facebook" href="#"><i class="fa fa-facebook"></i>Facebook</a>
+                                                    <a class="btn flex-fill m-l5 google-plus" href="#"><i class="fa fa-google-plus"></i>Google Plus</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="messages">
+
+                                    <h2>Login as a Admin</h2>
+                                    <form class="contact-bx" method="post" action="/home/admlogin" enctype="multipart/form-data">
+
+                                        <div class="row placeani">
+                                            
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <label>Email Address</label>
+                                                        <input name="admin_email" type="email" required="" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <label>Password</label>
+                                                        <input name="admin_password" type="password" class="form-control" required="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                
+                                            <div class="col-lg-12 m-b30">
+                                                <button type="submit" class="btn button-md">Login</button>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <h6>Sign Up with Social media</h6>
+                                                <div class="d-flex">
+                                                    <a class="btn flex-fill m-r5 facebook" href="#"><i class="fa fa-facebook"></i>Facebook</a>
+                                                    <a class="btn flex-fill m-l5 google-plus" href="#"><i class="fa fa-google-plus"></i>Google Plus</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        
+                    </div>
+                
+            </div>
+		</div>
+	</div>
+</div>

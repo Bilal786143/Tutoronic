@@ -1,0 +1,73 @@
+@using Tutoronic.Models;
+@{ Layout = "~/Views/Shared/_Layout_admin.cshtml";
+    Model1 db = new Model1();
+    Teacher t = (Teacher)Session["tch"];
+
+
+    }
+<div class="db-breadcrumb">
+    <h4 class="breadcrumb-title">All Courses</h4>
+    <ul class="db-breadcrumb-list">
+        <li><a href="#"><i class="fa fa-home"></i>Home</a></li>
+        <li>All Courses</li>
+    </ul>
+</div>
+<div class="row">
+    <!-- Your Profile Views Chart -->
+    <div class="col-lg-12 m-b30">
+        <div class="widget-box">
+            <div class="wc-title">
+                <h4>All of your Courses</h4>
+            </div>
+            <div class="widget-inner">
+                @foreach (var item in db.Courses.Where(x => x.teacher_fid == t.Teacher_id))
+                {
+                    <div class="card-courses-list bookmarks-bx">
+                        <div class="card-courses-media">
+                            <img src="@Url.Content(item.course_pic)" alt="@item.course_name" />
+                        </div>
+                        <div class="card-courses-full-dec">
+                            <div class="card-courses-title">
+                                <h4 class="m-b5">@item.course_name</h4>
+                            </div>
+                            <div class="card-courses-list-bx">
+                                <ul class="card-courses-view">
+                                    <li class="card-courses-categories">
+                                        <h5>Categories</h5>
+                                        <h4>@item.SubCategory.Category.cat_name -> @item.SubCategory.subcat_name</h4>
+                                    </li>
+                                    <li class="card-courses-review">
+                                        <h5>Reviews</h5>
+                                        <ul class="cours-star">
+                                            <li class="active"><i class="fa fa-star"></i></li>
+                                            <li class="active"><i class="fa fa-star"></i></li>
+                                            <li class="active"><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                        </ul>
+                                    </li>
+                                    <li class="card-courses-price">
+                                        @*<del>$190</del>*@
+                                        <h5 class="text-primary m-b0">$ @item.course_price</h5>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="row card-courses-dec">
+                                <div class="col-md-12">
+                                    <p>@item.course_description</p>
+                                </div>
+                                <div class="col-md-12">
+                                    <a href="@Url.Action("index","course_video",new { id=item.Course_id})" class="btn radius-xl">View Courses</a>
+                                    @*<a href="#" class="btn red outline radius-xl ">Cancel</a>*@
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+    <!-- Your Profile Views Chart END-->
+</div>

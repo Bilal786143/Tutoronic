@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Tutoronic.Models.OrderDetail>
+@using Tutoronic.Models;
+@{ Layout = "~/Views/Shared/_Layout_admin.cshtml";
+    Model1 db = new Model1();
+    Teacher t = (Teacher)Session["tch"];
+     }
+
+
+<table class="table">
+    <tr>
+        <th>
+            <b>Student Image</b>
+        </th>
+        <th>
+            <b>Student Name</b>
+        </th>
+        <th>
+            <b>Course Enrolled</b>
+        </th>
+        <th>
+            <b>Course Price</b>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in db.OrderDetails.Where(x => x.Cours.Teacher.Teacher_id == t.Teacher_id))
+    {<tr>
+    <td>
+        <img src="@Url.Content(item.Order.Student.student_pic)" height="120" width="120"/>
+
+
+    </td>
+    <td>
+        @item.Order.Customer_Name
+    </td>
+    <td>
+        @item.Cours.course_name
+    </td>
+    <td>
+        @item.sale_price
+    </td>
+</tr>
+    }
+
+
+
+</table>

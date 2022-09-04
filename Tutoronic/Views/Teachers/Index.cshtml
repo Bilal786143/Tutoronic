@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Tutoronic.Models.Teacher>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment_reply.reply)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.teacher_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.teacher_email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.teacher_password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.teacher_contact)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.teacher_pic)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.teacher_address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.teacher_intro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.total_enrolment)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment_reply.reply)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.teacher_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.teacher_email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.teacher_password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.teacher_contact)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.teacher_pic)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.teacher_address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.teacher_intro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.total_enrolment)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Teacher_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Teacher_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Teacher_id })
+        </td>
+    </tr>
+}
+
+</table>

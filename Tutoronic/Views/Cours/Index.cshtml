@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Tutoronic.Models.Cours>
+@using Tutoronic.Models;
+
+@{
+    ViewBag.Title = "Index";
+    Model1 db = new Model1();
+    int abcd = 0;
+    Teacher t = new Teacher();
+    if (Session["tch"] != null)
+    {
+        t = (Teacher)Session["tch"];
+           abcd =t.Teacher_id;
+    }
+
+}
+
+<h2>Index</h2>
+ 
+<p>
+    <a href="/Cours/create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Subcategory
+        </th>
+        <th>
+            Teacher Name
+        </th>
+        <th>
+            Course Name
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Image
+        </th>
+        <th>
+            Price
+        </th>
+        <th></th>
+    </tr>
+    
+
+    @foreach (var item in db.Courses.Where(x => x.teacher_fid == abcd))
+
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubCategory.subcat_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Teacher.teacher_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.course_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.course_description)
+            </td>
+            <td>
+                <img src="@Url.Content(item.course_pic)" height="120" width="120" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.course_price)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Course_id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Course_id }) |
+                @*@Html.ActionLink("Delete", "Delete", new { id = item.Course_id })*@
+                <button class="btn btn-primary"><a href="@Url.Action("index","course_video",new { id=item.Course_id})">Add Videos</a></button>
+            </td>
+        </tr>
+    }
+
+</table>

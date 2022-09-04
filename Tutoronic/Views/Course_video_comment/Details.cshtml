@@ -1,0 +1,42 @@
+﻿@model Tutoronic.Models.Course_video_comment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Course_video_comment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Course_Video.video)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Course_Video.video)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.student_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.student_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comment)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Comment_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,66 @@
+﻿@model Tutoronic.Models.Student
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.student_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.student_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.student_email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.student_email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.student_password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.student_password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.student_contact)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.student_contact)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.student_pic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.student_pic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.total_enrolment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.total_enrolment)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Student_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,292 @@
+@using Tutoronic.Models;
+@{ 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model1 db = new Model1();
+    int id = (int)TempData["pid"];
+    var count = 1;
+    var cont = 1;
+    var item = db.Courses.Where(x => x.Course_id== id).FirstOrDefault();
+    var itm=db.Course_Video.Where(x => x.course_fid==id).ToList(); //get list from array or db its like array save data in indexes like 0,1
+
+    }
+
+<!-- Content -->
+<div class="page-content bg-white">
+    <!-- inner page banner -->
+    <div class="page-banner ovbl-dark" style="background-image:url(~/content/customer/images/banner/banner2.jpg);">
+        <div class="container">
+            <div class="page-banner-entry">
+                <h1 class="text-white">Courses Details</h1>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb row -->
+    <div class="breadcrumb-row">
+        <div class="container">
+            <ul class="list-inline">
+                <li><a href="/home/index">Home</a></li>
+                <li>Courses Details</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Breadcrumb row END -->
+    <!-- inner page banner END -->
+    <div class="content-block">
+        <!-- About Us -->
+        <div class="section-area section-sp1">
+            <div class="container">
+                <div class="row d-flex flex-row-reverse">
+                    <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
+                        <div class="course-detail-bx">
+                            <div class="course-price">
+                                <!--del>$190</!--del-->
+                                <h4 class="price">$@item.course_price</h4>
+                            </div>
+                            <div class="course-buy-now text-center">
+                                <a href="@Url.Action("index","Checkout", new { id=item.Course_id})" class="btn radius-xl text-uppercase">Buy Now This Courses</a>
+                            </div>
+                            <div class="teacher-bx">
+        <div class="teacher-info">
+            <div class="teacher-thumb">
+                <img src="@Url.Content(item.Teacher.teacher_pic)" alt="@item.Teacher.teacher_name" />
+            </div>
+            <div class="teacher-name">
+                <h5>@item.Teacher.teacher_name</h5>
+                <span>@item.Teacher.teacher_intro</span>
+            </div>
+        </div>
+    </div>
+                            
+                            <div class="cours-more-info">
+                                <div class="review">
+                                    <span>3 Review</span>
+                                    <ul class="cours-star">
+                                        <li class="active"><i class="fa fa-star"></i></li>
+                                        <li class="active"><i class="fa fa-star"></i></li>
+                                        <li class="active"><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                    </ul>
+                                </div>
+                                <div class="price categories">
+                                    <span>Category</span>
+                                    <h5 class="text-primary">@item.SubCategory.Category.cat_name</h5>
+                                </div>
+                            </div>
+                            <div class="course-info-list scroll-page">
+                                <ul class="navbar">
+                                    <li><a class="nav-link" href="#overview"><i class="ti-zip"></i>Overview</a></li>
+                                    <li><a class="nav-link" href="#curriculum"><i class="ti-bookmark-alt"></i>Curriculum</a></li>
+                                    <li><a class="nav-link" href="#instructor"><i class="ti-user"></i>Instructor</a></li>
+                                    <li><a class="nav-link" href="#reviews"><i class="ti-comments"></i>Reviews</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-9 col-md-8 col-sm-12">
+                        <div class="courses-post">
+                            <div class="ttr-post-media media-effect">
+                                <a href="#"><img style="max-height:450px;min-width:300px;max-width:100%" src="@Url.Content(item.course_pic)" alt="@item.course_name"></a>
+                            </div>
+                            <div class="ttr-post-info">
+                                <div class="ttr-post-title ">
+                                    <h2 class="post-title">@item.course_name</h2>
+                                </div>
+                                <div class="ttr-post-text">
+                                    <p>@item.course_description</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="courese-overview" id="overview">
+                            <h4>Overview</h4>
+                            <div class="row">
+                                <div class="col-md-12 col-lg-4">
+                                    <ul class="course-features">
+                                        <li><i class="ti-book"></i> <span class="label">Lectures</span> <span class="value">@item.Course_Video.Count()</span></li>
+                                        <li><i class="ti-stats-up"></i> <span class="label">Skill level</span> <span class="value">Beginner</span></li>
+                                        <li><i class="ti-smallcap"></i> <span class="label">Language</span> <span class="value">English</span></li>
+                                        <li><i class="ti-user"></i> <span class="label">Students</span> <span class="value">@item.OrderDetails.Where(x=>x.course_fid==item.Course_id).Count()</span></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-12 col-lg-8">
+                                    <h5 class="m-b5">Course Name</h5>
+                                    <p>@item.course_name</p>
+                                    <h5 class="m-b5">Course Description</h5>
+                                    <p>@item.course_description</p>
+                                    <h5 class="m-b5">No of Lectures</h5>
+                                    <p>@item.Course_Video.Count()</p>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        @if (itm.Count()>0) { 
+                        <div class="m-b30" id="curriculum">
+                            <h4>Curriculum</h4>
+                            <ul class="curriculum-list">
+                                <li>
+                                    <h5>First Level</h5>
+                                    <ul>
+                                        <li>
+                                            <div class="curriculum-list-box">
+                                                <h3>@itm.FirstOrDefault().video_title</h3>
+                                            </div>
+                                            <span>120 minutes</span>
+
+                                        </li>
+                                        <li>
+
+                                            <iframe src="@Url.Content(itm.FirstOrDefault().video)" height="300" width="100%"></iframe>
+
+
+
+                                        </li>
+                                        
+                                        @foreach (var cou in itm.Skip(1)) //get first 5 of record from db or list .take(5)
+                                        {
+                                            
+                                            <li>
+                                                <div class="curriculum-list-box">
+                                                    <h3>Lesson # @cont - Videos Title: @cou.video_title</h3>
+                                                </div>
+                                                <span></span>
+                                            </li>
+                                            cont++;
+
+                                        }
+                                        
+
+
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h5>Second Level</h5>
+                                    <ul>
+                                        @foreach (var cou in itm)
+                                        {
+                                            <li>
+                                                <div class="curriculum-list-box">
+                                                    <span>Lesson @count.</span> @cou.video_title
+                                                </div>
+                                                <span>@(count+60) minutes</span>
+                                            </li>
+                                            count++;
+                                        }
+
+                                        
+                                    </ul>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                        }
+                        <div class="" id="instructor">
+                            <h4>Instructor</h4>
+                            <div class="instructor-bx">
+                                <div class="instructor-author">
+                                    <img src="@Url.Content(item.Teacher.teacher_pic)" alt="@item.Teacher.teacher_name">
+                                </div>
+                                <div class="instructor-info">
+                                    <h6>@item.Teacher.teacher_name</h6>
+                                    <span>Professor</span>
+                                    
+                                    <p class="m-b0">@item.Teacher.teacher_intro</p>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="" id="reviews">
+                            <h4>Comments</h4>
+
+                            <div class="review-bx">
+                                <div class="all-review">
+                                    <h2 class="rating-type">@db.Course_video_comment.Where(x=>x.Course_Video.course_fid==item.Course_id).Count() Comments</h2>
+                                    <ul class="cours-star">
+                                        <li class="active"><i class="fa fa-star"></i></li>
+                                        <li class="active"><i class="fa fa-star"></i></li>
+                                        <li class="active"><i class="fa fa-star"></i></li>
+                                        <li class="active"><i class="fa fa-star"></i></li>
+                                        <li class="active"><i class="fa fa-star"></i></li>
+                                    </ul>
+                                    <span>@db.Course_video_comment.Where(x => x.Course_Video.course_fid == item.Course_id).Count() Comments</span>
+                                </div>
+                                <div class="review-bar">
+                                    <div class="bar-bx">
+                                        <div class="side">
+                                            <div>5 star</div>
+                                        </div>
+                                        <div class="middle">
+                                            <div class="bar-container">
+                                                <div class="bar-5" style="width:90%;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="side right">
+                                            <div>150</div>
+                                        </div>
+                                    </div>
+                                    <div class="bar-bx">
+                                        <div class="side">
+                                            <div>4 star</div>
+                                        </div>
+                                        <div class="middle">
+                                            <div class="bar-container">
+                                                <div class="bar-5" style="width:70%;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="side right">
+                                            <div>140</div>
+                                        </div>
+                                    </div>
+                                    <div class="bar-bx">
+                                        <div class="side">
+                                            <div>3 star</div>
+                                        </div>
+                                        <div class="middle">
+                                            <div class="bar-container">
+                                                <div class="bar-5" style="width:50%;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="side right">
+                                            <div>120</div>
+                                        </div>
+                                    </div>
+                                    <div class="bar-bx">
+                                        <div class="side">
+                                            <div>2 star</div>
+                                        </div>
+                                        <div class="middle">
+                                            <div class="bar-container">
+                                                <div class="bar-5" style="width:40%;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="side right">
+                                            <div>110</div>
+                                        </div>
+                                    </div>
+                                    <div class="bar-bx">
+                                        <div class="side">
+                                            <div>1 star</div>
+                                        </div>
+                                        <div class="middle">
+                                            <div class="bar-container">
+                                                <div class="bar-5" style="width:20%;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="side right">
+                                            <div>80</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- contact area END -->
+
+</div>
+<!-- Content END-->

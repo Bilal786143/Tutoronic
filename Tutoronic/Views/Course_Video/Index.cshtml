@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Tutoronic.Models.Course_Video>
+    @using Tutoronic.Models;
+
+@{
+    ViewBag.Title = "Index";
+    Model1 db = new Model1();
+    Teacher t = new Teacher();
+    int abcd = 0;
+    int id = (int)TempData.Peek("course_id");
+    if (Session["tch"] != null)
+    {
+        t = (Teacher)Session["tch"];
+        abcd = t.Teacher_id;
+    }
+    }
+
+            @if (Session["tch"] != null)
+            {
+<h2>Courses Videos</h2>
+
+<p>
+    <a href="/Course_Video/create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table table-responsive-md">
+    <tr>
+        <th>
+            Course Name
+        </th>
+        
+        <th>
+            Video
+        </th>
+        <th>
+            Video Title
+        </th>
+        <th>
+            Video Description
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in db.Course_Video.Where(x=>x.course_fid==id))
+{
+    <tr>
+        <td>
+            @item.Cours.course_name
+        </td>
+        
+        <td>
+            <video loading="lazy" src="@Url.Content(item.video)" height="80" width="120"></video>
+           
+        </td>
+        <td>
+            @item.video_title
+        </td>
+        <td>
+            @item.video_description
+        </td>
+        <td>
+            <a href="@Url.Action("Edit", "Course_Video", new { id = item.Course_vid_id })" class="fa fa-edit"></a> |
+            <a href="@Url.Action("Details", "Course_Video", new { id = item.Course_vid_id })" class="fa fa-book"></a> |
+            @*<a href="@Url.Action("Delete", "Course_Video", new { id = item.Course_vid_id })" class="fa fa-remove"></a>*@
+        </td>
+    </tr>
+}
+
+</table>
+            }
+            else { 
+            <h2 style="color:red">Please Register/Login as Teacher to Add Videos</h2>
+            }

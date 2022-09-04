@@ -1,0 +1,623 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0F00638E-EF88-48F6-A1DA-0D8A33F0B54B}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tutoronic</RootNamespace>
+    <AssemblyName>Tutoronic</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44367</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\TeacherController.cs" />
+    <Compile Include="Controllers\AdminsController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\CheckoutController.cs" />
+    <Compile Include="Controllers\Comment_replyController.cs" />
+    <Compile Include="Controllers\CoursController.cs" />
+    <Compile Include="Controllers\Course_Student_RegistrationController.cs" />
+    <Compile Include="Controllers\Course_teacher_registrationController.cs" />
+    <Compile Include="Controllers\Course_VideoController.cs" />
+    <Compile Include="Controllers\Course_video_commentController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Controllers\StudentsController.cs" />
+    <Compile Include="Controllers\SubCategoriesController.cs" />
+    <Compile Include="Controllers\TeachersController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Admin.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Comment_reply.cs" />
+    <Compile Include="Models\Cours.cs" />
+    <Compile Include="Models\Course_Student_Registration.cs" />
+    <Compile Include="Models\Course_teacher_registration.cs" />
+    <Compile Include="Models\Course_Video.cs" />
+    <Compile Include="Models\Course_video_comment.cs" />
+    <Compile Include="Models\Model1.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderDetail.cs" />
+    <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\SubCategory.cs" />
+    <Compile Include="Models\Teacher.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Admin\css\assets.css" />
+    <Content Include="Content\Admin\css\color\color-1.css" />
+    <Content Include="Content\Admin\css\dashboard.css" />
+    <Content Include="Content\Admin\css\shortcodes\accordion.css" />
+    <Content Include="Content\Admin\css\shortcodes\alert.css" />
+    <Content Include="Content\Admin\css\shortcodes\breadcrumb.css" />
+    <Content Include="Content\Admin\css\shortcodes\button.css" />
+    <Content Include="Content\Admin\css\shortcodes\divider.css" />
+    <Content Include="Content\Admin\css\shortcodes\form.css" />
+    <Content Include="Content\Admin\css\shortcodes\icon-box.css" />
+    <Content Include="Content\Admin\css\shortcodes\layout.css" />
+    <Content Include="Content\Admin\css\shortcodes\list.css" />
+    <Content Include="Content\Admin\css\shortcodes\overlay.css" />
+    <Content Include="Content\Admin\css\shortcodes\owl.css" />
+    <Content Include="Content\Admin\css\shortcodes\pagination.css" />
+    <Content Include="Content\Admin\css\shortcodes\pricingtable.css" />
+    <Content Include="Content\Admin\css\shortcodes\separator.css" />
+    <Content Include="Content\Admin\css\shortcodes\shortcodes.css" />
+    <Content Include="Content\Admin\css\shortcodes\widget.css" />
+    <Content Include="Content\Admin\css\style.css" />
+    <Content Include="Content\Admin\css\typography.css" />
+    <Content Include="Content\Admin\images\about\pic1.jpg" />
+    <Content Include="Content\Admin\images\courses\pic1.jpg" />
+    <Content Include="Content\Admin\images\courses\pic2.jpg" />
+    <Content Include="Content\Admin\images\courses\pic3.jpg" />
+    <Content Include="Content\Admin\images\courses\pic4.jpg" />
+    <Content Include="Content\Admin\images\courses\pic6.jpg" />
+    <Content Include="Content\Admin\images\courses\pic7.jpg" />
+    <Content Include="Content\Admin\images\courses\pic8.jpg" />
+    <Content Include="Content\Admin\images\courses\pic9.jpg" />
+    <Content Include="Content\Admin\images\favicon.png" />
+    <Content Include="Content\Admin\images\loading.gif" />
+    <Content Include="Content\Admin\images\logo-mobile.png" />
+    <Content Include="Content\Admin\images\logo-white.png" />
+    <Content Include="Content\Admin\images\logo.png" />
+    <Content Include="Content\Admin\images\testimonials\pic1.jpg" />
+    <Content Include="Content\Admin\images\testimonials\pic2.jpg" />
+    <Content Include="Content\Admin\images\testimonials\pic3.jpg" />
+    <Content Include="Content\Admin\js\admin.js" />
+    <Content Include="Content\Admin\js\functions.js" />
+    <Content Include="Content\Admin\js\jquery.min.js" />
+    <Content Include="Content\Admin\vendors\bootstrap-select\bootstrap-select.min.css" />
+    <Content Include="Content\Admin\vendors\bootstrap-select\bootstrap-select.min.js" />
+    <Content Include="Content\Admin\vendors\bootstrap-touchspin\jquery.bootstrap-touchspin.js" />
+    <Content Include="Content\Admin\vendors\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\Admin\vendors\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\Admin\vendors\bootstrap\js\popper.min.js" />
+    <Content Include="Content\Admin\vendors\calendar\fullcalendar.css" />
+    <Content Include="Content\Admin\vendors\calendar\fullcalendar.js" />
+    <Content Include="Content\Admin\vendors\calendar\moment.min.js" />
+    <Content Include="Content\Admin\vendors\chart\chart.min.js" />
+    <Content Include="Content\Admin\vendors\counter\counterup.min.js" />
+    <Content Include="Content\Admin\vendors\counter\waypoints-min.js" />
+    <Content Include="Content\Admin\vendors\file-upload\imageuploadify.min.css" />
+    <Content Include="Content\Admin\vendors\file-upload\imageuploadify.min.js" />
+    <Content Include="Content\Admin\vendors\fontawesome\css\font-awesome.min.css" />
+    <Content Include="Content\Admin\vendors\fontawesome\fonts\fontawesome-webfont3e6e.svg" />
+    <Content Include="Content\Admin\vendors\imagesloaded\imagesloaded.js" />
+    <Content Include="Content\Admin\vendors\magnific-popup\magnific-popup.css" />
+    <Content Include="Content\Admin\vendors\magnific-popup\magnific-popup.js" />
+    <Content Include="Content\Admin\vendors\masonry\filter.js" />
+    <Content Include="Content\Admin\vendors\masonry\masonry.js" />
+    <Content Include="Content\Admin\vendors\owl-carousel\owl.carousel.css" />
+    <Content Include="Content\Admin\vendors\owl-carousel\owl.carousel.js" />
+    <Content Include="Content\Admin\vendors\scroll\scrollbar.css" />
+    <Content Include="Content\Admin\vendors\scroll\scrollbar.min.js" />
+    <Content Include="Content\Admin\vendors\summernote\summernote.css" />
+    <Content Include="Content\Admin\vendors\summernote\summernote.js" />
+    <Content Include="Content\Admin\vendors\switcher\switcher.css" />
+    <Content Include="Content\Admin\vendors\switcher\switcher.js" />
+    <Content Include="Content\Admin\vendors\themify\fonts\themify9f24.svg" />
+    <Content Include="Content\Admin\vendors\themify\themify-icons.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\customer\css\assets.css" />
+    <Content Include="Content\customer\css\color\color-1.css" />
+    <Content Include="Content\customer\css\shortcodes\accordion.css" />
+    <Content Include="Content\customer\css\shortcodes\alert.css" />
+    <Content Include="Content\customer\css\shortcodes\breadcrumb.css" />
+    <Content Include="Content\customer\css\shortcodes\button.css" />
+    <Content Include="Content\customer\css\shortcodes\divider.css" />
+    <Content Include="Content\customer\css\shortcodes\form.css" />
+    <Content Include="Content\customer\css\shortcodes\icon-box.css" />
+    <Content Include="Content\customer\css\shortcodes\layout.css" />
+    <Content Include="Content\customer\css\shortcodes\list.css" />
+    <Content Include="Content\customer\css\shortcodes\overlay.css" />
+    <Content Include="Content\customer\css\shortcodes\owl.css" />
+    <Content Include="Content\customer\css\shortcodes\pagination.css" />
+    <Content Include="Content\customer\css\shortcodes\pricingtable.css" />
+    <Content Include="Content\customer\css\shortcodes\separator.css" />
+    <Content Include="Content\customer\css\shortcodes\shortcodes.css" />
+    <Content Include="Content\customer\css\shortcodes\widget.css" />
+    <Content Include="Content\customer\css\style.css" />
+    <Content Include="Content\customer\css\typography.css" />
+    <Content Include="Content\customer\images\about\pic1.jpg" />
+    <Content Include="Content\customer\images\adv\adv.jpg" />
+    <Content Include="Content\customer\images\background\bg1.jpg" />
+    <Content Include="Content\customer\images\background\bg2.jpg" />
+    <Content Include="Content\customer\images\banner\banner1.jpg" />
+    <Content Include="Content\customer\images\banner\banner2.jpg" />
+    <Content Include="Content\customer\images\banner\banner3.jpg" />
+    <Content Include="Content\customer\images\blog\default\thum1.jpg" />
+    <Content Include="Content\customer\images\blog\default\thum2.jpg" />
+    <Content Include="Content\customer\images\blog\default\thum3.jpg" />
+    <Content Include="Content\customer\images\blog\default\thum4.jpg" />
+    <Content Include="Content\customer\images\blog\grid\pic1.jpg" />
+    <Content Include="Content\customer\images\blog\grid\pic2.jpg" />
+    <Content Include="Content\customer\images\blog\grid\pic3.jpg" />
+    <Content Include="Content\customer\images\blog\latest-blog\pic1.jpg" />
+    <Content Include="Content\customer\images\blog\latest-blog\pic2.jpg" />
+    <Content Include="Content\customer\images\blog\latest-blog\pic3.jpg" />
+    <Content Include="Content\customer\images\blog\recent-blog\pic1.jpg" />
+    <Content Include="Content\customer\images\blog\recent-blog\pic2.jpg" />
+    <Content Include="Content\customer\images\blog\recent-blog\pic3.jpg" />
+    <Content Include="Content\customer\images\courses\pic1.jpg" />
+    <Content Include="Content\customer\images\courses\pic2.jpg" />
+    <Content Include="Content\customer\images\courses\pic3.jpg" />
+    <Content Include="Content\customer\images\courses\pic4.jpg" />
+    <Content Include="Content\customer\images\courses\pic5.jpg" />
+    <Content Include="Content\customer\images\courses\pic6.jpg" />
+    <Content Include="Content\customer\images\courses\pic7.jpg" />
+    <Content Include="Content\customer\images\courses\pic8.jpg" />
+    <Content Include="Content\customer\images\courses\pic9.jpg" />
+    <Content Include="Content\customer\images\event\pic1.jpg" />
+    <Content Include="Content\customer\images\event\pic2.jpg" />
+    <Content Include="Content\customer\images\event\pic3.jpg" />
+    <Content Include="Content\customer\images\event\pic4.jpg" />
+    <Content Include="Content\customer\images\favicon.ico" />
+    <Content Include="Content\customer\images\favicon.png" />
+    <Content Include="Content\customer\images\flag\united-kingdom.svg" />
+    <Content Include="Content\customer\images\flag\united-states-of-america.svg" />
+    <Content Include="Content\customer\images\gallery\pic1.jpg" />
+    <Content Include="Content\customer\images\gallery\pic2.jpg" />
+    <Content Include="Content\customer\images\gallery\pic3.jpg" />
+    <Content Include="Content\customer\images\gallery\pic4.jpg" />
+    <Content Include="Content\customer\images\gallery\pic5.jpg" />
+    <Content Include="Content\customer\images\gallery\pic6.jpg" />
+    <Content Include="Content\customer\images\gallery\pic7.jpg" />
+    <Content Include="Content\customer\images\gallery\pic8.jpg" />
+    <Content Include="Content\customer\images\gallery\pic9.jpg" />
+    <Content Include="Content\customer\images\icon\icon1.png" />
+    <Content Include="Content\customer\images\icon\icon2.png" />
+    <Content Include="Content\customer\images\icon\icon3.png" />
+    <Content Include="Content\customer\images\icon\icon4.png" />
+    <Content Include="Content\customer\images\loading.gif" />
+    <Content Include="Content\customer\images\logo-white-2.png" />
+    <Content Include="Content\customer\images\logo-white.png" />
+    <Content Include="Content\customer\images\logo.png" />
+    <Content Include="Content\customer\images\our-services\pic1.jpg" />
+    <Content Include="Content\customer\images\our-services\pic2.jpg" />
+    <Content Include="Content\customer\images\our-services\pic3.jpg" />
+    <Content Include="Content\customer\images\portfolio\image_1.jpg" />
+    <Content Include="Content\customer\images\portfolio\image_10.jpg" />
+    <Content Include="Content\customer\images\portfolio\image_11.jpg" />
+    <Content Include="Content\customer\images\portfolio\image_12.jpg" />
+    <Content Include="Content\customer\images\portfolio\image_2.jpg" />
+    <Content Include="Content\customer\images\portfolio\image_3.jpg" />
+    <Content Include="Content\customer\images\portfolio\image_4.jpg" />
+    <Content Include="Content\customer\images\portfolio\image_5.jpg" />
+    <Content Include="Content\customer\images\portfolio\image_6.jpg" />
+    <Content Include="Content\customer\images\portfolio\image_7.jpg" />
+    <Content Include="Content\customer\images\portfolio\image_8.jpg" />
+    <Content Include="Content\customer\images\portfolio\image_9.jpg" />
+    <Content Include="Content\customer\images\profile\pic1.jpg" />
+    <Content Include="Content\customer\images\slider\slide1.jpg" />
+    <Content Include="Content\customer\images\slider\slide2.jpg" />
+    <Content Include="Content\customer\images\testimonials\pic1.jpg" />
+    <Content Include="Content\customer\images\testimonials\pic2.jpg" />
+    <Content Include="Content\customer\images\testimonials\pic3.jpg" />
+    <Content Include="Content\customer\js\contact.js" />
+    <Content Include="Content\customer\js\functions.js" />
+    <Content Include="Content\customer\js\jquery.min.js" />
+    <Content Include="Content\customer\js\jquery.scroller.js" />
+    <Content Include="Content\customer\vendors\bootstrap-select\bootstrap-select.min.css" />
+    <Content Include="Content\customer\vendors\bootstrap-select\bootstrap-select.min.js" />
+    <Content Include="Content\customer\vendors\bootstrap-touchspin\jquery.bootstrap-touchspin.js" />
+    <Content Include="Content\customer\vendors\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\customer\vendors\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\customer\vendors\bootstrap\js\popper.min.js" />
+    <Content Include="Content\customer\vendors\counter\counterup.min.js" />
+    <Content Include="Content\customer\vendors\counter\waypoints-min.js" />
+    <Content Include="Content\customer\vendors\fontawesome\css\font-awesome.min.css" />
+    <Content Include="Content\customer\vendors\fontawesome\fonts\fontawesome-webfont3e6e.svg" />
+    <Content Include="Content\customer\vendors\imagesloaded\imagesloaded.js" />
+    <Content Include="Content\customer\vendors\magnific-popup\magnific-popup.css" />
+    <Content Include="Content\customer\vendors\magnific-popup\magnific-popup.js" />
+    <Content Include="Content\customer\vendors\masonry\filter.js" />
+    <Content Include="Content\customer\vendors\masonry\masonry.js" />
+    <Content Include="Content\customer\vendors\owl-carousel\owl.carousel.css" />
+    <Content Include="Content\customer\vendors\owl-carousel\owl.carousel.js" />
+    <Content Include="Content\customer\vendors\revolution\assets\coloredbg.png" />
+    <Content Include="Content\customer\vendors\revolution\assets\gridtile.png" />
+    <Content Include="Content\customer\vendors\revolution\assets\gridtile_3x3.png" />
+    <Content Include="Content\customer\vendors\revolution\assets\gridtile_3x3_white.png" />
+    <Content Include="Content\customer\vendors\revolution\assets\gridtile_white.png" />
+    <Content Include="Content\customer\vendors\revolution\assets\loader.gif" />
+    <Content Include="Content\customer\vendors\revolution\css\closedhand.html" />
+    <Content Include="Content\customer\vendors\revolution\css\layers.css" />
+    <Content Include="Content\customer\vendors\revolution\css\navigation.css" />
+    <Content Include="Content\customer\vendors\revolution\css\openhand.html" />
+    <Content Include="Content\customer\vendors\revolution\css\settings.css" />
+    <Content Include="Content\customer\vendors\revolution\fonts\revicons\revicons90c6.svg" />
+    <Content Include="Content\customer\vendors\revolution\js\extensions\revolution.extension.actions.min.js" />
+    <Content Include="Content\customer\vendors\revolution\js\extensions\revolution.extension.carousel.min.js" />
+    <Content Include="Content\customer\vendors\revolution\js\extensions\revolution.extension.kenburn.min.js" />
+    <Content Include="Content\customer\vendors\revolution\js\extensions\revolution.extension.layeranimation.min.js" />
+    <Content Include="Content\customer\vendors\revolution\js\extensions\revolution.extension.migration.min.js" />
+    <Content Include="Content\customer\vendors\revolution\js\extensions\revolution.extension.navigation.min.js" />
+    <Content Include="Content\customer\vendors\revolution\js\extensions\revolution.extension.parallax.min.js" />
+    <Content Include="Content\customer\vendors\revolution\js\extensions\revolution.extension.slideanims.min.js" />
+    <Content Include="Content\customer\vendors\revolution\js\extensions\revolution.extension.video.min.js" />
+    <Content Include="Content\customer\vendors\revolution\js\jquery.themepunch.revolution.min.js" />
+    <Content Include="Content\customer\vendors\revolution\js\jquery.themepunch.tools.min.js" />
+    <Content Include="Content\customer\vendors\scroll\scrollbar.css" />
+    <Content Include="Content\customer\vendors\switcher\switcher.css" />
+    <Content Include="Content\customer\vendors\switcher\switcher.js" />
+    <Content Include="Content\customer\vendors\themify\fonts\themify9f24.svg" />
+    <Content Include="Content\customer\vendors\themify\themify-icons.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\customer\vendors\fontawesome\fonts\fontawesome-webfont3e6e.eot" />
+    <Content Include="Content\customer\vendors\fontawesome\fonts\fontawesome-webfont3e6e.ttf" />
+    <Content Include="Content\customer\vendors\fontawesome\fonts\fontawesome-webfont3e6e.woff" />
+    <Content Include="Content\customer\vendors\fontawesome\fonts\fontawesome-webfont3e6e.woff2" />
+    <Content Include="Content\customer\vendors\fontawesome\fonts\fontawesome-webfontd41d.eot" />
+    <Content Include="Content\customer\vendors\revolution\fonts\revicons\revicons90c6.eot" />
+    <Content Include="Content\customer\vendors\revolution\fonts\revicons\revicons90c6.ttf" />
+    <Content Include="Content\customer\vendors\revolution\fonts\revicons\revicons90c6.woff" />
+    <Content Include="Content\customer\vendors\themify\fonts\themify9f24.eot" />
+    <Content Include="Content\customer\vendors\themify\fonts\themify9f24.ttf" />
+    <Content Include="Content\customer\vendors\themify\fonts\themify9f24.woff" />
+    <Content Include="Content\customer\vendors\themify\fonts\themifyd41d.eot" />
+    <Content Include="Content\Admin\vendors\fontawesome\fonts\fontawesome-webfont3e6e.eot" />
+    <Content Include="Content\Admin\vendors\fontawesome\fonts\fontawesome-webfont3e6e.ttf" />
+    <Content Include="Content\Admin\vendors\fontawesome\fonts\fontawesome-webfont3e6e.woff" />
+    <Content Include="Content\Admin\vendors\fontawesome\fonts\fontawesome-webfont3e6e.woff2" />
+    <Content Include="Content\Admin\vendors\fontawesome\fonts\fontawesome-webfontd41d.eot" />
+    <Content Include="Content\Admin\vendors\summernote\font\summernotec360.eot" />
+    <Content Include="Content\Admin\vendors\summernote\font\summernotec360.ttf" />
+    <Content Include="Content\Admin\vendors\summernote\font\summernotec360.woff" />
+    <Content Include="Content\Admin\vendors\themify\fonts\themify9f24.eot" />
+    <Content Include="Content\Admin\vendors\themify\fonts\themify9f24.ttf" />
+    <Content Include="Content\Admin\vendors\themify\fonts\themify9f24.woff" />
+    <Content Include="Content\Admin\vendors\themify\fonts\themifyd41d.eot" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Views\Admins\Create.cshtml" />
+    <Content Include="Views\Admins\Delete.cshtml" />
+    <Content Include="Views\Admins\Details.cshtml" />
+    <Content Include="Views\Admins\Edit.cshtml" />
+    <Content Include="Views\Admins\Alladmins.cshtml" />
+    <Content Include="Views\Admins\addlisting.cshtml" />
+    <Content Include="Views\Admins\basiccalendar.cshtml" />
+    <Content Include="Views\Admins\bookmark.cshtml" />
+    <Content Include="Views\Admins\courses.cshtml" />
+    <Content Include="Views\Admins\listviewcalendar.cshtml" />
+    <Content Include="Views\Admins\mailbox.cshtml" />
+    <Content Include="Views\Admins\mailboxcompose.cshtml" />
+    <Content Include="Views\Admins\mailboxread.cshtml" />
+    <Content Include="Views\Admins\review.cshtml" />
+    <Content Include="Views\Admins\teacherprofile.cshtml" />
+    <Content Include="Views\Admins\userprofile.cshtml" />
+    <Content Include="Views\Admins\index.cshtml" />
+    <Content Include="Views\Admins\coursedetail.cshtml" />
+    <Content Include="Views\Admins\approve.cshtml" />
+    <Content Include="Views\Admins\reports.cshtml" />
+    <Content Include="Views\Admins\students.cshtml" />
+    <Content Include="Views\Search\index.cshtml" />
+    <None Include="Views\Teacher\addlisting.cshtml" />
+    <None Include="Views\Teacher\basiccalendar.cshtml" />
+    <None Include="Views\Teacher\allcourses.cshtml" />
+    <None Include="Views\Teacher\courses.cshtml" />
+    <None Include="Views\Teacher\index.cshtml" />
+    <None Include="Views\Teacher\listviewcalendar.cshtml" />
+    <None Include="Views\Teacher\mailboxcompose.cshtml" />
+    <None Include="Views\Teacher\mailboxread.cshtml" />
+    <None Include="Views\Teacher\mailbox.cshtml" />
+    <None Include="Views\Teacher\review.cshtml" />
+    <Content Include="Views\Teacher\students.cshtml" />
+    <None Include="Views\Teacher\teacherprofile.cshtml" />
+    <None Include="Views\Teacher\userprofile.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Delete.cshtml" />
+    <Content Include="Views\Categories\Details.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Course_Video\Create.cshtml" />
+    <Content Include="Views\Course_Video\Delete.cshtml" />
+    <Content Include="Views\Course_Video\Details.cshtml" />
+    <Content Include="Views\Course_Video\Edit.cshtml" />
+    <Content Include="Views\Course_Video\Index.cshtml" />
+    <Content Include="Views\Comment_reply\Create.cshtml" />
+    <Content Include="Views\Comment_reply\Delete.cshtml" />
+    <Content Include="Views\Comment_reply\Details.cshtml" />
+    <Content Include="Views\Comment_reply\Edit.cshtml" />
+    <Content Include="Views\Comment_reply\Index.cshtml" />
+    <Content Include="Views\Course_Student_Registration\Create.cshtml" />
+    <Content Include="Views\Course_Student_Registration\Delete.cshtml" />
+    <Content Include="Views\Course_Student_Registration\Details.cshtml" />
+    <Content Include="Views\Course_Student_Registration\Edit.cshtml" />
+    <Content Include="Views\Course_Student_Registration\Index.cshtml" />
+    <Content Include="Views\Course_teacher_registration\Create.cshtml" />
+    <Content Include="Views\Course_teacher_registration\Delete.cshtml" />
+    <Content Include="Views\Course_teacher_registration\Details.cshtml" />
+    <Content Include="Views\Course_teacher_registration\Edit.cshtml" />
+    <Content Include="Views\Course_teacher_registration\Index.cshtml" />
+    <Content Include="Views\Course_video_comment\Create.cshtml" />
+    <Content Include="Views\Course_video_comment\Delete.cshtml" />
+    <Content Include="Views\Course_video_comment\Details.cshtml" />
+    <Content Include="Views\Course_video_comment\Edit.cshtml" />
+    <Content Include="Views\Course_video_comment\Index.cshtml" />
+    <Content Include="Views\Cours\Create.cshtml" />
+    <Content Include="Views\Cours\Delete.cshtml" />
+    <Content Include="Views\Cours\Details.cshtml" />
+    <Content Include="Views\Cours\Edit.cshtml" />
+    <Content Include="Views\Cours\Index.cshtml" />
+    <Content Include="Views\Checkout\bookconfirm.cshtml" />
+    <None Include="Views\Home\about1.cshtml" />
+    <None Include="Views\Home\about.cshtml" />
+    <None Include="Views\Home\blogclassicgrid.cshtml" />
+    <None Include="Views\Home\blogclassicsidebar.cshtml" />
+    <None Include="Views\Home\blogdetails.cshtml" />
+    <None Include="Views\Home\bloglistsidebar.cshtml" />
+    <None Include="Views\Home\blogstandardsidebar.cshtml" />
+    <Content Include="Views\Checkout\index.cshtml" />
+    <None Include="Views\Home\contact1.cshtml" />
+    <None Include="Views\Home\contact2.cshtml" />
+    <None Include="Views\Home\coursesdetails.cshtml" />
+    <None Include="Views\Home\courses.cshtml" />
+    <None Include="Views\Home\error404.cshtml" />
+    <None Include="Views\Home\events.cshtml" />
+    <None Include="Views\Home\eventsdetails.cshtml" />
+    <None Include="Views\Home\faq1.cshtml" />
+    <None Include="Views\Home\faq2.cshtml" />
+    <None Include="Views\Home\forgetpassword.cshtml" />
+    <None Include="Views\Home\index2.cshtml" />
+    <None Include="Views\Home\index.cshtml" />
+    <None Include="Views\Home\login.cshtml" />
+    <None Include="Views\Home\membership.cshtml" />
+    <None Include="Views\Home\portfolio.cshtml" />
+    <None Include="Views\Home\profile.cshtml" />
+    <None Include="Views\Home\register.cshtml" />
+    <None Include="Views\Home\Totalenrolment.cshtml" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout_login.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Delete.cshtml" />
+    <Content Include="Views\Orders\Details.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Students\Create.cshtml" />
+    <Content Include="Views\Students\Delete.cshtml" />
+    <Content Include="Views\Students\Details.cshtml" />
+    <Content Include="Views\Students\Edit.cshtml" />
+    <Content Include="Views\Students\Index.cshtml" />
+    <Content Include="Views\SubCategories\Create.cshtml" />
+    <Content Include="Views\SubCategories\Delete.cshtml" />
+    <Content Include="Views\SubCategories\Details.cshtml" />
+    <Content Include="Views\SubCategories\Edit.cshtml" />
+    <Content Include="Views\SubCategories\Index.cshtml" />
+    <Content Include="Views\Teachers\Create.cshtml" />
+    <Content Include="Views\Teachers\Delete.cshtml" />
+    <Content Include="Views\Teachers\Details.cshtml" />
+    <Content Include="Views\Teachers\Edit.cshtml" />
+    <Content Include="Views\Teachers\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout_admin.cshtml" />
+    <Content Include="Views\Shared\_layout_adminpanel.cshtml" />
+    <Content Include="Views\Reports\coursesalereport.cshtml" />
+    <Content Include="Views\Reports\tchrstudent.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\Admin\images\flag\" />
+    <Folder Include="Content\customer\images\main-slider\" />
+    <Folder Include="Content\pics\" />
+    <Folder Include="Content\videos\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>30038</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44367/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

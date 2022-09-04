@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Tutoronic.Models.Student>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.student_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.student_email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.student_password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.student_contact)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.student_pic)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.total_enrolment)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.student_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.student_email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.student_password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.student_contact)
+        </td>
+        <td>
+            <img src="@Url.Content(item.student_pic)" class="img-responsive" height="120" width="180" />
+            
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.total_enrolment)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Student_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Student_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Student_id })
+        </td>
+    </tr>
+}
+
+</table>

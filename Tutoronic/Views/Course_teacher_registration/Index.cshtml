@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Tutoronic.Models.Course_teacher_registration>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Teachers' Courses</h2>
+
+<p>
+    <a href="/Course_teacher_registration/create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Course Name
+        </th>
+        <th>
+            Teacher Name
+        </th>
+        <th>
+            Status
+        </th>
+        <th>
+            Course Price
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.Cours.course_name
+        </td>
+        <td>
+            @item.Teacher.teacher_name
+        </td>
+        <td>
+            @item.Status
+        </td>
+        <td>
+            @item.course_price
+        </td>
+        <td>
+            <a href="@Url.Action("Edit","Course_teacher_registration", new { id = item.Course_tch_reg_id })" class="fa fa-edit"></a> |
+            <a href="@Url.Action("Details","Course_teacher_registration", new { id = item.Course_tch_reg_id })" class="fa fa-book"></a> |
+            <a href="@Url.Action("Delete","Course_teacher_registration", new { id = item.Course_tch_reg_id })" class="fa fa-remove"></a>
+        </td>
+    </tr>
+}
+
+</table>
