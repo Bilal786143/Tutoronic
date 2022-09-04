@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Tutoronic.Models;
 
@@ -25,13 +21,14 @@ namespace Tutoronic.Controllers
             Teacher t = (Teacher)Session["tch"];
             teacher.teacher_pic = t.teacher_pic;
             teacher.Teacher_id = t.Teacher_id;
-            if (teacher.teacher_password == null) {
+            if (teacher.teacher_password == null)
+            {
                 teacher.teacher_password = t.teacher_password;
             }
             db.Entry(teacher).State = EntityState.Modified;
             db.SaveChanges();
             Session["tch"] = teacher;
-            return RedirectToAction("teacherprofile","Teacher");
+            return RedirectToAction("teacherprofile", "Teacher");
         }
 
         // GET: Teachers/Details/5

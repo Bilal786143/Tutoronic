@@ -36,8 +36,8 @@ namespace Tutoronic.Controllers
         // GET: Cours/Create
         public ActionResult Create()
         {
-           
-                ViewBag.Subcat_fid = new SelectList(db.SubCategories, "Subcat_id", "subcat_name");
+
+            ViewBag.Subcat_fid = new SelectList(db.SubCategories, "Subcat_id", "subcat_name");
             ViewBag.teacher_fid = new SelectList(db.Teachers, "Teacher_id", "teacher_name");
             return View();
         }
@@ -49,7 +49,7 @@ namespace Tutoronic.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Cours cours, HttpPostedFileBase pic)
         {
-            Teacher  t = (Teacher)Session["tch"];
+            Teacher t = (Teacher)Session["tch"];
             cours.teacher_fid = t.Teacher_id;
             string fullpath = Server.MapPath("~/content/pics/" + pic.FileName);
             pic.SaveAs(fullpath);
@@ -86,7 +86,7 @@ namespace Tutoronic.Controllers
         {
             Teacher t = (Teacher)Session["tch"];
             cours.teacher_fid = t.Teacher_id;
-            if (pic!=null)
+            if (pic != null)
             {
                 string fullpath = Server.MapPath("~/content/pics/" + pic.FileName);
                 pic.SaveAs(fullpath);
@@ -120,7 +120,7 @@ namespace Tutoronic.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            
+
             Cours cours = db.Courses.Find(id);
             db.Courses.Remove(cours);
             db.SaveChanges();

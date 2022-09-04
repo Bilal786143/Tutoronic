@@ -55,9 +55,9 @@ namespace Tutoronic.Controllers
             a.admin_pic = "~/content/pics/" + pic.FileName;
 
             db.Admins.Add(a);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
         }
 
         // GET: Admins/Edit/5
@@ -80,18 +80,18 @@ namespace Tutoronic.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Admin admin,HttpPostedFileBase pic)
+        public ActionResult Edit(Admin admin, HttpPostedFileBase pic)
         {
             if (pic != null)
             {
                 string fullpath = Server.MapPath("~/content/pics/" + pic.FileName);
                 pic.SaveAs(fullpath);
-                admin.admin_pic= "~/content/pics/" + pic.FileName;
+                admin.admin_pic = "~/content/pics/" + pic.FileName;
             }
             db.Entry(admin).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
         }
 
         // GET: Admins/Delete/5
@@ -154,7 +154,7 @@ namespace Tutoronic.Controllers
             return View();
         }
 
-        
+
 
         public ActionResult coursedetail(int id)
         {
@@ -164,19 +164,19 @@ namespace Tutoronic.Controllers
         public ActionResult logout()
         {
             Session["adm"] = null;
-            return RedirectToAction("index","Home");
+            return RedirectToAction("index", "Home");
 
 
 
 
-            
+
         }
 
 
         public ActionResult approve(int id)
         {
-            
-            var item=db.Courses.Where(x => x.Course_id == id).FirstOrDefault();
+
+            var item = db.Courses.Where(x => x.Course_id == id).FirstOrDefault();
 
             item.approve = true;
 
@@ -210,7 +210,7 @@ namespace Tutoronic.Controllers
         {
             return View();
         }
-        
+
 
         public ActionResult teacherprofile()
         {

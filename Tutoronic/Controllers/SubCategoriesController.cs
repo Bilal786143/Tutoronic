@@ -49,7 +49,7 @@ namespace Tutoronic.Controllers
         {
             string fullpath = Server.MapPath("~/content/pics/" + pic.FileName);
             pic.SaveAs(fullpath);
-            subCategory.subcat_pic= "~/content/pics/" + pic.FileName;
+            subCategory.subcat_pic = "~/content/pics/" + pic.FileName;
             db.SubCategories.Add(subCategory);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -89,9 +89,9 @@ namespace Tutoronic.Controllers
             }
 
             db.Entry(subCategory).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
         }
 
         // GET: SubCategories/Delete/5

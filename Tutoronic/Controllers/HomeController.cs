@@ -217,8 +217,6 @@ namespace Tutoronic.Controllers
             return View();
         }
 
-
-
         public ActionResult register()
         {
             return View();
@@ -304,14 +302,13 @@ namespace Tutoronic.Controllers
                 string to = "Client/Student Email Here";
                 MailMessage mail = new MailMessage(from, to);
                 mail.Subject = "Successfully Registered - Tutoronic";
-                mail.Body = "<h2>Tutoronic</h2><br/>Hi Mr/Mrs <b>" + s.student_name + "</b> <br/>You have Successfully registered on Tutoronic.<br/> Keep Learnig and Enhanced your skills";
+                //Your Html Code Here
+                mail.Body = "<h2>Tutoronic</h2><br/>Hi Mr/Mrs <b>" + a.admin_name + "</b> <br/>You have Successfully registered on Tutoronic.<br/> Keep Learnig and Enhanced your skills";
                 mail.IsBodyHtml = true;
                 SmtpClient server = new SmtpClient("Mail Server here", 587);
                 server.Credentials = new System.Net.NetworkCredential("Your Email Here", "Password");
                 server.EnableSsl = true;
                 server.Send(mail);
-
-
                 return RedirectToAction("index", "Admins");
             }
 
@@ -348,7 +345,7 @@ namespace Tutoronic.Controllers
                 string to = "Client/Student Email Here";
                 MailMessage mail = new MailMessage(from, to);
                 mail.Subject = "Successfully Registered - Tutoronic";
-                mail.Body = "<h2>Tutoronic</h2><br/>Hi Mr/Mrs <b>" + s.student_name + "</b> <br/>You have Successfully registered on Tutoronic.<br/> Keep Learnig and Enhanced your skills";
+                mail.Body = "<h2>Tutoronic</h2><br/>Hi Mr/Mrs <b>" + t.teacher_name + "</b> <br/>You have Successfully registered on Tutoronic.<br/> Keep Learnig and Enhanced your skills";
                 mail.IsBodyHtml = true;
                 SmtpClient server = new SmtpClient("Mail Server here", 587);
                 server.Credentials = new System.Net.NetworkCredential("Your Email Here", "Password");
@@ -360,17 +357,6 @@ namespace Tutoronic.Controllers
                 return RedirectToAction("index", "teacher");
 
             }
-
-
-
-
-
-
-
-
-
         }
-
-
     }
 }

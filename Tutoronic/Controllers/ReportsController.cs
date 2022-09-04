@@ -12,24 +12,24 @@ namespace Tutoronic.Controllers
         // GET: Reports
         public ActionResult coursesalereport()
         {
-          var t=  (Teacher)Session["tch"];
-            
+            var t = (Teacher)Session["tch"];
+
             if (t != null)
             {
                 var od = db.OrderDetails.Where(x => x.Cours.teacher_fid == t.Teacher_id).ToList();
                 return View(od);
             }
-            else { return RedirectToAction("login","Home"); }
+            else { return RedirectToAction("login", "Home"); }
         }
         public ActionResult tchrstudent()
         {
             return View(studentemailslist());
         }
-        
+
         public List<Student> studentemailslist()
         {
-          var t=  (Teacher)Session["tch"];
-            List<Student> students = db.OrderDetails.Where(x => x.Cours.teacher_fid == t.Teacher_id).Select(x=>x.Order.Student).ToList();
+            var t = (Teacher)Session["tch"];
+            List<Student> students = db.OrderDetails.Where(x => x.Cours.teacher_fid == t.Teacher_id).Select(x => x.Order.Student).ToList();
             return students;
         }
     }

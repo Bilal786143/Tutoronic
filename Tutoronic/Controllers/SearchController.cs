@@ -15,7 +15,7 @@ namespace Tutoronic.Controllers
         [HttpPost]
         public ActionResult index(string c)
         {
-            return View(db.Courses.Where(x=>x.course_name.Contains(c) || x.course_description.Contains(c)).ToList());
+            return View(db.Courses.Where(x => x.course_name.Contains(c) || x.course_description.Contains(c)).ToList());
         }
     }
 }

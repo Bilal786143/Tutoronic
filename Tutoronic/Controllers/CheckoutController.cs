@@ -24,7 +24,7 @@ namespace Tutoronic.Controllers
         {
             int id = (int)Session["checkoutcourseid"];
             var c = db.Courses.Find(id);
-            
+
             return RedirectToAction("blogdetails", "Home", new { id = c.Course_id });
         }
 
@@ -39,7 +39,7 @@ namespace Tutoronic.Controllers
 
             {
 
-                return RedirectToAction("blogdetails","Home",new { id=c.Course_id});
+                return RedirectToAction("blogdetails", "Home", new { id = c.Course_id });
             }
 
             o.Student_fid = s.Student_id;
@@ -113,11 +113,12 @@ namespace Tutoronic.Controllers
 
                     return RedirectToAction("blogdetails", "Home", new { id = c.Course_id });
                 }
-                else { 
+                else
+                {
 
 
-                Session["checkoutcourseid"] = id;
-                return View();
+                    Session["checkoutcourseid"] = id;
+                    return View();
                 }
             }
             else
@@ -125,11 +126,6 @@ namespace Tutoronic.Controllers
                 TempData["errormsg"] = " <script> alert(' Please Loging/Signup first. ') </script>";
                 return RedirectToAction("register", "Home");
             }
-
         }
-
-
-
-
     }
 }

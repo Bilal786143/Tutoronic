@@ -8,8 +8,8 @@ namespace Tutoronic.Controllers
         public ActionResult Index()
         {
             return View();
-        } 
-        
+        }
+
         public ActionResult students()
         {
             return View();
@@ -17,7 +17,7 @@ namespace Tutoronic.Controllers
         public ActionResult logout()
         {
             Session["tch"] = null;
-            return RedirectToAction("index","Home");
+            return RedirectToAction("index", "Home");
         }
 
 
