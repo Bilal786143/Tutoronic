@@ -48,7 +48,6 @@ namespace Tutoronic.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Course_Video course_Video, HttpPostedFileBase vid)
-
         {
             Teacher t = new Teacher();
             t = (Teacher)Session["tch"];
@@ -61,9 +60,6 @@ namespace Tutoronic.Controllers
             db.Course_Video.Add(course_Video);
             db.SaveChanges();
             return RedirectToAction("Index", new { id = id });
-
-
-
         }
 
         // GET: Course_Video/Edit/5

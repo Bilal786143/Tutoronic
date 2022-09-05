@@ -53,7 +53,6 @@ namespace Tutoronic.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             ViewBag.course_fid = new SelectList(db.Courses, "Course_id", "course_name", course_Student_Registration.course_fid);
             ViewBag.std_fid = new SelectList(db.Students, "Student_id", "student_name", course_Student_Registration.std_fid);
             return View(course_Student_Registration);

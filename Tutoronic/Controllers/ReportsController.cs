@@ -13,7 +13,6 @@ namespace Tutoronic.Controllers
         public ActionResult coursesalereport()
         {
             var t = (Teacher)Session["tch"];
-
             if (t != null)
             {
                 var od = db.OrderDetails.Where(x => x.Cours.teacher_fid == t.Teacher_id).ToList();

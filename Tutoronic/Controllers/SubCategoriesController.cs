@@ -84,14 +84,10 @@ namespace Tutoronic.Controllers
                 string fullpath = Server.MapPath("~/content/pics/" + pic.FileName);
                 pic.SaveAs(fullpath);
                 subCategory.subcat_pic = "~/content/pics/" + pic.FileName;
-
-
             }
-
             db.Entry(subCategory).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
-
         }
 
         // GET: SubCategories/Delete/5

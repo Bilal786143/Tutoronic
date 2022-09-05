@@ -51,7 +51,6 @@ namespace Tutoronic.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(student);
         }
 
@@ -78,13 +77,11 @@ namespace Tutoronic.Controllers
         public ActionResult Edit(Student student, HttpPostedFileBase pic)
         {
             Student s = (Student)Session["studentloging"];
-
             if (pic == null)
             {
                 student.student_pic = s.student_pic;
                 student.Student_id = s.Student_id;
                 student.student_password = s.student_password;
-
             }
             else
             {
@@ -93,18 +90,11 @@ namespace Tutoronic.Controllers
                 student.student_pic = "~/content/pics/" + pic.FileName;
                 student.Student_id = s.Student_id;
                 student.student_password = s.student_password;
-
-
             }
-
-
-
             db.Entry(student).State = EntityState.Modified;
-
             db.SaveChanges();
             Session["studentloging"] = student;
             return RedirectToAction("profile", "Home");
-
         }
 
         // GET: Students/Delete/5

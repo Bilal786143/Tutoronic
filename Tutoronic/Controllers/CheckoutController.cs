@@ -15,19 +15,15 @@ namespace Tutoronic.Controllers
         {
             int id = (int)Session["checkoutcourseid"];
             var c = db.Courses.Find(id);
-
-
             return Redirect("https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_xclick&business=ahsanchaudary10@gmail.com&currency=USD&amount=" + Convert.ToDouble(c.course_price.ToString()) + "&item_name=Tutoronic&return=https://localhost:44367/Checkout/OrderBook");
-
         }
+
         public ActionResult bookconfirm()
         {
             int id = (int)Session["checkoutcourseid"];
             var c = db.Courses.Find(id);
-
             return RedirectToAction("blogdetails", "Home", new { id = c.Course_id });
         }
-
 
         public ActionResult OrderBook()
         {
@@ -36,12 +32,9 @@ namespace Tutoronic.Controllers
             Order o = new Order();
             var s = (Student)Session["studentloging"];
             if (db.Orders.Where(x => x.Student_fid == s.Student_id && x.OrderDetails.FirstOrDefault().course_fid == c.Course_id).Any())
-
             {
-
                 return RedirectToAction("blogdetails", "Home", new { id = c.Course_id });
             }
-
             o.Student_fid = s.Student_id;
             o.Customer_Email = s.student_email;
             o.Customer_Name = s.student_name;
@@ -62,16 +55,16 @@ namespace Tutoronic.Controllers
             db.SaveChanges();
 
             //send mail
-            string from = "Your Email Address Here";
-            string to = "Client/Student Email Here";
-            MailMessage mail = new MailMessage(from, to);
-            mail.Subject = "Successfully Registered - Tutoronic";
-            mail.Body = "<h2>Tutoronic</h2><br/>Hi Mr/Mrs <b>" + s.student_name + "</b> <br/>You have Successfully registered on Tutoronic.<br/> Keep Learnig and Enhanced your skills";
-            mail.IsBodyHtml = true;
-            SmtpClient server = new SmtpClient("Mail Server here", 587);
-            server.Credentials = new System.Net.NetworkCredential("Your Email Here", "Password");
-            server.EnableSsl = true;
-            server.Send(mail);
+            //string from = "Your Email Address Here";
+            //string to = "Client/Student Email Here";
+            //MailMessage mail = new MailMessage(from, to);
+            //mail.Subject = "Successfully Registered - Tutoronic";
+            //mail.Body = "<h2>Tutoronic</h2><br/>Hi Mr/Mrs <b>" + s.student_name + "</b> <br/>You have Successfully registered on Tutoronic.<br/> Keep Learnig and Enhanced your skills";
+            //mail.IsBodyHtml = true;
+            //SmtpClient server = new SmtpClient("Mail Server here", 587);
+            //server.Credentials = new System.Net.NetworkCredential("Your Email Here", "Password");
+            //server.EnableSsl = true;
+            //server.Send(mail);
             return RedirectToAction("bookconfirm");
 
         }
@@ -108,15 +101,11 @@ namespace Tutoronic.Controllers
                 var c = db.Courses.Find(id);
                 var s = (Student)Session["studentloging"];
                 if (db.Orders.Where(x => x.Student_fid == s.Student_id && x.OrderDetails.FirstOrDefault().course_fid == c.Course_id).Any())
-
                 {
-
                     return RedirectToAction("blogdetails", "Home", new { id = c.Course_id });
                 }
                 else
                 {
-
-
                     Session["checkoutcourseid"] = id;
                     return View();
                 }

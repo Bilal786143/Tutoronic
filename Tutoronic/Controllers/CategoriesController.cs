@@ -45,17 +45,12 @@ namespace Tutoronic.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Category category, HttpPostedFileBase pic)
         {
-
             string fullpath = Server.MapPath("~/content/pics/" + pic.FileName);
             pic.SaveAs(fullpath);
             category.cat_pic = "~/content/pics/" + pic.FileName;
-
             db.Categories.Add(category);
             db.SaveChanges();
             return RedirectToAction("Index");
-
-
-
         }
 
         // GET: Categories/Edit/5
@@ -85,12 +80,10 @@ namespace Tutoronic.Controllers
                 string fullpath = Server.MapPath("~/content/pics/" + pic.FileName);
                 pic.SaveAs(fullpath);
                 category.cat_pic = "~/content/pics/" + pic.FileName;
-
             }
             db.Entry(category).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
-
         }
 
         // GET: Categories/Delete/5

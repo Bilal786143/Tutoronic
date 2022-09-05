@@ -120,7 +120,6 @@ namespace Tutoronic.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-
             Cours cours = db.Courses.Find(id);
             db.Courses.Remove(cours);
             db.SaveChanges();

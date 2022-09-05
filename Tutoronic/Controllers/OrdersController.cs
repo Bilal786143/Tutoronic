@@ -52,7 +52,6 @@ namespace Tutoronic.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             ViewBag.Student_fid = new SelectList(db.Students, "Student_id", "student_name", order.Student_fid);
             return View(order);
         }

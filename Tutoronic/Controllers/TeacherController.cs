@@ -14,12 +14,12 @@ namespace Tutoronic.Controllers
         {
             return View();
         }
+
         public ActionResult logout()
         {
             Session["tch"] = null;
             return RedirectToAction("index", "Home");
         }
-
 
         public ActionResult addlisting()
         {
@@ -51,7 +51,6 @@ namespace Tutoronic.Controllers
             return View();
         }
 
-
         public ActionResult mailboxcompose()
         {
             return View();
@@ -61,7 +60,6 @@ namespace Tutoronic.Controllers
         {
             return View();
         }
-
 
         public ActionResult review()
         {
@@ -77,8 +75,5 @@ namespace Tutoronic.Controllers
         {
             return View();
         }
-
-
-
     }
 }

@@ -66,7 +66,6 @@ namespace Tutoronic.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             ViewBag.Teacher_id = new SelectList(db.Comment_reply, "Comment_reply_id", "reply", teacher.Teacher_id);
             return View(teacher);
         }
