@@ -5,11 +5,10 @@ using Tutoronic.Models;
 
 namespace Tutoronic.Controllers
 {
-
     public class ReportsController : Controller
     {
         Model1 db = new Model1();
-        // GET: Reports
+
         public ActionResult coursesalereport()
         {
             var t = (Teacher)Session["tch"];
@@ -24,7 +23,6 @@ namespace Tutoronic.Controllers
         {
             return View(studentemailslist());
         }
-
         public List<Student> studentemailslist()
         {
             var t = (Teacher)Session["tch"];

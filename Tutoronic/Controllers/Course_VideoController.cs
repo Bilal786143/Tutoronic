@@ -10,16 +10,12 @@ namespace Tutoronic.Controllers
     public class Course_VideoController : Controller
     {
         private Model1 db = new Model1();
-
-        // GET: Course_Video
         public ActionResult Index(int id)
         {
             TempData["course_id"] = id;
             var course_Video = db.Course_Video.Include(c => c.Cours).Include(c => c.Teacher);
             return View(course_Video.ToList());
         }
-
-        // GET: Course_Video/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -33,8 +29,6 @@ namespace Tutoronic.Controllers
             }
             return View(course_Video);
         }
-
-        // GET: Course_Video/Create
         public ActionResult Create()
         {
             ViewBag.course_fid = new SelectList(db.Courses, "Course_id", "course_name");
@@ -42,9 +36,6 @@ namespace Tutoronic.Controllers
             return View();
         }
 
-        // POST: Course_Video/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Course_Video course_Video, HttpPostedFileBase vid)
@@ -61,8 +52,6 @@ namespace Tutoronic.Controllers
             db.SaveChanges();
             return RedirectToAction("Index", new { id = id });
         }
-
-        // GET: Course_Video/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -79,9 +68,6 @@ namespace Tutoronic.Controllers
             return View(course_Video);
         }
 
-        // POST: Course_Video/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Course_Video course_Video, HttpPostedFileBase vid)
@@ -89,7 +75,7 @@ namespace Tutoronic.Controllers
             var data = db.Course_Video.Find(course_Video.Course_vid_id);
             data.video_description = course_Video.video_description;
             data.video_title = course_Video.video_title;
-            var id = data.course_fid;
+            //var id = data.course_fid;
             if (vid != null)
             {
                 string fullpath = Server.MapPath("~/content/videos/" + vid.FileName);
@@ -101,7 +87,6 @@ namespace Tutoronic.Controllers
             return RedirectToAction("Index", new { id = data.course_fid });
         }
 
-        // GET: Course_Video/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -116,7 +101,6 @@ namespace Tutoronic.Controllers
             return View(course_Video);
         }
 
-        // POST: Course_Video/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -126,7 +110,6 @@ namespace Tutoronic.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

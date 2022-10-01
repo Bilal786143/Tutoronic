@@ -16,7 +16,6 @@ namespace Tutoronic.Controllers
             _home = home;
             _students = students;
         }
-
         public ActionResult Index()
         {
             return View();
@@ -37,12 +36,10 @@ namespace Tutoronic.Controllers
         {
             return View();
         }
-
         public ActionResult blogclassicgrid()
         {
             return View();
         }
-
         public ActionResult blogclassicsidebar()
         {
             return View();
@@ -56,6 +53,7 @@ namespace Tutoronic.Controllers
             }
             return View();
         }
+
         [HttpPost]
         public ActionResult blogdetails(Course_video_comment cvc)
         {
@@ -92,37 +90,30 @@ namespace Tutoronic.Controllers
         {
             return View();
         }
-
         public ActionResult events()
         {
             return View();
         }
-
         public ActionResult eventsdetails()
         {
             return View();
         }
-
         public ActionResult faq1()
         {
             return View();
         }
-
         public ActionResult faq2()
         {
             return View();
         }
-
         public ActionResult forgetpassword()
         {
             return View();
         }
-
         public ActionResult index2()
         {
             return View();
         }
-
         public ActionResult login()
         {
             return View();
@@ -131,7 +122,7 @@ namespace Tutoronic.Controllers
         [HttpPost]
         public ActionResult stdlogin(Student s)
         {
-            Student res = db.Students.Where(x => x.student_email == s.student_email & x.student_password == s.student_password).FirstOrDefault();
+            Student res = db.Students.FirstOrDefault(x => x.student_email == s.student_email & x.student_password == s.student_password);
             if (res != null)
             {
                 Session["studentloging"] = res;
@@ -169,7 +160,6 @@ namespace Tutoronic.Controllers
                 return View("login");
             }
         }
-        
         public ActionResult admlogin(Admin a)
         {
             Admin res = db.Admins.Where(x => x.admin_email == a.admin_email & x.admin_password == a.admin_password).FirstOrDefault();
@@ -190,22 +180,18 @@ namespace Tutoronic.Controllers
                 return View("login");
             }
         }
-
         public ActionResult membership()
         {
             return View();
         }
-
         public ActionResult portfolio()
         {
             return View();
         }
-
         public ActionResult profile()
         {
             return View();
         }
-
         public ActionResult register()
         {
             return View();
@@ -224,7 +210,7 @@ namespace Tutoronic.Controllers
                 pic.SaveAs(fullpath);
                 s.student_pic = "~/content/pics/" + pic.FileName;
             }
-            var newStudent=_students.CreateNewStudent(s);
+            var newStudent = _students.CreateNewStudent(s);
             if (newStudent == null)
             {
                 ViewBag.message = "This Email is already Registered. Please enter new Email.";
@@ -237,6 +223,7 @@ namespace Tutoronic.Controllers
                 return RedirectToAction("index");
             }
         }
+
         [HttpPost]
         public ActionResult admregister(Admin a, HttpPostedFileBase pic)
         {
