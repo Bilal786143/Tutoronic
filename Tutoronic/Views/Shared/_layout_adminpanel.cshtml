@@ -1,9 +1,9 @@
 ﻿@using Tutoronic.Models;
-@{ 
+@{
     Model1 db = new Model1();
     Admin a = new Admin();
     a = (Admin)Session["adm"];
-    }
+}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -113,20 +113,15 @@
                                 <ul>
                                     @foreach (var item in db.Course_video_comment.Take(5))
                                     {
-                        <li>
-                            <span class="notification-icon dashbg-gray">
-                                <i class="fa fa-check"></i>
-                            </span>
-                            <span class="notification-text">
-                                <span>@item.Student.student_name</span> Commented on Course <b>@item.Course_Video.Cours.course_name</b> & Video Title <b>@item.Course_Video.video_title</b>.
-                                                                                                                                                      <span>Comment: <b>@item.comment</b></span>
-                            </span>
-                            @*<span class="notification-time">
-                                <a href="#" class="fa fa-close"></a>
-                                <span> 02:14</span>
-                            </span>*@
-                        </li>}
-
+                                        <li>
+                                            <span class="notification-icon dashbg-gray">
+                                                <i class="fa fa-check"></i>
+                                            </span>
+                                            <span class="notification-text">
+                                                <span>@item.Student.student_name</span> Commented on Course <b>@item.Course_Video.Cours.course_name</b> & Video Title <b>@item.Course_Video.video_title</b>.
+                                            </span>
+                                        </li>
+                                    }
                                 </ul>
                             </div>
                         </div>
@@ -136,7 +131,6 @@
                         <div class="ttr-header-submenu">
                             <ul>
                                 <li><a href="/admins/teacherprofile">My profile</a></li>
-                                @*<li><a href="list-view-calendar.html">Activity</a></li>*@
                                 <li><a href="/admins/review">Comments</a></li>
                                 <li><a href="/admins/logout">Logout</a></li>
                             </ul>
@@ -145,18 +139,10 @@
                     <li class="ttr-hide-on-mobile">
                         <a href="#" class="ttr-material-button"><i class="ti-layout-grid3-alt"></i></a>
                         <div class="ttr-header-submenu ttr-extra-menu">
-                            @*<a href="#">
-                                <i class="fa fa-music"></i>
-                                <span>Musics</span>
-                            </a>*@
                             <a href="/admins/courses">
                                 <i class="fa fa-youtube-play"></i>
                                 <span>Videos</span>
                             </a>
-                            @*<a href="#">
-                                <i class="fa fa-envelope"></i>
-                                <span>Emails</span>
-                            </a>*@
                             <a href="/admins/reports">
                                 <i class="fa fa-book"></i>
                                 <span>Reports</span>
@@ -165,10 +151,6 @@
                                 <i class="fa fa-smile-o"></i>
                                 <span>Students</span>
                             </a>
-                            @*<a href="#">
-                                <i class="fa fa-picture-o"></i>
-                                <span>Pictures</span>
-                            </a>*@
                         </div>
                     </li>
                 </ul>
@@ -196,11 +178,7 @@
             <!-- side menu logo start -->
             <div class="ttr-sidebar-logo">
                 <a href="/Admins/index"><img alt="" src="~/content/Admin/images/logo.png" width="122" height="27"></a>
-                <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
-                    <i class="material-icons ttr-fixed-icon">gps_fixed</i>
-                    <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
-                </div> -->
-                <div class="ttr-sidebar-toggle-button">
+                 <div class="ttr-sidebar-toggle-button">
                     <i class="ti-arrow-left"></i>
                 </div>
             </div>
@@ -289,8 +267,6 @@
                             <span class="ttr-label">Comments on Videos</span>
                         </a>
                     </li>
-                    
-                   
                     <li class="ttr-seperate"></li>
                 </ul>
                 <!-- sidebar menu end -->

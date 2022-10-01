@@ -4,7 +4,6 @@ namespace Tutoronic.Controllers
 {
     public class TeacherController : Controller
     {
-        // GET: Admin
         public ActionResult Index()
         {
             return View();
@@ -20,12 +19,12 @@ namespace Tutoronic.Controllers
             Session["tch"] = null;
             return RedirectToAction("index", "Home");
         }
-
+        
         public ActionResult addlisting()
         {
             return View();
         }
-
+        
         public ActionResult basiccalendar()
         {
             return View();

@@ -1,19 +1,13 @@
 @using Tutoronic.Models
 @{ Layout = "~/Views/Shared/_Layout.cshtml";
     Model1 db = new Model1();
-}
-
-
-@{ Student s = new Student();
-
+    var s = new Student();
     if (Session["studentloging"] != null)
     {
         s = (Student)Session["studentloging"];
     }
-
-
-
 }
+
 <!-- Content -->
 <div class="page-content bg-white">
     <!-- inner page banner -->
@@ -62,15 +56,9 @@
                                     <li class="nav-item">
                                         <a class="nav-link active" data-toggle="tab" href="#courses"><i class="ti-book"></i>My Courses</a>
                                     </li>
-                                    @*<li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#quiz-results"><i class="ti-bookmark-alt"></i>Quiz Results </a>
-                                    </li>*@
                                     <li class="nav-item">
                                         <a class="nav-link" data-toggle="tab" href="#edit-profile"><i class="ti-pencil-alt"></i>Edit Profile</a>
                                     </li>
-                                    @*<li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#change-password"><i class="ti-lock"></i>Change Password</a>
-                                    </li>*@
                                 </ul>
                             </div>
                         </div>
@@ -87,14 +75,6 @@
                                                     <input type="radio">
                                                     <a href="#"><span>All</span></a>
                                                 </li>
-                                                <!--li data-filter="publish" class="btn">
-                                                    <input type="radio">
-                                                    <a href="#"><span>Publish</span></a>
-                                                </!--li>
-                                                <li data-filter="pending" class="btn">
-                                                    <input type="radio">
-                                                    <a href="#"><span>Pending</span></a>
-                                                </li-->
                                             </ul>
                                         </div>
                                     </div>
@@ -135,10 +115,7 @@
                                                             </div>
                                                         </li>
                                                     }
-
                                                 }
-
-
                                             </ul>
                                         </div>
                                     </div>
@@ -183,6 +160,10 @@
                                         @Html.AntiForgeryToken()
                                         <form class="edit-profile">
                                             <div class="">
+                                                <input id="Student_id"
+                                                       name="Student_id"
+                                                       type="hidden"
+                                                       value="@s.Student_id" />
                                                 <div class="form-group row">
                                                     <div class="col-12 col-sm-9 col-md-9 col-lg-10 ml-auto">
                                                         <h3>1. Personal Details</h3>
@@ -224,67 +205,67 @@
                                                 <div class="seperator"></div>
 
                                                 @*<div class="form-group row">
-                        <div class="col-12 col-sm-9 col-md-9 col-lg-10 ml-auto">
-                            <h3>2. Address</h3>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Address</label>
-                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                            <input class="form-control" type="text" value="@s.">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">City</label>
-                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                            <input class="form-control" type="text" value="US">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">State</label>
-                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                            <input class="form-control" type="text" value="California">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Postcode</label>
-                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                            <input class="form-control" type="text" value="000702">
-                        </div>
-                    </div>
+            <div class="col-12 col-sm-9 col-md-9 col-lg-10 ml-auto">
+                <h3>2. Address</h3>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Address</label>
+            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                <input class="form-control" type="text" value="@s.">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">City</label>
+            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                <input class="form-control" type="text" value="US">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">State</label>
+            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                <input class="form-control" type="text" value="California">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Postcode</label>
+            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                <input class="form-control" type="text" value="000702">
+            </div>
+        </div>
 
-                    <div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>
+        <div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>
 
-                    <div class="form-group row">
-                        <div class="col-12 col-sm-9 col-md-9 col-lg-10 ml-auto">
-                            <h3 class="m-form__section">3. Social Links</h3>
-                        </div>
-                    </div>
+        <div class="form-group row">
+            <div class="col-12 col-sm-9 col-md-9 col-lg-10 ml-auto">
+                <h3 class="m-form__section">3. Social Links</h3>
+            </div>
+        </div>
 
-                    <div class="form-group row">
-                        <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Linkedin</label>
-                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                            <input class="form-control" type="text" value="www.linkedin.com">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Facebook</label>
-                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                            <input class="form-control" type="text" value="www.facebook.com">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Twitter</label>
-                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                            <input class="form-control" type="text" value="www.twitter.com">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Instagram</label>
-                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                            <input class="form-control" type="text" value="www.instagram.com">
-                        </div>
-                    </div>*@
+        <div class="form-group row">
+            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Linkedin</label>
+            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                <input class="form-control" type="text" value="www.linkedin.com">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Facebook</label>
+            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                <input class="form-control" type="text" value="www.facebook.com">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Twitter</label>
+            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                <input class="form-control" type="text" value="www.twitter.com">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Instagram</label>
+            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                <input class="form-control" type="text" value="www.instagram.com">
+            </div>
+        </div>*@
                                             </div>
                                             <div class="">
                                                 <div class="">

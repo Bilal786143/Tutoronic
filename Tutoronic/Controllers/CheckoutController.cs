@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Linq;
-using System.Net.Mail;
 using System.Web.Mvc;
 using Tutoronic.Models;
 
@@ -71,16 +70,16 @@ namespace Tutoronic.Controllers
 
         private void sendmail(Cours c, Student s)
         {
-            string from = "Your Email Address Here";
-            string to = "Client/Student Email Here";
-            MailMessage mail = new MailMessage(from, to);
-            mail.Subject = "Successfully Registered - Tutoronic";
-            mail.Body = "<h2>Tutoronic</h2><br/>Hi Mr/Mrs <b>" + s.student_name + "</b> <br/>You have Successfully registered on Tutoronic.<br/> Keep Learnig and Enhanced your skills";
-            mail.IsBodyHtml = true;
-            SmtpClient server = new SmtpClient("Mail Server here", 587);
-            server.Credentials = new System.Net.NetworkCredential("Your Email Here", "Password");
-            server.EnableSsl = true;
-            server.Send(mail);
+            //string from = "Your Email Address Here";
+            //string to = "Client/Student Email Here";
+            //MailMessage mail = new MailMessage(from, to);
+            //mail.Subject = "Successfully Registered - Tutoronic";
+            //mail.Body = "<h2>Tutoronic</h2><br/>Hi Mr/Mrs <b>" + s.student_name + "</b> <br/>You have Successfully registered on Tutoronic.<br/> Keep Learnig and Enhanced your skills";
+            //mail.IsBodyHtml = true;
+            //SmtpClient server = new SmtpClient("Mail Server here", 587);
+            //server.Credentials = new System.Net.NetworkCredential("Your Email Here", "Password");
+            //server.EnableSsl = true;
+            //server.Send(mail);
 
             //string apiToken = "e8973c9a57ec01562b0d1abe28669d5f1288e96219";
             //string apiSecret = "abdullah1090";

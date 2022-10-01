@@ -9,6 +9,10 @@ namespace Tutoronic.Models
         {
         }
 
+        public Model1(string nameOrConnectionString) : base(nameOrConnectionString)
+        {
+        }
+
         public virtual DbSet<Admin> Admins { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Comment_reply> Comment_reply { get; set; }

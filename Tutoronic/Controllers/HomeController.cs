@@ -1,14 +1,22 @@
 ﻿using System.Linq;
-using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using Tutoronic.Models;
+using Tutoronic.Services.Interface;
 
 namespace Tutoronic.Controllers
 {
     public class HomeController : Controller
     {
         Model1 db = new Model1();
+        private readonly IHome _home;
+        private readonly IStudents _students;
+        public HomeController(IHome home, IStudents students)
+        {
+            _home = home;
+            _students = students;
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -52,9 +60,7 @@ namespace Tutoronic.Controllers
         public ActionResult blogdetails(Course_video_comment cvc)
         {
             var s = (Student)Session["studentloging"];
-            cvc.std_fid = s.Student_id;
-            db.Course_video_comment.Add(cvc);
-            db.SaveChanges();
+            _home.BlogDetails(cvc, s);
             return View();
         }
         public ActionResult bloglistsidebar()
@@ -163,7 +169,7 @@ namespace Tutoronic.Controllers
                 return View("login");
             }
         }
-
+        
         public ActionResult admlogin(Admin a)
         {
             Admin res = db.Admins.Where(x => x.admin_email == a.admin_email & x.admin_password == a.admin_password).FirstOrDefault();
@@ -208,44 +214,28 @@ namespace Tutoronic.Controllers
         [HttpPost]
         public ActionResult stdregister(Student s, HttpPostedFileBase pic)
         {
-            int result = db.Students.Where(x => x.student_email == s.student_email).Count();
-            if (result == 1)
+            if (pic == null)
+            {
+                s.student_pic = "~/content/pics/blank-profile-picture-973460_640.png";
+            }
+            else
+            {
+                string fullpath = Server.MapPath("~/content/pics/" + pic.FileName);
+                pic.SaveAs(fullpath);
+                s.student_pic = "~/content/pics/" + pic.FileName;
+            }
+            var newStudent=_students.CreateNewStudent(s);
+            if (newStudent == null)
             {
                 ViewBag.message = "This Email is already Registered. Please enter new Email.";
                 return View("register");
             }
             else
             {
-                if (pic == null)
-                {
-                    s.student_pic = "~/content/pics/blank-profile-picture-973460_640.png";
-                }
-                else
-                {
-                    string fullpath = Server.MapPath("~/content/pics/" + pic.FileName);
-                    pic.SaveAs(fullpath);
-                    s.student_pic = "~/content/pics/" + pic.FileName;
-                }
-                db.Students.Add(s);
-                db.SaveChanges();
                 Session["studentloging"] = s;
-
-                //send mail
-
-                //string from = "Your Email Address Here";
-                //string to = "Client/Student Email Here";
-                //MailMessage mail = new MailMessage(from, to);
-                //mail.Subject = "Successfully Registered - Tutoronic";
-                //mail.Body = "<h2>Tutoronic</h2><br/>Hi Mr/Mrs <b>" + s.student_name + "</b> <br/>You have Successfully registered on Tutoronic.<br/> Keep Learnig and Enhanced your skills";
-                //mail.IsBodyHtml = true;
-                //SmtpClient server = new SmtpClient("Mail Server here", 587);
-                //server.Credentials = new System.Net.NetworkCredential("Your Email Here", "Password");
-                //server.EnableSsl = true;
-                //server.Send(mail);
-
+                _home.SendMail(s);
                 return RedirectToAction("index");
             }
-
         }
         [HttpPost]
         public ActionResult admregister(Admin a, HttpPostedFileBase pic)
@@ -271,21 +261,6 @@ namespace Tutoronic.Controllers
                 db.Admins.Add(a);
                 db.SaveChanges();
                 Session["adm"] = a;
-
-                //send mail
-
-                //string from = "Your Email Address Here";
-                //string to = "Client/Student Email Here";
-                //MailMessage mail = new MailMessage(from, to);
-                //mail.Subject = "Successfully Registered - Tutoronic";
-                ////Your Html Code Here
-                //mail.Body = "<h2>Tutoronic</h2><br/>Hi Mr/Mrs <b>" + a.admin_name + "</b> <br/>You have Successfully registered on Tutoronic.<br/> Keep Learnig and Enhanced your skills";
-                //mail.IsBodyHtml = true;
-                //SmtpClient server = new SmtpClient("Mail Server here", 587);
-                //server.Credentials = new System.Net.NetworkCredential("Your Email Here", "Password");
-                //server.EnableSsl = true;
-                //server.Send(mail);
-
                 return RedirectToAction("index", "Admins");
             }
         }
@@ -313,20 +288,6 @@ namespace Tutoronic.Controllers
                 }
                 db.Teachers.Add(t);
                 db.SaveChanges();
-
-                //send mail
-
-                //string from = "Your Email Address Here";
-                //string to = "Client/Student Email Here";
-                //MailMessage mail = new MailMessage(from, to);
-                //mail.Subject = "Successfully Registered - Tutoronic";
-                //mail.Body = "<h2>Tutoronic</h2><br/>Hi Mr/Mrs <b>" + t.teacher_name + "</b> <br/>You have Successfully registered on Tutoronic.<br/> Keep Learnig and Enhanced your skills";
-                //mail.IsBodyHtml = true;
-                //SmtpClient server = new SmtpClient("Mail Server here", 587);
-                //server.Credentials = new System.Net.NetworkCredential("Your Email Here", "Password");
-                //server.EnableSsl = true;
-                //server.Send(mail);
-
                 Session["tch"] = t;
                 return RedirectToAction("index", "teacher");
             }
