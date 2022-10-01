@@ -9,15 +9,11 @@ namespace Tutoronic.Controllers
     public class Course_video_commentController : Controller
     {
         private Model1 db = new Model1();
-
-        // GET: Course_video_comment
         public ActionResult Index()
         {
             var course_video_comment = db.Course_video_comment.Include(c => c.Course_Video).Include(c => c.Student);
             return View(course_video_comment.ToList());
         }
-
-        // GET: Course_video_comment/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -31,8 +27,6 @@ namespace Tutoronic.Controllers
             }
             return View(course_video_comment);
         }
-
-        // GET: Course_video_comment/Create
         public ActionResult Create()
         {
             ViewBag.course_vid_fid = new SelectList(db.Course_Video, "Course_vid_id", "video");
@@ -40,9 +34,6 @@ namespace Tutoronic.Controllers
             return View();
         }
 
-        // POST: Course_video_comment/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Comment_id,course_vid_fid,comment,std_fid")] Course_video_comment course_video_comment)
@@ -57,8 +48,6 @@ namespace Tutoronic.Controllers
             ViewBag.std_fid = new SelectList(db.Students, "Student_id", "student_name", course_video_comment.std_fid);
             return View(course_video_comment);
         }
-
-        // GET: Course_video_comment/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -75,9 +64,6 @@ namespace Tutoronic.Controllers
             return View(course_video_comment);
         }
 
-        // POST: Course_video_comment/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Comment_id,course_vid_fid,comment,std_fid")] Course_video_comment course_video_comment)
@@ -92,8 +78,6 @@ namespace Tutoronic.Controllers
             ViewBag.std_fid = new SelectList(db.Students, "Student_id", "student_name", course_video_comment.std_fid);
             return View(course_video_comment);
         }
-
-        // GET: Course_video_comment/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -108,7 +92,6 @@ namespace Tutoronic.Controllers
             return View(course_video_comment);
         }
 
-        // POST: Course_video_comment/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -118,7 +101,6 @@ namespace Tutoronic.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

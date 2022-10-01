@@ -33,7 +33,7 @@ namespace Tutoronic.Services.Implementation
         {
             return await _db.Students.FindAsync(id);
         }
-        public async Task<bool> UpdateStudent(Student student,Student student1)
+        public async Task<bool> UpdateStudent(Student student, Student student1)
         {
             student.Student_id = student1.Student_id;
             student.student_password = student1.student_password;
@@ -43,7 +43,7 @@ namespace Tutoronic.Services.Implementation
         }
         public async Task<bool> DeleteStudent(int id)
         {
-            var student=await GetStudentById(id);
+            var student = await GetStudentById(id);
             _db.Students.Remove(student);
             _db.SaveChanges();
             return true;

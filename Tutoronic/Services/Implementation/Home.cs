@@ -19,7 +19,6 @@ namespace Tutoronic.Services.Implementation
             _db.SaveChanges();
             return true;
         }
-
         public bool SendMail<T>(T userDetail)
         {
             var typer1 = userDetail.GetType();

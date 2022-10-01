@@ -33,7 +33,6 @@ namespace Tutoronic.Controllers
             Session["tch"] = teacher;
             return RedirectToAction("teacherprofile", "Teacher");
         }
-
         public ActionResult Details(int id)
         {
             var teacher = _teacher.GetTeacherById(id);
@@ -61,7 +60,6 @@ namespace Tutoronic.Controllers
             ViewBag.Teacher_id = new SelectList(db.Comment_reply, "Comment_reply_id", "reply", teacher.Teacher_id);
             return View(teacher);
         }
-
         public ActionResult Edit(int id)
         {
 
@@ -86,7 +84,6 @@ namespace Tutoronic.Controllers
             ViewBag.Teacher_id = new SelectList(db.Comment_reply, "Comment_reply_id", "reply", teacher.Teacher_id);
             return View(teacher);
         }
-
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -110,7 +107,6 @@ namespace Tutoronic.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

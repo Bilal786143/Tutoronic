@@ -17,7 +17,6 @@ namespace Tutoronic.Controllers
         {
             return View(await _students.GetAllStudents());
         }
-
         public async Task<ActionResult> Details(int id)
         {
             var student = await _students.GetStudentById(id);
@@ -27,7 +26,6 @@ namespace Tutoronic.Controllers
             }
             return View(student);
         }
-
         public ActionResult Create()
         {
             return View();
@@ -42,7 +40,6 @@ namespace Tutoronic.Controllers
                 return RedirectToAction("Index");
             return View(student);
         }
-
         public async Task<ActionResult> Edit(int id)
         {
             var student = await _students.GetStudentById(id);
@@ -81,6 +78,7 @@ namespace Tutoronic.Controllers
             }
             return View(student);
         }
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
