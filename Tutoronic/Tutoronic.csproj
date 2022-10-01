@@ -401,11 +401,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IOC\AutofacSetup.cs" />
-    <Compile Include="Migrations\202209291910526_AddingDatabaseToSomee.cs" />
-    <Compile Include="Migrations\202209291910526_AddingDatabaseToSomee.designer.cs">
-      <DependentUpon>202209291910526_AddingDatabaseToSomee.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comment_reply.cs" />
@@ -875,11 +870,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202209291910526_AddingDatabaseToSomee.resx">
-      <DependentUpon>202209291910526_AddingDatabaseToSomee.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
