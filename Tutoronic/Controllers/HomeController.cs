@@ -118,28 +118,7 @@ namespace Tutoronic.Controllers
         {
             return View();
         }
-
-        [HttpPost]
-        public ActionResult stdlogin(Student s)
-        {
-            Student res = db.Students.FirstOrDefault(x => x.student_email == s.student_email & x.student_password == s.student_password);
-            if (res != null)
-            {
-                Session["studentloging"] = res;
-                return RedirectToAction("index");
-            }
-            else if (res == null)
-            {
-                ViewBag.message = "The Email you have entered is not registered yet. Please Register Your Account Here";
-                return View("login");
-            }
-            else
-            {
-                ViewBag.message = "Email or Password is incorrect";
-                return View("login");
-            }
-        }
-
+        
         [HttpPost]
         public ActionResult tchlogin(Teacher t)
         {
@@ -196,34 +175,7 @@ namespace Tutoronic.Controllers
         {
             return View();
         }
-
-        [HttpPost]
-        public ActionResult stdregister(Student s, HttpPostedFileBase pic)
-        {
-            if (pic == null)
-            {
-                s.student_pic = "~/content/pics/blank-profile-picture-973460_640.png";
-            }
-            else
-            {
-                string fullpath = Server.MapPath("~/content/pics/" + pic.FileName);
-                pic.SaveAs(fullpath);
-                s.student_pic = "~/content/pics/" + pic.FileName;
-            }
-            var newStudent = _students.CreateNewStudent(s);
-            if (newStudent == null)
-            {
-                ViewBag.message = "This Email is already Registered. Please enter new Email.";
-                return View("register");
-            }
-            else
-            {
-                Session["studentloging"] = s;
-                _home.SendMail(s);
-                return RedirectToAction("index");
-            }
-        }
-
+        
         [HttpPost]
         public ActionResult admregister(Admin a, HttpPostedFileBase pic)
         {
@@ -248,6 +200,7 @@ namespace Tutoronic.Controllers
                 db.Admins.Add(a);
                 db.SaveChanges();
                 Session["adm"] = a;
+                _home.SendMail(a);
                 return RedirectToAction("index", "Admins");
             }
         }

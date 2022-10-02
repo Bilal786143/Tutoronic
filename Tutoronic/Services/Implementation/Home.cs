@@ -42,7 +42,7 @@ namespace Tutoronic.Services.Implementation
                 var from = ConfigurationManager.AppSettings["Email"];
                 string to = usdetail.student_email;
                 MailMessage mail = new MailMessage(from, to);
-                mail.Subject = "Successfully Registered - Tutoronic";
+                mail.Subject = "Teacher Registered Successfully - Tutoronic";
                 mail.Body = "<h2>Tutoronic</h2><br/>Hi Mr/Mrs <b>" + usdetail.student_name + "</b> <br/>You have Successfully registered on Tutoronic.<br/> Keep Learnig and Enhanced your skills";
                 mail.IsBodyHtml = true;
                 SmtpClient server = new SmtpClient("smtp.gmail.com", 587);
@@ -54,10 +54,10 @@ namespace Tutoronic.Services.Implementation
             else if (typer1.Name == "Admin")
             {
                 var from = ConfigurationManager.AppSettings["Email"];
-                string to = usdetail.student_email;
+                string to = usdetail.admin_email;
                 MailMessage mail = new MailMessage(from, to);
-                mail.Subject = "Successfully Registered - Tutoronic";
-                mail.Body = "<h2>Tutoronic</h2><br/>Hi Mr/Mrs <b>" + usdetail.student_name + "</b> <br/>You have Successfully registered on Tutoronic.<br/> Keep Learnig and Enhanced your skills";
+                mail.Subject = "Admin Registered Successfully - Tutoronic";
+                mail.Body = "<h2>Tutoronic</h2><br/>Hi Mr/Mrs <b>" + usdetail.admin_name + "</b> <br/>You have Successfully registered on Tutoronic.<br/> Keep Learnig and Enhanced your skills";
                 mail.IsBodyHtml = true;
                 SmtpClient server = new SmtpClient("smtp.gmail.com", 587);
                 server.Credentials = new System.Net.NetworkCredential(from, ConfigurationManager.AppSettings["Password"]);

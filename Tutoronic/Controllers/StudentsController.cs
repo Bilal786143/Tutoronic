@@ -2,6 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 using Tutoronic.Models;
+using Tutoronic.Services.Implementation;
 using Tutoronic.Services.Interface;
 
 namespace Tutoronic.Controllers
@@ -85,6 +86,54 @@ namespace Tutoronic.Controllers
         {
             await _students.DeleteStudent(id);
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> StudentRegister(Student student, HttpPostedFileBase pic)
+        {
+            if (pic == null)
+            {
+                student.student_pic = "~/content/pics/blank-profile-picture-973460_640.png";
+            }
+            else
+            {
+                string fullpath = Server.MapPath("~/content/pics/" + pic.FileName);
+                pic.SaveAs(fullpath);
+                student.student_pic = "~/content/pics/" + pic.FileName;
+            }
+            var newStudent = await _students.CreateNewStudent(student);
+            if (newStudent == null)
+            {
+                ViewBag.message = "This Email is already Registered. Please enter new Email.";
+                return View("register", "Home");
+            }
+            else
+            {
+                Session["studentloging"] = student;
+                _students.SendMail(student);
+                return RedirectToAction("index", "Home");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> StudentLogin(Student student)
+        {
+            var result = await _students.LoginStudent(student);
+            if (result != null)
+            {
+                Session["studentloging"] = result;
+                return RedirectToAction("index", "Home");
+            }
+            else if (result == null)
+            {
+                ViewBag.message = "The Email you have entered is not registered yet. Please Register Your Account Here";
+                return View("login", "Home");
+            }
+            else
+            {
+                ViewBag.message = "Email or Password is incorrect";
+                return View("login", "Home");
+            }
         }
     }
 }

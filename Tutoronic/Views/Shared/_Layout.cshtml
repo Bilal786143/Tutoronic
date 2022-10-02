@@ -1,11 +1,12 @@
 ﻿@using Tutoronic.Models
 @{
-    Student s = new Student();
+    var s = new Student();
 
     if (Session["studentloging"] != null)
     {
         s = (Student)Session["studentloging"];
-    } }
+    }
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -92,13 +93,13 @@
                                 }
                                 else
                                 {
-                            <li>
-                                
-
-                                <img height="15" width="15" class="circle" src="@Url.Content(s.student_pic)" />
+                                    <li>
 
 
-                            </li>
+                                        <img height="15" width="15" class="circle" src="@Url.Content(s.student_pic)" />
+
+
+                                    </li>
                                 }
                             </ul>
                         </div>
@@ -132,7 +133,8 @@
                         </div>
                         <!-- Search Box ==== -->
                         <div class="nav-search-bar">
-                            @using (Html.BeginForm("index", "Search", FormMethod.Post)) {
+                            @using (Html.BeginForm("index", "Search", FormMethod.Post))
+                            {
                                 <form>
                                     <input name="c" type="text" class="form-control" placeholder="Type to search">
                                     <span><i class="ti-search"></i></span>
@@ -181,7 +183,7 @@
                                         @if (Session["studentloging"] != null)
                                         {
                                             <li><a href="/Home/profile">Student Profile</a></li>
-                                            }
+                                        }
                                         <li><a href="/Home/membership">Membership</a></li>
                                         <li><a href="/Home/error404">404 Page</a></li>
                                     </ul>
@@ -196,7 +198,7 @@
                                                 @if (Session["studentloging"] != null)
                                                 {
                                                     <li><a href="/Home/profile">Student Profile</a></li>
-}
+                                                }
                                                 <li><a href="/Home/membership">Membership</a></li>
                                             </ul>
                                         </li>
@@ -229,7 +231,7 @@
                             <div class="pt-logo mr-auto">
                                 <a href="/Home/index"><img src="~/content/customer/images/logo-white.png" alt="" /></a>
                             </div>
-                            
+
                             <div class="pt-btn-join">
                                 <a href="/home/register" class="btn ">Join Now</a>
                             </div>
