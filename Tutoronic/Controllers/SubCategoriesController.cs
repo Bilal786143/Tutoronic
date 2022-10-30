@@ -7,7 +7,7 @@ using Tutoronic.Models;
 
 namespace Tutoronic.Controllers
 {
-    public class SubCategoriesController : Controller
+    public class SubCategoriesController : ServerMapPathController
     {
         private Model1 db = new Model1();
         public ActionResult Index()
@@ -38,9 +38,15 @@ namespace Tutoronic.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(SubCategory subCategory, HttpPostedFileBase pic)
         {
-            string fullpath = Server.MapPath("~/content/pics/" + pic.FileName);
-            pic.SaveAs(fullpath);
-            subCategory.subcat_pic = "~/content/pics/" + pic.FileName;
+            if (pic != null)
+            {
+                if (!IsImageFormatExist(pic.FileName))
+                {
+                    ViewBag.message = "Image Format is not supported";
+                    return View("Create");
+                }
+            }
+            subCategory.subcat_pic = ServerMapPath(pic);
             db.SubCategories.Add(subCategory);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -66,9 +72,12 @@ namespace Tutoronic.Controllers
         {
             if (pic != null)
             {
-                string fullpath = Server.MapPath("~/content/pics/" + pic.FileName);
-                pic.SaveAs(fullpath);
-                subCategory.subcat_pic = "~/content/pics/" + pic.FileName;
+                if (!IsImageFormatExist(pic.FileName))
+                {
+                    ViewBag.message = "Image Format is not supported";
+                    return View("Edit");
+                }
+                subCategory.subcat_pic = ServerMapPath(pic);
             }
             db.Entry(subCategory).State = EntityState.Modified;
             db.SaveChanges();

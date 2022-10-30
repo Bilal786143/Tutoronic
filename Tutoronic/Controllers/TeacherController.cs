@@ -53,7 +53,9 @@ namespace Tutoronic.Controllers
         {
             return View();
         }
-        public ActionResult teacherprofile()
+        public ActionResult teacher
+            
+            ()
         {
             return View();
         }

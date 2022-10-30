@@ -7,7 +7,7 @@ using Tutoronic.Models;
 
 namespace Tutoronic.Controllers
 {
-    public class CategoriesController : Controller
+    public class CategoriesController : ServerMapPathController
     {
         private Model1 db = new Model1();
         public ActionResult Index()
@@ -36,9 +36,13 @@ namespace Tutoronic.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Category category, HttpPostedFileBase pic)
         {
-            string fullpath = Server.MapPath("~/content/pics/" + pic.FileName);
-            pic.SaveAs(fullpath);
-            category.cat_pic = "~/content/pics/" + pic.FileName;
+            var imagePath = ServerMapPath(pic);
+            if (imagePath == ViewBag.message)
+            {
+                TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
+                return View("create");
+            }
+            category.cat_pic = imagePath;
             db.Categories.Add(category);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -56,16 +60,20 @@ namespace Tutoronic.Controllers
             }
             return View(category);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Category category, HttpPostedFileBase pic)
         {
             if (pic != null)
             {
-                string fullpath = Server.MapPath("~/content/pics/" + pic.FileName);
-                pic.SaveAs(fullpath);
-                category.cat_pic = "~/content/pics/" + pic.FileName;
+                var imagePath = ServerMapPath(pic);
+                if (imagePath == ViewBag.message)
+                {
+                    TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
+                    return RedirectToAction("Edit");
+                }
+                category.cat_pic = imagePath;
             }
             db.Entry(category).State = EntityState.Modified;
             db.SaveChanges();

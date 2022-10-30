@@ -6,7 +6,7 @@ using Tutoronic.Services.Interface;
 
 namespace Tutoronic.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : ServerMapPathController
     {
         Model1 db = new Model1();
         private readonly IHome _home;
@@ -118,7 +118,7 @@ namespace Tutoronic.Controllers
         {
             return View();
         }
-        
+
         [HttpPost]
         public ActionResult tchlogin(Teacher t)
         {
@@ -175,11 +175,19 @@ namespace Tutoronic.Controllers
         {
             return View();
         }
-        
+
         [HttpPost]
-        public ActionResult admregister(Admin a, HttpPostedFileBase pic)
+        public ActionResult admregister(Admin admin, HttpPostedFileBase pic)
         {
-            int result = db.Admins.Where(x => x.admin_email == a.admin_email).Count();
+            if (pic != null)
+            {
+                if (!IsImageFormatExist(pic.FileName))
+                {
+                    ViewBag.message = "Image Format is not supported";
+                    return View("Create");
+                }
+            }
+            var result = db.Admins.Where(x => x.admin_email == admin.admin_email).Count();
             if (result == 1)
             {
                 ViewBag.message = "This Email is already Registered. Please enter new Email.";
@@ -187,50 +195,37 @@ namespace Tutoronic.Controllers
             }
             else
             {
-                if (pic == null)
-                {
-                    a.admin_pic = "~/content/pics/blank-profile-picture-973460_640.png";
-                }
-                else
-                {
-                    string fullpath = Server.MapPath("~/content/pics/" + pic.FileName);
-                    pic.SaveAs(fullpath);
-                    a.admin_pic = "~/content/pics/" + pic.FileName;
-                }
-                db.Admins.Add(a);
+                admin.admin_pic = ServerMapPath(pic);
+                db.Admins.Add(admin);
                 db.SaveChanges();
-                Session["adm"] = a;
-                _home.SendMail(a);
+                Session["adm"] = admin;
+                _home.SendMail(admin);
                 return RedirectToAction("index", "Admins");
             }
         }
 
         [HttpPost]
-        public ActionResult tchregister(Teacher t, HttpPostedFileBase pic)
+        public ActionResult tchregister(Teacher teacher, HttpPostedFileBase pic)
         {
-            int result = db.Teachers.Where(x => x.teacher_email == t.teacher_email).Count();
-            if (result == 1)
+            if (pic != null)
             {
-                ViewBag.message = "This Email is already Registered. Please enter new Email.";
-                return View("register");
+                if (!IsImageFormatExist(pic.FileName))
+                {
+                    ViewBag.message = "Image Format is not supported";
+                    return View("Create");
+                }
             }
-            else
+            var result = db.Teachers.Where(x => x.teacher_email == teacher.teacher_email).Count();
+            if (result == 0)
             {
-                if (pic == null)
-                {
-                    t.teacher_pic = "~/content/pics/blank-profile-picture-973460_640.png";
-                }
-                else
-                {
-                    string fullpath = Server.MapPath("~/content/pics/" + pic.FileName);
-                    pic.SaveAs(fullpath);
-                    t.teacher_pic = "~/content/pics/" + pic.FileName;
-                }
-                db.Teachers.Add(t);
+                teacher.teacher_pic = ServerMapPath(pic);
+                db.Teachers.Add(teacher);
                 db.SaveChanges();
-                Session["tch"] = t;
+                Session["tch"] = teacher;
                 return RedirectToAction("index", "teacher");
             }
+            ViewBag.message = "This Email is already Registered. Please enter new Email.";
+            return View("register");
         }
     }
 }

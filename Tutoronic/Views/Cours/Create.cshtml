@@ -4,7 +4,8 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Create</h2
+<h3 style="color:red">@ViewBag.message</h3>
 
 @using (Html.BeginForm("create","cours",FormMethod.Post, new { enctype = "multipart/form-data" }))
 {

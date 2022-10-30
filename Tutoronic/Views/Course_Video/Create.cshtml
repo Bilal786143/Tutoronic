@@ -7,6 +7,7 @@
 }
 
 <h2>Create</h2>
+<h3 style="color:red">@ViewBag.message</h3>
 
 @using (Html.BeginForm("create", "Course_Video", FormMethod.Post, new { enctype="multipart/form-data"}))
 {
@@ -35,7 +36,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.video, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <input type="file" name="vid" />
+            <input type="file" name="vid" required/>
         </div>
     </div>
 

@@ -7,7 +7,7 @@ using Tutoronic.Models;
 
 namespace Tutoronic.Controllers
 {
-    public class CoursController : Controller
+    public class CoursController : ServerMapPathController
     {
         private Model1 db = new Model1();
         public ActionResult Index()
@@ -40,11 +40,17 @@ namespace Tutoronic.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Cours cours, HttpPostedFileBase pic)
         {
-            Teacher t = (Teacher)Session["tch"];
-            cours.teacher_fid = t.Teacher_id;
-            string fullpath = Server.MapPath("~/content/pics/" + pic.FileName);
-            pic.SaveAs(fullpath);
-            cours.course_pic = "~/content/pics/" + pic.FileName;
+            if (pic != null)
+            {
+                if (!IsImageFormatExist(pic.FileName))
+                {
+                    ViewBag.message = "Image Format is not supported";
+                    return View("Create");
+                }
+            }
+            Teacher teacher = (Teacher)Session["tch"];
+            cours.teacher_fid = teacher.Teacher_id;
+            cours.course_pic = ServerMapPath(pic);
             cours.approve = false;
             db.Courses.Add(cours);
             db.SaveChanges();
@@ -70,14 +76,17 @@ namespace Tutoronic.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Cours cours, HttpPostedFileBase pic)
         {
-            Teacher t = (Teacher)Session["tch"];
-            cours.teacher_fid = t.Teacher_id;
             if (pic != null)
             {
-                string fullpath = Server.MapPath("~/content/pics/" + pic.FileName);
-                pic.SaveAs(fullpath);
-                cours.course_pic = "~/content/pics/" + pic.FileName;
+                if (!IsImageFormatExist(pic.FileName))
+                {
+                    ViewBag.message = "Image Format is not supported";
+                    return RedirectToAction("Edit", "cours", new { id=cours.Course_id});
+                }
+                cours.course_pic = ServerMapPath(pic);
             }
+            Teacher teacher = (Teacher)Session["tch"];
+            cours.teacher_fid = teacher.Teacher_id;
             db.Entry(cours).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");

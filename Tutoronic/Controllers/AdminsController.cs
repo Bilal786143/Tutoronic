@@ -8,7 +8,7 @@ using Tutoronic.Models;
 
 namespace Tutoronic.Controllers
 {
-    public class AdminsController : Controller
+    public class AdminsController : ServerMapPathController
     {
         private Model1 db = new Model1();
         public ActionResult alladmins()
@@ -41,9 +41,13 @@ namespace Tutoronic.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Admin a, HttpPostedFileBase pic)
         {
-            string fullpath = Server.MapPath("~/content/pics/" + pic.FileName);
-            pic.SaveAs(fullpath);
-            a.admin_pic = "~/content/pics/" + pic.FileName;
+            var imagePath = ServerMapPath(pic);
+            if (imagePath == ViewBag.message)
+            {
+                TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
+                return View("Create");
+            }
+            a.admin_pic = imagePath;
             db.Admins.Add(a);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -68,9 +72,13 @@ namespace Tutoronic.Controllers
         {
             if (pic != null)
             {
-                string fullpath = Server.MapPath("~/content/pics/" + pic.FileName);
-                pic.SaveAs(fullpath);
-                admin.admin_pic = "~/content/pics/" + pic.FileName;
+                var imagePath = ServerMapPath(pic);
+                if (imagePath == ViewBag.message)
+                {
+                    TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
+                    return RedirectToAction("Edit");
+                }
+                admin.admin_pic = imagePath;
             }
             db.Entry(admin).State = EntityState.Modified;
             db.SaveChanges();
@@ -139,9 +147,9 @@ namespace Tutoronic.Controllers
         }
         public ActionResult approve(int id)
         {
-            var item = db.Courses.Where(x => x.Course_id == id).FirstOrDefault();
-            item.approve = true;
-            db.Entry(item).State = EntityState.Modified;
+            var courseEntity = db.Courses.Where(x => x.Course_id == id).FirstOrDefault();
+            courseEntity.approve = true;
+            db.Entry(courseEntity).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("courses");
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
@@ -106,7 +107,5 @@ namespace Tutoronic.Services.Implementation
             }
             return false;
         }
-
-
     }
 }

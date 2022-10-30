@@ -7,7 +7,7 @@ using Tutoronic.Models;
 
 namespace Tutoronic.Controllers
 {
-    public class Course_VideoController : Controller
+    public class Course_VideoController : ServerMapPathController
     {
         private Model1 db = new Model1();
         public ActionResult Index(int id)
@@ -40,14 +40,21 @@ namespace Tutoronic.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Course_Video course_Video, HttpPostedFileBase vid)
         {
+            if (vid != null)
+            {
+                if (!IsVideoFormatExist(vid.FileName))
+                {
+                    ViewBag.message = "Video Format is not supported.";
+                    return View("Create");
+                }
+            }
             Teacher t = new Teacher();
             t = (Teacher)Session["tch"];
             int id = (int)TempData.Peek("course_id");
             course_Video.course_fid = id;
             course_Video.teacher_fid = t.Teacher_id;
-            string fullpath = Server.MapPath("~/content/videos/" + vid.FileName);
-            vid.SaveAs(fullpath);
-            course_Video.video = "~/content/videos/" + vid.FileName;
+            //video added
+            course_Video.video = ServerMapPathVideo(vid);
             db.Course_Video.Add(course_Video);
             db.SaveChanges();
             return RedirectToAction("Index", new { id = id });
@@ -72,16 +79,19 @@ namespace Tutoronic.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Course_Video course_Video, HttpPostedFileBase vid)
         {
+            if (vid != null)
+            {
+                if (!IsVideoFormatExist(vid.FileName))
+                {
+                    ViewBag.message = "Video Format is not supported.";
+                    return View("Edit");
+                }
+                course_Video.video = ServerMapPathVideo(vid);
+            }
             var data = db.Course_Video.Find(course_Video.Course_vid_id);
             data.video_description = course_Video.video_description;
             data.video_title = course_Video.video_title;
             //var id = data.course_fid;
-            if (vid != null)
-            {
-                string fullpath = Server.MapPath("~/content/videos/" + vid.FileName);
-                vid.SaveAs(fullpath);
-                course_Video.video = "~/content/videos/" + vid.FileName;
-            }
             db.Entry(data).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index", new { id = data.course_fid });

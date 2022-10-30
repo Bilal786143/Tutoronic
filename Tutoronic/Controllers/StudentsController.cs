@@ -2,12 +2,11 @@
 using System.Web;
 using System.Web.Mvc;
 using Tutoronic.Models;
-using Tutoronic.Services.Implementation;
 using Tutoronic.Services.Interface;
 
 namespace Tutoronic.Controllers
 {
-    public class StudentsController : Controller
+    public class StudentsController : ServerMapPathController
     {
         private readonly IStudents _students;
         public StudentsController(IStudents students)
@@ -55,17 +54,16 @@ namespace Tutoronic.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Student student, HttpPostedFileBase pic)
         {
+            if (pic != null)
+            {
+                if (!IsImageFormatExist(pic.FileName))
+                {
+                    ViewBag.message = "Image Format is not supported";
+                    return RedirectToAction("profile", "Home");
+                }
+                student.student_pic = ServerMapPath(pic);
+            }
             Student s = (Student)Session["studentloging"];
-            if (pic == null)
-            {
-                student.student_pic = s.student_pic;
-            }
-            else
-            {
-                string fullpath = Server.MapPath("~/content/pics/" + pic.FileName);
-                pic.SaveAs(fullpath);
-                student.student_pic = "~/content/pics/" + pic.FileName;
-            }
             await _students.UpdateStudent(student, s);
             Session["studentloging"] = student;
             return RedirectToAction("profile", "Home");
@@ -91,16 +89,15 @@ namespace Tutoronic.Controllers
         [HttpPost]
         public async Task<ActionResult> StudentRegister(Student student, HttpPostedFileBase pic)
         {
-            if (pic == null)
+            if (pic != null)
             {
-                student.student_pic = "~/content/pics/blank-profile-picture-973460_640.png";
+                if (!IsImageFormatExist(pic.FileName))
+                {
+                    ViewBag.message = "Image Format is not supported";
+                    return View("Create");
+                }
             }
-            else
-            {
-                string fullpath = Server.MapPath("~/content/pics/" + pic.FileName);
-                pic.SaveAs(fullpath);
-                student.student_pic = "~/content/pics/" + pic.FileName;
-            }
+            student.student_pic = ServerMapPath(pic);
             var newStudent = await _students.CreateNewStudent(student);
             if (newStudent == null)
             {
