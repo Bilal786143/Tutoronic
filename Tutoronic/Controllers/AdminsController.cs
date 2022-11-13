@@ -147,7 +147,7 @@ namespace Tutoronic.Controllers
         }
         public ActionResult approve(int id)
         {
-            var courseEntity = db.Courses.Where(x => x.Course_id == id).FirstOrDefault();
+            var courseEntity = db.Courses.FirstOrDefault(x => x.Course_id == id);
             courseEntity.approve = true;
             db.Entry(courseEntity).State = EntityState.Modified;
             db.SaveChanges();

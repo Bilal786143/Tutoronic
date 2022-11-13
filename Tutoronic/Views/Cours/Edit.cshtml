@@ -6,11 +6,12 @@
 
 <h2>Edit</h2>
 <h3 style="color:red">@ViewBag.message</h3>
+@Html.Raw(TempData["errormsg"])
 
-@using (Html.BeginForm("edit","Cours", FormMethod.Post, new { enctype="multipart/form-data"}))
+@using (Html.BeginForm("edit", "Cours", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Cours</h4>
         <hr />
@@ -59,7 +60,7 @@
             </div>
         </div>
 
-      
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

@@ -3,20 +3,22 @@
 @{
     ViewBag.Title = "Create";
 }
-
-<h2>Create</h2
+<h2>
+    Create
+</h2>
 <h3 style="color:red">@ViewBag.message</h3>
+@Html.Raw(TempData["errormsg"])
 
-@using (Html.BeginForm("create","cours",FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("create", "cours", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Course</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            <b class = "control-label col-md-2">Course Name</b>
+            <b class="control-label col-md-2">Course Name</b>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.course_name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.course_name, "", new { @class = "text-danger" })
@@ -24,39 +26,39 @@
         </div>
 
         <div class="form-group">
-            <b class = "control-label col-md-2">Description</b>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.course_description, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.course_description, "", new { @class = "text-danger" })
-        </div>
-        </div>
-
-        <div class="form-group">
-            <b class = "control-label col-md-2">Image</b>
-        <div class="col-md-10">
-            <input name="pic" type="file" oninput="mypic.src = window.URL.createObjectURL(this.files[0])" />
-
-            <img id="mypic" width="100" height="100" />
-        </div>
+            <b class="control-label col-md-2">Description</b>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.course_description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.course_description, "", new { @class = "text-danger" })
+            </div>
         </div>
 
         <div class="form-group">
-            <b class = "control-label col-md-2">Price</b>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.course_price, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.course_price, "", new { @class = "text-danger" })
-        </div>
+            <b class="control-label col-md-2">Image</b>
+            <div class="col-md-10">
+                <input name="pic" type="file" oninput="mypic.src = window.URL.createObjectURL(this.files[0])" />
+
+                <img id="mypic" width="100" height="100" />
+            </div>
         </div>
 
         <div class="form-group">
-            <b class = "control-label col-md-2">Subcategory</b>
-        <div class="col-md-10">
-            @Html.DropDownList("Subcat_fid", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Subcat_fid, "", new { @class = "text-danger" })
-        </div>
+            <b class="control-label col-md-2">Price</b>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.course_price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.course_price, "", new { @class = "text-danger" })
+            </div>
         </div>
 
-      
+        <div class="form-group">
+            <b class="control-label col-md-2">Subcategory</b>
+            <div class="col-md-10">
+                @Html.DropDownList("Subcat_fid", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Subcat_fid, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

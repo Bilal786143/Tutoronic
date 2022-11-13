@@ -40,17 +40,15 @@ namespace Tutoronic.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Cours cours, HttpPostedFileBase pic)
         {
-            if (pic != null)
+            var imagePath = ServerMapPath(pic);
+            if (imagePath == ViewBag.message)
             {
-                if (!IsImageFormatExist(pic.FileName))
-                {
-                    ViewBag.message = "Image Format is not supported";
-                    return View("Create");
-                }
+                TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
+                return View("create");
             }
             Teacher teacher = (Teacher)Session["tch"];
             cours.teacher_fid = teacher.Teacher_id;
-            cours.course_pic = ServerMapPath(pic);
+            cours.course_pic = imagePath;
             cours.approve = false;
             db.Courses.Add(cours);
             db.SaveChanges();
@@ -78,12 +76,13 @@ namespace Tutoronic.Controllers
         {
             if (pic != null)
             {
-                if (!IsImageFormatExist(pic.FileName))
+                var imagePath = ServerMapPath(pic);
+                if (imagePath == ViewBag.message)
                 {
-                    ViewBag.message = "Image Format is not supported";
-                    return RedirectToAction("Edit", "cours", new { id=cours.Course_id});
+                    TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
+                    return RedirectToAction("Edit");
                 }
-                cours.course_pic = ServerMapPath(pic);
+                cours.course_pic = imagePath;
             }
             Teacher teacher = (Teacher)Session["tch"];
             cours.teacher_fid = teacher.Teacher_id;
