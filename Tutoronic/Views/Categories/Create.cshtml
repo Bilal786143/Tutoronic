@@ -6,11 +6,12 @@
 }
 
 <h2>Create</h2>
+@Html.Raw(TempData["errormsg"])
 
-@using (Html.BeginForm("create","categories", FormMethod.Post, new { enctype="multipart/form-data"}))
+@using (Html.BeginForm("create", "categories", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Category</h4>
         <hr />
@@ -29,7 +30,7 @@
                 <input name="pic" type="file" oninput="mypic.src = window.URL.createObjectURL(this.files[0])" />
 
                 <img id="mypic" width="100" height="100" />
-            
+
             </div>
         </div>
 

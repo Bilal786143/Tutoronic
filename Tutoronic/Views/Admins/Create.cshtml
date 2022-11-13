@@ -5,11 +5,12 @@
 }
 
 <h2>Create</h2>
+@Html.Raw(TempData["errormsg"])
 
-@using (Html.BeginForm("Create", "Admins",FormMethod.Post,new { enctype="multipart/form-data"}))
+@using (Html.BeginForm("Create", "Admins", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Admin</h4>
         <hr />
@@ -23,7 +24,7 @@
         </div>
 
         <div class="form-group">
-           <label class="control-label col-md-2">Email</label>
+            <label class="control-label col-md-2">Email</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.admin_email, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.admin_email, "", new { @class = "text-danger" })
@@ -41,7 +42,7 @@
         <div class="form-group">
             <label class="control-label col-md-2">Image</label>
             <div class="col-md-10">
-                <input name="pic" type="file"/>
+                <input name="pic" type="file" />
 
             </div>
         </div>

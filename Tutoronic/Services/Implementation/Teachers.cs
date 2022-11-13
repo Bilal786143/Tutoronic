@@ -6,7 +6,7 @@ using Tutoronic.Services.Interface;
 
 namespace Tutoronic.Services.Implementation
 {
-    public class Teachers: ITeachers
+    public class Teachers : ITeachers
     {
         private readonly Model1 _db;
         public Teachers(Model1 db)
@@ -36,7 +36,7 @@ namespace Tutoronic.Services.Implementation
         public async Task<bool> UpdateTeacher(Teacher teacher)
         {
             _db.Entry(teacher).State = EntityState.Modified;
-            await _db.SaveChangesAsync(); 
+            await _db.SaveChangesAsync();
             return true;
         }
     }

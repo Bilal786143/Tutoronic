@@ -5,11 +5,12 @@
 }
 
 <h2>Edit</h2>
+@Html.Raw(TempData["errormsg"])
 
-@using (Html.BeginForm("Edit","Admins",FormMethod.Post, new { enctype="multipart/form-data"}))
+@using (Html.BeginForm("Edit", "Admins", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Admin</h4>
         <hr />

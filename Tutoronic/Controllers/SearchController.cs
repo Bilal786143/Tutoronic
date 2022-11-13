@@ -12,6 +12,7 @@ namespace Tutoronic.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult index(string c)
         {

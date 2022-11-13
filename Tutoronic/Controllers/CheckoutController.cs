@@ -9,21 +9,18 @@ namespace Tutoronic.Controllers
     public class CheckoutController : Controller
     {
         private Model1 db = new Model1();
-
         public ActionResult Gotopaypal()
         {
             int id = (int)Session["checkoutcourseid"];
             var c = db.Courses.Find(id);
             return Redirect("https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_xclick&business=ahsanchaudary10@gmail.com&currency=USD&amount=" + Convert.ToDouble(c.course_price.ToString()) + "&item_name=Tutoronic&return=https://localhost:44367/Checkout/OrderBook");
         }
-
         public ActionResult bookconfirm()
         {
             int id = (int)Session["checkoutcourseid"];
             var c = db.Courses.Find(id);
             return RedirectToAction("blogdetails", "Home", new { id = c.Course_id });
         }
-
         public ActionResult OrderBook()
         {
             int id = (int)Session["checkoutcourseid"];
@@ -65,9 +62,7 @@ namespace Tutoronic.Controllers
             //server.EnableSsl = true;
             //server.Send(mail);
             return RedirectToAction("bookconfirm");
-
         }
-
         private void sendmail(Cours c, Student s)
         {
             //string from = "Your Email Address Here";
@@ -90,9 +85,7 @@ namespace Tutoronic.Controllers
             //String api = "https://lifetimesms.com/json?api_token=" + apiToken + "&api_secret=" + apiSecret + "&to=" + toNumber + "&from=" + Masking + "&message=" + MessageText;
             //var httpWebRequest = (HttpWebRequest)WebRequest.Create(api);
             //var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-
         }
-
         public ActionResult index(int id)
         {
             if (Session["studentloging"] != null)

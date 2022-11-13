@@ -29,7 +29,7 @@
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane fade in active" id="home">
                             <h2>Register as a Student</h2>
-                            <form class="contact-bx" method="post" action="/home/stdregister" enctype="multipart/form-data">
+                            <form class="contact-bx" method="post" action="/Students/StudentRegister" enctype="multipart/form-data">
 
                                 <div class="row placeani">
                                     <div class="col-lg-12">
@@ -242,7 +242,7 @@
                             </form>
 
                         </div>
-                        
+
                     </div>
 
                 </div>
@@ -250,84 +250,84 @@
 
 
                 @*<div class="col-lg-12">
-            <div class="form-group">
+                        <div class="form-group">
 
-                <label>Role</label>
-                <input name="type" type="radio" class="active" value="Student" required=""><label>Student</label>
-                <input name="type" type="radio" class="inactive" value="Teacher" required=""><label>Teacher</label>
-                <input name="type" type="radio" class="inactive" value="Admin" required=""><label>Admin</label>
+                            <label>Role</label>
+                            <input name="type" type="radio" class="active" value="Student" required=""><label>Student</label>
+                            <input name="type" type="radio" class="inactive" value="Teacher" required=""><label>Teacher</label>
+                            <input name="type" type="radio" class="inactive" value="Admin" required=""><label>Admin</label>
 
-            </div>
-        </div>*@
+                        </div>
+                    </div>*@
 
                 @*    <form class="contact-bx" method="post" action="/home/Register" enctype="multipart/form-data">
 
-                    <div class="row placeani">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <label>Your Name</label>
-                                    <input name="student_name" type="text" required="" class="form-control">
+                        <div class="row placeani">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <label>Your Name</label>
+                                        <input name="student_name" type="text" required="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <label>Your Email Address</label>
+                                        <input name="student_email" type="email" required="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <label>Your Password</label>
+                                        <input name="student_password" type="password" class="form-control" required="">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <label>Contact #</label>
+                                        <input name="student_contact" type="text" title="please use this Pattern 03121223345" pattern="03[0-9]{2}(?!0123456)(?!1234567)(?!2345678)(?!3456789)(?!4567890)(?!0987654)(?!9876543)(?!8765432)(?!7654321)(?!6543210)([0-9])(?!\1{6})[0-9]{6}" class="form-control" required="">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <label>Image (optional)</label>
+                                        <input name="pic" type="file" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+
+                                    <label>Role</label>
+                                    <input name="type" type="radio" checked value="Student" required=""><label>Student</label>
+                                    <input name="type" type="radio" value="Teacher" required=""><label>Teacher</label>
+                                    <input name="type" type="radio" value="Admin" required=""><label>Admin</label>
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 m-b30">
+                                <button type="submit" class="btn button-md">Sign Up</button>
+                            </div>
+                            <div class="col-lg-12">
+                                <h6>Sign Up with Social media</h6>
+                                <div class="d-flex">
+                                    <a class="btn flex-fill m-r5 facebook" href="#"><i class="fa fa-facebook"></i>Facebook</a>
+                                    <a class="btn flex-fill m-l5 google-plus" href="#"><i class="fa fa-google-plus"></i>Google Plus</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <label>Your Email Address</label>
-                                    <input name="student_email" type="email" required="" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <label>Your Password</label>
-                                    <input name="student_password" type="password" class="form-control" required="">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <label>Contact #</label>
-                                    <input name="student_contact" type="text" title="please use this Pattern 03121223345" pattern="03[0-9]{2}(?!0123456)(?!1234567)(?!2345678)(?!3456789)(?!4567890)(?!0987654)(?!9876543)(?!8765432)(?!7654321)(?!6543210)([0-9])(?!\1{6})[0-9]{6}" class="form-control" required="">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <label>Image (optional)</label>
-                                    <input name="pic" type="file" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="form-group">
-
-                                <label>Role</label>
-                                <input name="type" type="radio" checked value="Student" required=""><label>Student</label>
-                                <input name="type" type="radio" value="Teacher" required=""><label>Teacher</label>
-                                <input name="type" type="radio" value="Admin" required=""><label>Admin</label>
-
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12 m-b30">
-                            <button type="submit" class="btn button-md">Sign Up</button>
-                        </div>
-                        <div class="col-lg-12">
-                            <h6>Sign Up with Social media</h6>
-                            <div class="d-flex">
-                                <a class="btn flex-fill m-r5 facebook" href="#"><i class="fa fa-facebook"></i>Facebook</a>
-                                <a class="btn flex-fill m-l5 google-plus" href="#"><i class="fa fa-google-plus"></i>Google Plus</a>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                    </form>
                 *@
             </div>
         </div>
