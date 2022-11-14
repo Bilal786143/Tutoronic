@@ -33,6 +33,11 @@ namespace Tutoronic.Controllers
 
         public string ServerMapPathVideo(HttpPostedFileBase vid)
         {
+            if (!IsVideoFormatExist(vid.FileName))
+            {
+                ViewBag.message = "Video Format is not supported";
+                return ViewBag.message;
+            }
             //for live website return only picPath
             var videoPath = "~/content/videos/" + Guid.NewGuid() + vid.FileName;
             var fullPath = Server.MapPath(videoPath);
@@ -52,6 +57,5 @@ namespace Tutoronic.Controllers
             var cleanformat = imageExtension.Replace(".", string.Empty);
             return Enum.TryParse(cleanformat, out VideoFormat videoFormat);
         }
-
     }
 }

@@ -122,13 +122,14 @@ namespace Tutoronic.Controllers
         [HttpPost]
         public ActionResult tchlogin(Teacher t)
         {
-            Teacher res = db.Teachers.Where(x => x.teacher_email == t.teacher_email & x.teacher_password == t.teacher_password).FirstOrDefault();
-            if (res != null)
+            Session.Remove("tch");
+            var teacherEntity = db.Teachers.Where(x => x.teacher_email == t.teacher_email & x.teacher_password == t.teacher_password).FirstOrDefault();
+            if (teacherEntity != null)
             {
-                Session["tch"] = res;
+                Session["tch"] = teacherEntity;
                 return RedirectToAction("index", "Teacher");
             }
-            else if (res == null)
+            else if (teacherEntity == null)
             {
                 ViewBag.message = "The Email you have entered is not registered yet. Please Register Your Account Here";
                 return View("login");
@@ -141,15 +142,15 @@ namespace Tutoronic.Controllers
         }
         public ActionResult admlogin(Admin a)
         {
-            Admin res = db.Admins.Where(x => x.admin_email == a.admin_email & x.admin_password == a.admin_password).FirstOrDefault();
-            if (res != null)
+            Session.Remove("adm");
+            var adminEntity = db.Admins.Where(x => x.admin_email == a.admin_email & x.admin_password == a.admin_password).FirstOrDefault();
+            if (adminEntity != null)
             {
-                Session["adm"] = res;
+                Session["adm"] = adminEntity;
                 return RedirectToAction("index", "Admins");
             }
-            else if (res == null)
+            else if (adminEntity == null)
             {
-
                 ViewBag.message = "The Email you have entered is not registered yet. Please Register Your Account Here";
                 return View("login");
             }
@@ -179,13 +180,12 @@ namespace Tutoronic.Controllers
         [HttpPost]
         public ActionResult admregister(Admin admin, HttpPostedFileBase pic)
         {
-            if (pic != null)
+            Session.Remove("adm");
+            var imagePath = ServerMapPath(pic);
+            if (imagePath == ViewBag.message)
             {
-                if (!IsImageFormatExist(pic.FileName))
-                {
-                    ViewBag.message = "Image Format is not supported";
-                    return View("Create");
-                }
+                TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
+                return View("register");
             }
             var result = db.Admins.Where(x => x.admin_email == admin.admin_email).Count();
             if (result == 1)
@@ -193,39 +193,35 @@ namespace Tutoronic.Controllers
                 ViewBag.message = "This Email is already Registered. Please enter new Email.";
                 return View("register");
             }
-            else
-            {
-                admin.admin_pic = ServerMapPath(pic);
-                db.Admins.Add(admin);
-                db.SaveChanges();
-                Session["adm"] = admin;
-                _home.SendMail(admin);
-                return RedirectToAction("index", "Admins");
-            }
+            admin.admin_pic = imagePath;
+            db.Admins.Add(admin);
+            db.SaveChanges();
+            Session["adm"] = admin;
+            _home.SendMail(admin);
+            return RedirectToAction("index", "Admins");
         }
 
         [HttpPost]
         public ActionResult tchregister(Teacher teacher, HttpPostedFileBase pic)
         {
-            if (pic != null)
+            Session.Remove("tch");
+            var imagePath = ServerMapPath(pic);
+            if (imagePath == ViewBag.message)
             {
-                if (!IsImageFormatExist(pic.FileName))
-                {
-                    ViewBag.message = "Image Format is not supported";
-                    return View("Create");
-                }
+                TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
+                return View("Create");
             }
             var result = db.Teachers.Where(x => x.teacher_email == teacher.teacher_email).Count();
-            if (result == 0)
+            if (result == 1)
             {
-                teacher.teacher_pic = ServerMapPath(pic);
-                db.Teachers.Add(teacher);
-                db.SaveChanges();
-                Session["tch"] = teacher;
-                return RedirectToAction("index", "teacher");
+                ViewBag.message = "This Email is already Registered. Please enter new Email.";
+                return View("register");
             }
-            ViewBag.message = "This Email is already Registered. Please enter new Email.";
-            return View("register");
+            teacher.teacher_pic = imagePath;
+            db.Teachers.Add(teacher);
+            db.SaveChanges();
+            Session["tch"] = teacher;
+            return RedirectToAction("index", "teacher");
         }
     }
 }

@@ -58,7 +58,6 @@ namespace Tutoronic.Services.Implementation
             return true;
         }
 
-
         public bool SendMail<T>(T userDetail)
         {
             var type = userDetail.GetType();

@@ -38,15 +38,13 @@ namespace Tutoronic.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(SubCategory subCategory, HttpPostedFileBase pic)
         {
-            if (pic != null)
+            var imagePath = ServerMapPath(pic);
+            if (imagePath == ViewBag.message)
             {
-                if (!IsImageFormatExist(pic.FileName))
-                {
-                    ViewBag.message = "Image Format is not supported";
-                    return View("Create");
-                }
+                TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
+                return View("Create");
             }
-            subCategory.subcat_pic = ServerMapPath(pic);
+            subCategory.subcat_pic = imagePath;
             db.SubCategories.Add(subCategory);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -54,14 +52,12 @@ namespace Tutoronic.Controllers
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+
             SubCategory subCategory = db.SubCategories.Find(id);
             if (subCategory == null)
-            {
                 return HttpNotFound();
-            }
+
             ViewBag.cat_fid = new SelectList(db.Categories, "Category_id", "cat_name", subCategory.cat_fid);
             return View(subCategory);
         }
@@ -72,12 +68,13 @@ namespace Tutoronic.Controllers
         {
             if (pic != null)
             {
-                if (!IsImageFormatExist(pic.FileName))
+                var imagePath = ServerMapPath(pic);
+                if (imagePath == ViewBag.message)
                 {
-                    ViewBag.message = "Image Format is not supported";
+                    TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
                     return View("Edit");
                 }
-                subCategory.subcat_pic = ServerMapPath(pic);
+                subCategory.subcat_pic = imagePath;
             }
             db.Entry(subCategory).State = EntityState.Modified;
             db.SaveChanges();

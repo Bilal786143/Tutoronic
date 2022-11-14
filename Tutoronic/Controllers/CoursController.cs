@@ -30,7 +30,6 @@ namespace Tutoronic.Controllers
         }
         public ActionResult Create()
         {
-
             ViewBag.Subcat_fid = new SelectList(db.SubCategories, "Subcat_id", "subcat_name");
             ViewBag.teacher_fid = new SelectList(db.Teachers, "Teacher_id", "teacher_name");
             return View();

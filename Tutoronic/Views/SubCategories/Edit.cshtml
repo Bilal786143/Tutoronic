@@ -7,11 +7,12 @@
 
 <h2>Edit</h2>
 <h3 style="color:red">@ViewBag.message</h3>
+@Html.Raw(TempData["errormsg"])
 
-@using (Html.BeginForm("Edit","SubCategories",FormMethod.Post, new {enctype="multipart/form-data" }))
+@using (Html.BeginForm("Edit", "SubCategories", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>SubCategory</h4>
         <hr />
@@ -31,7 +32,7 @@
             <div class="col-md-10">
                 <input name="pic" type="file" oninput="mypic.src = window.URL.createObjectURL(this.files[0])" />
                 <img id="mypic" src="@Url.Content(Model.subcat_pic)" height="100" width="100" />
-                @Html.EditorFor(model => model.subcat_pic, new { htmlAttributes = new { @class = "form-control" , @readonly="readonly" } })
+                @Html.EditorFor(model => model.subcat_pic, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                 @Html.ValidationMessageFor(model => model.subcat_pic, "", new { @class = "text-danger" })
             </div>
         </div>
