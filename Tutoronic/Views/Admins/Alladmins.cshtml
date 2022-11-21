@@ -1,69 +1,59 @@
-﻿@model IEnumerable<Tutoronic.Models.Admin>
+﻿@model Tutoronic.Response.GetAllAdminsResponse
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "alladmins";
 }
 
+<h2>alladmins</h2>
 
+<p>
+    @Html.ActionLink("Register","Register","Home")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            <b>Name</b>
+        </th>
+        <th>
+            <b>Email</b>
+        </th>
+        <th>
+            <b>Image</b>
+        </th>
+        <th>
+            <b>Contact</b>
+        </th>
+        <th>
+            <b>Address</b>
+        </th>
 
-    <h2>Admin Panel</h2>
+        <th></th>
+    </tr>
 
-    <p>
-        <a href="/admins/create" class="btn btn-primary" >Create New</a>
-        
-    </p>
-    <table class="table">
+    @foreach (var item in Model.AllAdmin)
+    {
         <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Email
-            </th>
-            <th>
-                Password
-            </th>
-            <th>
-                Image
-            </th>
-            <th>
-               Address
-            </th>
-            <th>
-                Contact #
-            </th>
-            <th></th>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdminName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdminEmail)
+            </td>
+            <td>
+                <img src="@Url.Content(item.AdminPic)" width="120" height="120" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdminAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdminContact)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.AdminId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.AdminId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.AdminId })
+            </td>
         </tr>
+    }
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @item.admin_name
-                </td>
-                <td>
-                    @item.admin_email
-                </td>
-                <td>
-                    @item.admin_password
-                </td>
-                <td>
-                    <img src="@Url.Content(item.admin_pic)" height="80" width="120" />
-                </td>
-                <td>
-                    @item.admin_adress
-                </td>
-                <td>
-                    @item.admin_contact
-                </td>
-                <td>
-                    <a href="@Url.Action("Edit","Admins", new { id = item.Admin_id })" class="fa fa-edit"></a> |
-                    <a href="@Url.Action("Details","Admins", new { id = item.Admin_id })" class="fa fa-book"></a> |
-                    <a href="@Url.Action("Delete","Admins", new { id = item.Admin_id })" class="fa fa-remove"></a>
-                   
-                </td>
-            </tr>
-        }
-
-    </table>
-   
+</table>

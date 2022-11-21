@@ -1,12 +1,9 @@
 @using Tutoronic.Models;
 
-@{ 
+@{
     Layout = "~/Views/Shared/_Layout_adminpanel.cshtml";
     Model1 db = new Model1();
-
-
-
-    }
+}
 
 <div class="db-breadcrumb">
     <h4 class="breadcrumb-title">Courses</h4>
@@ -23,7 +20,7 @@
                 <h4>All Courses</h4>
             </div>
             <div class="widget-inner">
-                @foreach (var item in db.Courses)
+                @foreach (var item in db.Courses.OrderBy(c => c.approve))
                 {
                     <div class="card-courses-list admin-courses">
                         <div class="card-courses-media">
@@ -60,20 +57,16 @@
                                     </li>
                                     @if (item.approve == true)
                                     {
-
-
                                         <li class="card-courses-stats">
                                             <a href="#" class="btn button-sm success radius-xl">Approved</a>
                                         </li>
                                     }
                                     else
                                     {
-
                                         <li class="card-courses-stats">
                                             <a href="#" class="btn button-sm green radius-xl">Pending</a>
                                         </li>
                                     }
-
                                     <li class="card-courses-price">
                                         @*<del>$190</del>*@
                                         <h5 class="text-primary">$@item.course_price</h5>
@@ -93,10 +86,7 @@
 
                         </div>
                     </div>
-
                 }
-
-
             </div>
         </div>
     </div>

@@ -140,26 +140,7 @@ namespace Tutoronic.Controllers
                 return View("login");
             }
         }
-        public ActionResult admlogin(Admin a)
-        {
-            Session.Remove("adm");
-            var adminEntity = db.Admins.Where(x => x.admin_email == a.admin_email & x.admin_password == a.admin_password).FirstOrDefault();
-            if (adminEntity != null)
-            {
-                Session["adm"] = adminEntity;
-                return RedirectToAction("index", "Admins");
-            }
-            else if (adminEntity == null)
-            {
-                ViewBag.message = "The Email you have entered is not registered yet. Please Register Your Account Here";
-                return View("login");
-            }
-            else
-            {
-                ViewBag.message = "Email or Password is incorrect";
-                return View("login");
-            }
-        }
+
         public ActionResult membership()
         {
             return View();
@@ -175,30 +156,6 @@ namespace Tutoronic.Controllers
         public ActionResult register()
         {
             return View();
-        }
-
-        [HttpPost]
-        public ActionResult admregister(Admin admin, HttpPostedFileBase pic)
-        {
-            Session.Remove("adm");
-            var imagePath = ServerMapPath(pic);
-            if (imagePath == ViewBag.message)
-            {
-                TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
-                return View("register");
-            }
-            var result = db.Admins.Where(x => x.admin_email == admin.admin_email).Count();
-            if (result == 1)
-            {
-                ViewBag.message = "This Email is already Registered. Please enter new Email.";
-                return View("register");
-            }
-            admin.admin_pic = imagePath;
-            db.Admins.Add(admin);
-            db.SaveChanges();
-            Session["adm"] = admin;
-            _home.SendMail(admin);
-            return RedirectToAction("index", "Admins");
         }
 
         [HttpPost]

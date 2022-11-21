@@ -54,9 +54,6 @@
     <Reference Include="Autofac.Integration.Mvc, Version=6.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.Mvc5.6.1.0\lib\net472\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
-      <HintPath>..\packages\Portable.BouncyCastle.1.9.0\lib\net40\BouncyCastle.Crypto.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -89,9 +86,6 @@
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Authorization.Policy, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Authorization.Policy.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Authorization.Policy.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNetCore.Cryptography.Internal, Version=6.0.9.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNetCore.Cryptography.Internal.6.0.9\lib\net461\Microsoft.AspNetCore.Cryptography.Internal.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.DataProtection, Version=6.0.9.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.DataProtection.6.0.9\lib\net461\Microsoft.AspNetCore.DataProtection.dll</HintPath>
@@ -411,6 +405,7 @@
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\SubCategoriesController.cs" />
     <Compile Include="Controllers\TeachersController.cs" />
+    <Compile Include="Converter\AdminConverter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -431,13 +426,18 @@
     <Compile Include="Models\SubCategory.cs" />
     <Compile Include="Models\Teacher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Response\GetAllAdminsResponse.cs" />
+    <Compile Include="Response\GetAdminByIdResponse.cs" />
+    <Compile Include="Services\Implementation\AdminService.cs" />
     <Compile Include="Services\Implementation\Home.cs" />
     <Compile Include="Services\Implementation\Students.cs" />
     <Compile Include="Services\Implementation\Teachers.cs" />
+    <Compile Include="Services\Interface\IAdminService.cs" />
     <Compile Include="Services\Interface\IHome.cs" />
     <Compile Include="Services\Interface\IStudents.cs" />
     <Compile Include="Services\Interface\ITeachers.cs" />
     <Compile Include="testContext.cs" />
+    <Compile Include="ViewModels\AdminVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Admin\css\assets.css" />
@@ -744,7 +744,6 @@
     <Content Include="Views\Admins\Delete.cshtml" />
     <Content Include="Views\Admins\Details.cshtml" />
     <Content Include="Views\Admins\Edit.cshtml" />
-    <Content Include="Views\Admins\Alladmins.cshtml" />
     <Content Include="Views\Admins\addlisting.cshtml" />
     <Content Include="Views\Admins\basiccalendar.cshtml" />
     <Content Include="Views\Admins\bookmark.cshtml" />
@@ -764,6 +763,7 @@
     <Content Include="Views\Search\index.cshtml" />
     <Content Include="Scripts\jquery-3.6.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.6.0.min.map" />
+    <Content Include="Views\Admins\alladmins.cshtml" />
     <None Include="Views\Teacher\addlisting.cshtml" />
     <None Include="Views\Teacher\basiccalendar.cshtml" />
     <None Include="Views\Teacher\allcourses.cshtml" />
