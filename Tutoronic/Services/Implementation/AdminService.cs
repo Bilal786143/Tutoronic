@@ -14,12 +14,10 @@ namespace Tutoronic.Services.Implementation
     public class AdminService : IAdminService
     {
         private readonly Model1 _dbContext;
-        private readonly IStudents _students;
         private readonly AdminConverter _adminConverter;
-        public AdminService(Model1 dbContext, IStudents students)
+        public AdminService(Model1 dbContext)
         {
             _dbContext = dbContext;
-            _students = students;
             _adminConverter = new AdminConverter();
         }
         public async Task<GetAllAdminsResponse> GetAllAdmins()

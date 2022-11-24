@@ -35,6 +35,7 @@ namespace Tutoronic
             builder.RegisterType<Students>().As<IStudents>().InstancePerLifetimeScope();
             builder.RegisterType<Teachers>().As<ITeachers>().InstancePerLifetimeScope();
             builder.RegisterType<AdminService>().As<IAdminService>().InstancePerLifetimeScope();
+            builder.RegisterType<CategoryService>().As<ICategoryService>().InstancePerLifetimeScope();
             base.Load(builder);
         }
     }

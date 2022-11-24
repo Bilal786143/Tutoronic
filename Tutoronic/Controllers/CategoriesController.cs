@@ -1,31 +1,35 @@
-﻿using System.Data.Entity;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Tutoronic.Models;
+using Tutoronic.Services.Interface;
+using Tutoronic.ViewModels;
 
 namespace Tutoronic.Controllers
 {
     public class CategoriesController : ServerMapPathController
     {
         private Model1 db = new Model1();
-        public ActionResult Index()
+        private readonly ICategoryService _categoryService;
+        public CategoriesController(ICategoryService categoryService)
         {
-            return View(db.Categories.ToList());
+            _categoryService = categoryService;
         }
-        public ActionResult Details(int? id)
+        public async Task<ActionResult> Index()
+        {
+            return View(await _categoryService.GetAllCategories());
+        }
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category category = db.Categories.Find(id);
-            if (category == null)
-            {
+
+            var categoryResponse = await _categoryService.GetCategoryById(id);
+            if (categoryResponse == null)
                 return HttpNotFound();
-            }
-            return View(category);
+
+            return View(categoryResponse);
         }
         public ActionResult Create()
         {
@@ -34,7 +38,7 @@ namespace Tutoronic.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Category category, HttpPostedFileBase pic)
+        public async Task<ActionResult> Create(Category category, HttpPostedFileBase pic)
         {
             var imagePath = ServerMapPath(pic);
             if (imagePath == ViewBag.message)
@@ -42,28 +46,24 @@ namespace Tutoronic.Controllers
                 TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
                 return View("create");
             }
-            category.cat_pic = imagePath;
-            db.Categories.Add(category);
-            db.SaveChanges();
+            await _categoryService.CreateNewCategory(category, imagePath);
             return RedirectToAction("Index");
         }
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category category = db.Categories.Find(id);
-            if (category == null)
-            {
+
+            var categoryResponse = await _categoryService.GetCategoryById(id);
+            if (categoryResponse == null)
                 return HttpNotFound();
-            }
-            return View(category);
+
+            return View(categoryResponse);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Category category, HttpPostedFileBase pic)
+        public async Task<ActionResult> Edit(CategoryVM category, HttpPostedFileBase pic)
         {
             if (pic != null)
             {
@@ -73,33 +73,34 @@ namespace Tutoronic.Controllers
                     TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
                     return RedirectToAction("Edit");
                 }
-                category.cat_pic = imagePath;
+                category.CategoryImage = imagePath;
             }
-            db.Entry(category).State = EntityState.Modified;
-            db.SaveChanges();
+            await _categoryService.UpdateCategory(category);
             return RedirectToAction("Index");
         }
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category category = db.Categories.Find(id);
-            if (category == null)
-            {
+
+            var categoryResponse = await _categoryService.GetCategoryById(id);
+            if (categoryResponse == null)
                 return HttpNotFound();
-            }
-            return View(category);
+
+            return View(categoryResponse);
+
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Category category = db.Categories.Find(id);
-            db.Categories.Remove(category);
-            db.SaveChanges();
+            var isCategoryDelete = await _categoryService.DeleteCategory(id);
+            if (!isCategoryDelete)
+            {
+                TempData["errormsg"] = "<script> alert('Category Not Deleted Because It Already In Use')</script>";
+                return RedirectToAction("Delete");
+            }
             return RedirectToAction("Index");
         }
         protected override void Dispose(bool disposing)
