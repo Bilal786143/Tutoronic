@@ -24,7 +24,7 @@ namespace Tutoronic.Services.Implementation
         {
             var categoryList = new GetAllCategoryResponse();
             var categoryEntities = await _dbContext.Categories.ToListAsync();
-            categoryList.Categories = _categoryConverter.ConvertCategoryEntitiesToModel(categoryEntities);
+            categoryList.Categories = _categoryConverter.ConvertCategoryEntitiesToResponseModel(categoryEntities);
             return categoryList;
         }
 
@@ -33,16 +33,16 @@ namespace Tutoronic.Services.Implementation
             var cateoryResponse = new GetCategoryByIdResponse();
             var categoryEntity = await GetCategoryEntityById(id);
             if (categoryEntity != null)
-                cateoryResponse.Category = _categoryConverter.ConvertCategoryEntityToModel(categoryEntity);
+                cateoryResponse.Category = _categoryConverter.ConvertCategoryEntityToResponseModel(categoryEntity);
 
             return cateoryResponse;
         }
 
-        public async Task<bool> CreateNewCategory(Category category, string adminImagePath)
+        public async Task<bool> CreateNewCategory(Category category, string categoryImagePath)
         {
             try
             {
-                category.cat_pic = adminImagePath;
+                category.cat_pic = categoryImagePath;
                 _dbContext.Categories.Add(category);
                 await _dbContext.SaveChangesAsync();
                 return true;
@@ -67,7 +67,7 @@ namespace Tutoronic.Services.Implementation
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                return false;
             }
         }
 
@@ -77,8 +77,8 @@ namespace Tutoronic.Services.Implementation
             if (categoryEntity == null)
                 return false;
 
-            var isCategoryExistsInTables = _dbContext.SubCategories.Where(x => x.cat_fid == id).FirstOrDefault();
-            if (isCategoryExistsInTables != null)
+            var isCategoryExistsInTables = _dbContext.SubCategories.Any(x => x.cat_fid == id);
+            if (isCategoryExistsInTables)
                 return false;
             _dbContext.Categories.Remove(categoryEntity);
             await _dbContext.SaveChangesAsync();

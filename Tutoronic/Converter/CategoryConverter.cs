@@ -7,7 +7,7 @@ namespace Tutoronic.Converter
 {
     public class CategoryConverter : BaseService
     {
-        public List<CategoryVM> ConvertCategoryEntitiesToModel(List<Category> categoryEntities)
+        public List<CategoryVM> ConvertCategoryEntitiesToResponseModel(List<Category> categoryEntities)
         {
             var categoriesList = new List<CategoryVM>();
             foreach (var categoryEntity in categoryEntities)
@@ -22,7 +22,7 @@ namespace Tutoronic.Converter
             return categoriesList;
         }
 
-        public CategoryVM ConvertCategoryEntityToModel(Category categoryEntity)
+        public CategoryVM ConvertCategoryEntityToResponseModel(Category categoryEntity)
         {
             return new CategoryVM()
             {

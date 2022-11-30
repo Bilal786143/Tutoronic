@@ -10,7 +10,6 @@ namespace Tutoronic.Controllers
 {
     public class CategoriesController : ServerMapPathController
     {
-        private Model1 db = new Model1();
         private readonly ICategoryService _categoryService;
         public CategoriesController(ICategoryService categoryService)
         {
@@ -102,14 +101,6 @@ namespace Tutoronic.Controllers
                 return RedirectToAction("Delete");
             }
             return RedirectToAction("Index");
-        }
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Tutoronic.Services.Interface
     {
         Task<GetAllCategoryResponse> GetAllCategories();
         Task<GetCategoryByIdResponse> GetCategoryById(int? id);
-        Task<bool> CreateNewCategory(Category category, string adminImagePath);
+        Task<bool> CreateNewCategory(Category category, string categoryImagePath);
         Task<bool> UpdateCategory(CategoryVM request);
         Task<bool> DeleteCategory(int id);
     }
