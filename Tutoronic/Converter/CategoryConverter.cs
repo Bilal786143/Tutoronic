@@ -37,7 +37,10 @@ namespace Tutoronic.Converter
             categoryEntity.cat_name = request.CategoryName;
             if (request.CategoryImage != null)
             {
-                DeleteExistingImage(categoryEntity.cat_pic);
+                if (request.CategoryImage != categoryEntity.cat_pic)
+                {
+                    DeleteExistingImage(categoryEntity.cat_pic);
+                }
                 categoryEntity.cat_pic = request.CategoryImage;
             }
         }
