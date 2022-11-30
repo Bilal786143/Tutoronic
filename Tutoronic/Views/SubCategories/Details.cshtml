@@ -1,4 +1,4 @@
-﻿@model Tutoronic.Models.SubCategory
+﻿@model Tutoronic.Response.GetSubCategoryByIdResponse
 
 @{
     ViewBag.Title = "Details";
@@ -12,32 +12,32 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Category.cat_name)
+            <b>Category Name</b>
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Category.cat_name)
+            @Html.DisplayFor(model => model.SubCategory.CategoryName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.subcat_name)
+            <b>SubCategory Name</b>
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.subcat_name)
+            @Html.DisplayFor(model => model.SubCategory.SubCategoryName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.subcat_pic)
+            <b>SubCategory Image</b>
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.subcat_pic)
+            <img src="@Url.Content(Model.SubCategory.SubCategoryImage)" height="300" width="300" />
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Subcat_id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SubCategory.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
