@@ -77,13 +77,13 @@ namespace Tutoronic.Controllers
 
         public async Task<ActionResult> Login(Admin admin)
         {
-            Session.Remove("adm");
             var adminEntity = await _adminService.Login(admin);
             if (adminEntity == null)
             {
                 ViewBag.message = "The Email you have entered is not registered yet. Please Register Your Account Here";
-                return View("login", "Home");
+                return RedirectToAction("login", "Home");
             }
+            Session.Remove("adm");
             Session["adm"] = adminEntity;
             return RedirectToAction("index", "Admins");
         }
