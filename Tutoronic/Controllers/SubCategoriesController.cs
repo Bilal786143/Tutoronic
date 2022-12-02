@@ -1,70 +1,72 @@
-﻿using System.Data.Entity;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Tutoronic.Models;
+using Tutoronic.Request;
+using Tutoronic.Response;
+using Tutoronic.Services.Interface;
 
 namespace Tutoronic.Controllers
 {
     public class SubCategoriesController : ServerMapPathController
     {
-        private Model1 db = new Model1();
-        public ActionResult Index()
+        private readonly ISubCategoryService _subCategoryService;
+        
+        public SubCategoriesController(ISubCategoryService subCategoryService)
         {
-            var subCategories = db.SubCategories.Include(s => s.Category);
-            return View(subCategories.ToList());
+            _subCategoryService = subCategoryService;
         }
-        public ActionResult Details(int? id)
+
+        public async Task<ActionResult> Index()
+        {
+            return View(await _subCategoryService.GetAllSubCategories());
+        }
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            SubCategory subCategory = db.SubCategories.Find(id);
-            if (subCategory == null)
-            {
+
+            var subCategoryResponse = await _subCategoryService.GetSubCategoryById(id);
+            if (subCategoryResponse == null)
                 return HttpNotFound();
-            }
-            return View(subCategory);
+
+            return View(subCategoryResponse);
         }
         public ActionResult Create()
         {
-            ViewBag.cat_fid = new SelectList(db.Categories, "Category_id", "cat_name");
+            ViewBag.CategoryId = _subCategoryService.DropDownCategory();
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(SubCategory subCategory, HttpPostedFileBase pic)
+        public async Task<ActionResult> Create(CreateNewSubCategoryRequest request, HttpPostedFileBase pic)
         {
-            var imagePath = ServerMapPath(pic);
-            if (imagePath == ViewBag.message)
+            var subCategoryImagePath = ServerMapPath(pic);
+            if (subCategoryImagePath == ViewBag.message)
             {
                 TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
                 return View("Create");
             }
-            subCategory.subcat_pic = imagePath;
-            db.SubCategories.Add(subCategory);
-            db.SaveChanges();
+            await _subCategoryService.CreateNewSubCategory(request, subCategoryImagePath);
             return RedirectToAction("Index");
         }
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            SubCategory subCategory = db.SubCategories.Find(id);
+            var subCategory = await _subCategoryService.GetSubCategoryById(id);
             if (subCategory == null)
                 return HttpNotFound();
 
-            ViewBag.cat_fid = new SelectList(db.Categories, "Category_id", "cat_name", subCategory.cat_fid);
+            ViewBag.CategoryId = _subCategoryService.DropDownCategory(subCategory.SubCategory.CategoryId);
             return View(subCategory);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Subcat_id,subcat_name,subcat_pic,cat_fid")] SubCategory subCategory, HttpPostedFileBase pic)
+        public ActionResult Edit(GetSubCategoryByIdResponse subCategory, HttpPostedFileBase pic)
         {
             if (pic != null)
             {
@@ -74,42 +76,35 @@ namespace Tutoronic.Controllers
                     TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
                     return View("Edit");
                 }
-                subCategory.subcat_pic = imagePath;
+                //subCategory.subcat_pic = imagePath;
             }
-            db.Entry(subCategory).State = EntityState.Modified;
-            db.SaveChanges();
+            //db.Entry(subCategory).State = EntityState.Modified;
+            //db.SaveChanges();
             return RedirectToAction("Index");
         }
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            SubCategory subCategory = db.SubCategories.Find(id);
+
+            var subCategory = await _subCategoryService.GetSubCategoryById(id);
             if (subCategory == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(subCategory);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            SubCategory subCategory = db.SubCategories.Find(id);
-            db.SubCategories.Remove(subCategory);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
+            var isSubCategoryDeleted = await _subCategoryService.DeleteSubCategory(id);
+            if (!isSubCategoryDeleted)
             {
-                db.Dispose();
+                TempData["errormsg"] = "<script> alert('SubCategory Not Deleted Because It Already In Use')</script>";
+                return RedirectToAction("Delete");
             }
-            base.Dispose(disposing);
+            return RedirectToAction("Index");
         }
     }
 }

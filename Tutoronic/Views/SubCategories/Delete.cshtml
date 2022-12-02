@@ -1,11 +1,11 @@
-﻿@model Tutoronic.Models.SubCategory
-
+﻿@model Tutoronic.Response.GetSubCategoryByIdResponse
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout_adminpanel.cshtml";
 }
 
 <h2>Delete</h2>
+@Html.Raw(TempData["errormsg"])
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
@@ -13,32 +13,33 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Category.cat_name)
+            <b>Category Name</b>
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Category.cat_name)
+            @Html.DisplayFor(model => model.SubCategory.CategoryName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.subcat_name)
+            <b>SubCategory Name</b>
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.subcat_name)
+            @Html.DisplayFor(model => model.SubCategory.SubCategoryName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.subcat_pic)
+            <b>Image</b>
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.subcat_pic)
+            <img src="@Url.Content(Model.SubCategory.SubCategoryImage)" height="300" width="300" />
         </dd>
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
