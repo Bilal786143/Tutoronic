@@ -429,6 +429,7 @@
     <Compile Include="Models\Teacher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request\CreateNewSubCategoryRequest.cs" />
+    <Compile Include="Response\EditSubCategoryByIdResponse.cs" />
     <Compile Include="Response\GetAllAdminsResponse.cs" />
     <Compile Include="Response\GetAdminByIdResponse.cs" />
     <Compile Include="Response\GetAllCategoryResponse.cs" />

@@ -50,6 +50,16 @@ namespace Tutoronic.Services.Implementation
             return subCateoryResponse;
         }
 
+        public async Task<EditSubCategoryByIdResponse> EditSubCategoryResponseById(int? id)
+        {
+            var editSubCateoryResponse = new EditSubCategoryByIdResponse();
+            var subCategoryEntity = await GetSubCategoryEntityById(id);
+            if (subCategoryEntity != null)
+                editSubCateoryResponse =  _subCategoryConverter.ConvertEditSubCategoryEntityToResponseModel(subCategoryEntity);
+
+            return editSubCateoryResponse;
+        }
+
         public async Task<bool> CreateNewSubCategory(CreateNewSubCategoryRequest request, string subCategoryImagePath)
         {
             try
@@ -65,7 +75,7 @@ namespace Tutoronic.Services.Implementation
             }
         }
 
-        public async Task<bool> UpdateSubCategory(SubCategoryVM request)
+        public async Task<bool> UpdateSubCategory(EditSubCategoryByIdResponse request)
         {
             try
             {
@@ -79,8 +89,9 @@ namespace Tutoronic.Services.Implementation
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                return false;
             }
+            
         }
 
         public async Task<bool> DeleteSubCategory(int id)

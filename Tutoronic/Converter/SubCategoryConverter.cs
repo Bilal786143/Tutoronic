@@ -1,5 +1,6 @@
 ﻿using Tutoronic.Models;
 using Tutoronic.Request;
+using Tutoronic.Response;
 using Tutoronic.Services;
 using Tutoronic.ViewModels;
 
@@ -19,15 +20,26 @@ namespace Tutoronic.Converter
             };
         }
 
-        public void UpdateSubCategorySuccessfully(SubCategory subCategoryEntity, SubCategoryVM request)
+        public EditSubCategoryByIdResponse ConvertEditSubCategoryEntityToResponseModel(SubCategory subCategoryEntity)
         {
-            subCategoryEntity.subcat_name = request.SubCategoryName;
-            //subCategoryEntity.cat_fid = request.;
-            //if (request.CategoryImage != null)
-            //{
-            //    DeleteExistingImage(subCategoryEntity.subcat_pic);
-            //    subCategoryEntity.subcat_pic = request.SubCategoryImage;
-            //}
+            return new EditSubCategoryByIdResponse()
+            {
+                Id = subCategoryEntity.Subcat_id,
+                Name = subCategoryEntity.subcat_name,
+                Image = subCategoryEntity.subcat_pic,
+                CategoryId = subCategoryEntity.cat_fid,
+            };
+        }
+
+        public void UpdateSubCategorySuccessfully(SubCategory subCategoryEntity, EditSubCategoryByIdResponse request)
+        {
+            subCategoryEntity.subcat_name = request.Name;
+            subCategoryEntity.cat_fid = request.CategoryId;
+            if (request.Image != subCategoryEntity.subcat_pic)
+            {
+                DeleteExistingImage(subCategoryEntity.subcat_pic);
+                subCategoryEntity.subcat_pic = request.Image;
+            }
         }
 
         public SubCategory RequestToSubcategoryModel(CreateNewSubCategoryRequest request, string subCategoryImagePath)
