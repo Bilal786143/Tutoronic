@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using Tutoronic.Models;
 
@@ -19,6 +20,9 @@ namespace Tutoronic.Controllers
                     ViewBag.message = "Image Format is not supported";
                     return ViewBag.message;
                 }
+                var folderPic = "\\content\\pics\\";
+                var completeFolderPath=HostingEnvironment.ApplicationPhysicalPath+folderPic;
+                Directory.CreateDirectory(completeFolderPath);
                 //for live website return only picPath
                 picPath = "~/content/pics/" + Guid.NewGuid() + pic.FileName;
                 string fullPath = Server.MapPath(picPath);

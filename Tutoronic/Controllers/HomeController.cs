@@ -118,29 +118,6 @@ namespace Tutoronic.Controllers
         {
             return View();
         }
-
-        [HttpPost]
-        public ActionResult tchlogin(Teacher t)
-        {
-            Session.Remove("tch");
-            var teacherEntity = db.Teachers.Where(x => x.teacher_email == t.teacher_email & x.teacher_password == t.teacher_password).FirstOrDefault();
-            if (teacherEntity != null)
-            {
-                Session["tch"] = teacherEntity;
-                return RedirectToAction("index", "Teacher");
-            }
-            else if (teacherEntity == null)
-            {
-                ViewBag.message = "The Email you have entered is not registered yet. Please Register Your Account Here";
-                return View("login");
-            }
-            else
-            {
-                ViewBag.message = "Email or Password is incorrect";
-                return View("login");
-            }
-        }
-
         public ActionResult membership()
         {
             return View();
@@ -156,29 +133,6 @@ namespace Tutoronic.Controllers
         public ActionResult register()
         {
             return View();
-        }
-
-        [HttpPost]
-        public ActionResult tchregister(Teacher teacher, HttpPostedFileBase pic)
-        {
-            Session.Remove("tch");
-            var imagePath = ServerMapPath(pic);
-            if (imagePath == ViewBag.message)
-            {
-                TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
-                return View("Create");
-            }
-            var result = db.Teachers.Where(x => x.teacher_email == teacher.teacher_email).Count();
-            if (result == 1)
-            {
-                ViewBag.message = "This Email is already Registered. Please enter new Email.";
-                return View("register");
-            }
-            teacher.teacher_pic = imagePath;
-            db.Teachers.Add(teacher);
-            db.SaveChanges();
-            Session["tch"] = teacher;
-            return RedirectToAction("index", "teacher");
         }
     }
 }

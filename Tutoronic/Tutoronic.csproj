@@ -402,6 +402,7 @@
     <Compile Include="Converter\AdminConverter.cs" />
     <Compile Include="Converter\CategoryConverter.cs" />
     <Compile Include="Converter\SubCategoryConverter.cs" />
+    <Compile Include="Converter\TeacherConverter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -875,11 +876,6 @@
     <Content Include="Views\SubCategories\Details.cshtml" />
     <Content Include="Views\SubCategories\Edit.cshtml" />
     <Content Include="Views\SubCategories\Index.cshtml" />
-    <Content Include="Views\Teachers\Create.cshtml" />
-    <Content Include="Views\Teachers\Delete.cshtml" />
-    <Content Include="Views\Teachers\Details.cshtml" />
-    <Content Include="Views\Teachers\Edit.cshtml" />
-    <Content Include="Views\Teachers\Index.cshtml" />
     <Content Include="Views\Shared\_Layout_admin.cshtml" />
     <Content Include="Views\Shared\_layout_adminpanel.cshtml" />
     <Content Include="Views\Reports\coursesalereport.cshtml" />

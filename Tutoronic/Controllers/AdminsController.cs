@@ -64,7 +64,6 @@ namespace Tutoronic.Controllers
                 return RedirectToAction("Register", "Home");
             }
             var isAdminExist = await _adminService.CreateNewAdmin(admin, imagePath);
-
             if (!isAdminExist)
             {
                 TempData["errormsg"] = "<script> alert('This Email is already Registered. Please enter new Email.')</script>";
