@@ -82,6 +82,8 @@ namespace Tutoronic.Controllers
             var isSubCategoryUpdated = await _subCategoryService.UpdateSubCategory(request);
             if (isSubCategoryUpdated)
                 return RedirectToAction("Index");
+
+            TempData["errormsg"] = "<script> alert('Something Went Wrong. SubCategory Not Updated')</script>";
             return RedirectToAction("edit", "SubCategories", new { id = request.Id });
         }
         public async Task<ActionResult> Delete(int? id)
