@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using Tutoronic.Request;
 using Tutoronic.Response;
-using Tutoronic.ViewModels;
 
 namespace Tutoronic.Services.Interface
 {
