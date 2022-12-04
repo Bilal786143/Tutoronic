@@ -10,8 +10,9 @@ namespace Tutoronic.Services.Interface
     {
         Task<GetAllSubCategoryResponse> GetAllSubCategories();
         Task<GetSubCategoryByIdResponse> GetSubCategoryById(int? id);
+        Task<EditSubCategoryByIdResponse> EditSubCategoryResponseById(int? id);
         Task<bool> CreateNewSubCategory(CreateNewSubCategoryRequest request, string subCategoryImagePath);
-        Task<bool> UpdateSubCategory(SubCategoryVM request);
+        Task<bool> UpdateSubCategory(EditSubCategoryByIdResponse request);
         Task<bool> DeleteSubCategory(int id);
         SelectList DropDownCategory();
         SelectList DropDownCategory(int id);

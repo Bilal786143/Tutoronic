@@ -11,7 +11,7 @@ namespace Tutoronic.Controllers
     public class SubCategoriesController : ServerMapPathController
     {
         private readonly ISubCategoryService _subCategoryService;
-        
+
         public SubCategoriesController(ISubCategoryService subCategoryService)
         {
             _subCategoryService = subCategoryService;
@@ -56,17 +56,17 @@ namespace Tutoronic.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var subCategory = await _subCategoryService.GetSubCategoryById(id);
+            var subCategory = await _subCategoryService.EditSubCategoryResponseById(id);
             if (subCategory == null)
                 return HttpNotFound();
 
-            ViewBag.CategoryId = _subCategoryService.DropDownCategory(subCategory.SubCategory.CategoryId);
+            ViewBag.CategoryId = _subCategoryService.DropDownCategory(subCategory.CategoryId);
             return View(subCategory);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(GetSubCategoryByIdResponse subCategory, HttpPostedFileBase pic)
+        public async Task<ActionResult> Edit(EditSubCategoryByIdResponse request, HttpPostedFileBase pic)
         {
             if (pic != null)
             {
@@ -76,11 +76,14 @@ namespace Tutoronic.Controllers
                     TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
                     return View("Edit");
                 }
-                //subCategory.subcat_pic = imagePath;
+                request.Image = imagePath;
             }
-            //db.Entry(subCategory).State = EntityState.Modified;
-            //db.SaveChanges();
-            return RedirectToAction("Index");
+            var isSubCategoryUpdated = await _subCategoryService.UpdateSubCategory(request);
+            if (isSubCategoryUpdated)
+                return RedirectToAction("Index");
+
+            TempData["errormsg"] = "<script> alert('Something Went Wrong. SubCategory Not Updated')</script>";
+            return RedirectToAction("edit", "SubCategories", new { id = request.Id });
         }
         public async Task<ActionResult> Delete(int? id)
         {

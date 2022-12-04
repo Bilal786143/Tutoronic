@@ -1,4 +1,4 @@
-﻿@model Tutoronic.Response.GetSubCategoryByIdResponse
+﻿@model Tutoronic.Response.EditSubCategoryByIdResponse
 
 @{
     ViewBag.Title = "Edit";
@@ -17,31 +17,31 @@
         <h4>SubCategory</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.SubCategory.Id)
+        @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SubCategory.SubCategoryName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SubCategory.SubCategoryName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SubCategory.SubCategoryName, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SubCategory.SubCategoryImage, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <input name="pic" type="file" oninput="mypic.src = window.URL.createObjectURL(this.files[0])" />
-                <img id="mypic" src="@Url.Content(Model.SubCategory.SubCategoryImage)" height="100" width="100" />
-                @Html.EditorFor(model => model.SubCategory.SubCategoryImage, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                @Html.ValidationMessageFor(model => model.SubCategory.SubCategoryImage, "", new { @class = "text-danger" })
+                <img id="mypic" src="@Url.Content(Model.Image)" height="100" width="100" />
+                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SubCategory.CategoryId, "CategoryId", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CategoryId, "CategoryId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SubCategory.CategoryId, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
             </div>
         </div>
 
