@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Tutoronic.Models;
 using Tutoronic.Request;
 using Tutoronic.Response;
 using Tutoronic.Services.Interface;
