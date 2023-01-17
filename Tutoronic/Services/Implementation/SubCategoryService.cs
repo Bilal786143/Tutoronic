@@ -27,15 +27,15 @@ namespace Tutoronic.Services.Implementation
         {
             var subCategoyResponse = new GetAllSubCategoryResponse();
             var subCategoryList = await (from subCategory in _dbContext.SubCategories
-                                       join category in _dbContext.Categories
-                                       on subCategory.cat_fid equals category.Category_id
-                                       select new SubCategoryVM
-                                       {
-                                           Id = subCategory.Subcat_id,
-                                           SubCategoryName = subCategory.subcat_name,
-                                           SubCategoryImage = subCategory.subcat_pic,
-                                           CategoryName = category.cat_name,
-                                       }).ToListAsync();
+                                         join category in _dbContext.Categories
+                                         on subCategory.cat_fid equals category.Category_id
+                                         select new SubCategoryVM
+                                         {
+                                             Id = subCategory.Subcat_id,
+                                             SubCategoryName = subCategory.subcat_name,
+                                             SubCategoryImage = subCategory.subcat_pic,
+                                             CategoryName = category.cat_name,
+                                         }).ToListAsync();
             subCategoyResponse.SubCategories = subCategoryList;
             return subCategoyResponse;
         }
@@ -55,7 +55,7 @@ namespace Tutoronic.Services.Implementation
             var editSubCateoryResponse = new EditSubCategoryByIdResponse();
             var subCategoryEntity = await GetSubCategoryEntityById(id);
             if (subCategoryEntity != null)
-                editSubCateoryResponse =  _subCategoryConverter.ConvertEditSubCategoryEntityToResponseModel(subCategoryEntity);
+                editSubCateoryResponse = _subCategoryConverter.ConvertEditSubCategoryEntityToResponseModel(subCategoryEntity);
 
             return editSubCateoryResponse;
         }
@@ -91,7 +91,6 @@ namespace Tutoronic.Services.Implementation
             {
                 return false;
             }
-            
         }
 
         public async Task<bool> DeleteSubCategory(int id)
@@ -114,17 +113,19 @@ namespace Tutoronic.Services.Implementation
             {
                 return false;
             }
-            
+
         }
-        
+
         public SelectList DropDownCategory()
         {
-            return new SelectList(_dbContext.Categories, "Category_id", "cat_name");
+            var cate = "Category_id";
+            var catename = "cat_name";
+            return new SelectList(_dbContext.Categories, cate, catename);
         }
-        
+
         public SelectList DropDownCategory(int id)
         {
-            return new SelectList(_dbContext.Categories, "Category_id", "cat_name",id);
+            return new SelectList(_dbContext.Categories, "Category_id", "cat_name", id);
         }
 
         private async Task<SubCategory> GetSubCategoryEntityById(int? id)
