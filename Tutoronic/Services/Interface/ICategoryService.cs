@@ -8,6 +8,7 @@ namespace Tutoronic.Services.Interface
     public interface ICategoryService
     {
         Task<GetAllCategoryResponse> GetAllCategories();
+
         Task<GetCategoryByIdResponse> GetCategoryById(int? id);
         Task<bool> CreateNewCategory(Category category, string categoryImagePath);
         Task<bool> UpdateCategory(CategoryVM request);
