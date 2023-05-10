@@ -8,7 +8,6 @@ namespace Tutoronic.Controllers
     public class ReportsController : Controller
     {
         Model1 db = new Model1();
-
         public ActionResult coursesalereport()
         {
             var t = (Teacher)Session["tch"];
@@ -25,8 +24,8 @@ namespace Tutoronic.Controllers
         }
         public List<Student> studentemailslist()
         {
-            var t = (Teacher)Session["tch"];
-            List<Student> students = db.OrderDetails.Where(x => x.Cours.teacher_fid == t.Teacher_id).Select(x => x.Order.Student).ToList();
+            var teacher = (Teacher)Session["tch"];
+            List<Student> students = db.OrderDetails.Where(x => x.Cours.teacher_fid == teacher.Teacher_id).Select(x => x.Order.Student).ToList();
             return students;
         }
     }
