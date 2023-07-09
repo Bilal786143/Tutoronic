@@ -1,127 +1,109 @@
-﻿using System.Data.Entity;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Tutoronic.Models;
+using Tutoronic.Request;
+using Tutoronic.Response;
+using Tutoronic.Services.Interface;
 
 namespace Tutoronic.Controllers
 {
     public class CoursController : ServerMapPathController
     {
-        private Model1 db = new Model1();
-        public ActionResult Index()
+        private readonly ICourseService _courseService;
+
+        public CoursController(ICourseService courseService)
         {
-            var courses = db.Courses.Include(c => c.SubCategory).Include(c => c.Teacher);
-            return View(courses.ToList());
+            _courseService = courseService;
         }
-        public ActionResult Details(int? id)
+        public async Task<ActionResult> Index()
+        {
+            return View(await _courseService.GetAllCourses(((Teacher)Session["tch"]).Teacher_id));
+        }
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Cours cours = db.Courses.Find(id);
-            if (cours == null)
-            {
+
+            var courseResponse = await _courseService.GetCourseById(id);
+            if (courseResponse == null)
                 return HttpNotFound();
-            }
-            return View(cours);
+
+            return View(courseResponse);
         }
         public ActionResult Create()
         {
-            ViewBag.Subcat_fid = new SelectList(db.SubCategories, "Subcat_id", "subcat_name");
-            ViewBag.teacher_fid = new SelectList(db.Teachers, "Teacher_id", "teacher_name");
+            ViewBag.SubCategoryId = _courseService.DropDownList(null);
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Cours cours, HttpPostedFileBase pic)
+        public async Task<ActionResult> Create(CreateNewCourseRequest request, HttpPostedFileBase pic)
         {
-            var imagePath = ServerMapPath(pic);
-            if (imagePath == ViewBag.message)
+            var courseImagePath = ServerMapPath(pic);
+            if (courseImagePath == ViewBag.message)
             {
                 TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
                 return View("create");
             }
-            Teacher teacher = (Teacher)Session["tch"];
-            cours.teacher_fid = teacher.Teacher_id;
-            cours.course_pic = imagePath;
-            cours.approve = false;
-            db.Courses.Add(cours);
-            db.SaveChanges();
+            await _courseService.CreateNewCourse(request, courseImagePath, ((Teacher)Session["tch"]).Teacher_id);
             return RedirectToAction("Index");
         }
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Cours cours = db.Courses.Find(id);
-            if (cours == null)
-            {
+
+            var courseResponse = await _courseService.EditCourseResponseById(id);
+            if (courseResponse == null)
                 return HttpNotFound();
-            }
-            ViewBag.Subcat_fid = new SelectList(db.SubCategories, "Subcat_id", "subcat_name", cours.Subcat_fid);
-            ViewBag.teacher_fid = new SelectList(db.Teachers, "Teacher_id", "teacher_name", cours.teacher_fid);
-            return View(cours);
+
+            ViewBag.SubCategoryId = _courseService.DropDownList(courseResponse.SubCategoryId);
+            return View(courseResponse);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Cours cours, HttpPostedFileBase pic)
+        public async Task<ActionResult> Edit(EditCourseByIdResponse request, HttpPostedFileBase pic)
         {
             if (pic != null)
             {
-                var imagePath = ServerMapPath(pic);
-                if (imagePath == ViewBag.message)
+                var courseImagePath = ServerMapPath(pic);
+                if (courseImagePath == ViewBag.message)
                 {
                     TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
                     return RedirectToAction("Edit");
                 }
-                cours.course_pic = imagePath;
+                request.CourseImage = courseImagePath;
             }
-            Teacher teacher = (Teacher)Session["tch"];
-            cours.teacher_fid = teacher.Teacher_id;
-            db.Entry(cours).State = EntityState.Modified;
-            db.SaveChanges();
+            await _courseService.UpdateCourse(request, ((Teacher)Session["tch"]).Teacher_id);
             return RedirectToAction("Index");
-            //ViewBag.Subcat_fid = new SelectList(db.SubCategories, "Subcat_id", "subcat_name", cours.Subcat_fid);
-            //ViewBag.teacher_fid = new SelectList(db.Teachers, "Teacher_id", "teacher_name", cours.teacher_fid);
-            //return View(cours);
         }
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Cours cours = db.Courses.Find(id);
-            if (cours == null)
-            {
+
+            var courseResponse = await _courseService.GetCourseById(id);
+            if (courseResponse == null)
                 return HttpNotFound();
-            }
-            return View(cours);
+
+            return View(courseResponse);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Cours cours = db.Courses.Find(id);
-            db.Courses.Remove(cours);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
+            var isCourseDelete = await _courseService.DeleteCourse(id);
+            if (!isCourseDelete)
             {
-                db.Dispose();
+                TempData["errormsg"] = "<script> alert('Category Not Deleted Because It Already In Use')</script>";
+                return RedirectToAction("Delete");
             }
-            base.Dispose(disposing);
+            return RedirectToAction("Index");
         }
     }
 }
