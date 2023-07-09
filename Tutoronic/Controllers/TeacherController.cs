@@ -14,7 +14,8 @@ namespace Tutoronic.Controllers
         }
         public ActionResult logout()
         {
-            Session["tch"] = null;
+            Session.Remove("tch");
+            Session.Remove("studentloging");
             return RedirectToAction("index", "Home");
         }
         public ActionResult addlisting()
@@ -53,13 +54,15 @@ namespace Tutoronic.Controllers
         {
             return View();
         }
-        public ActionResult teacher
-            
-            ()
+        public ActionResult teacher()
         {
             return View();
         }
         public ActionResult userprofile()
+        {
+            return View();
+        }
+        public ActionResult teacherprofile()
         {
             return View();
         }

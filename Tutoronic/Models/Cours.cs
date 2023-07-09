@@ -26,12 +26,13 @@ namespace Tutoronic.Models
 
         [Required]
         public Boolean approve { get; set; }
+        public Boolean? Active { get; set; }
 
         [Required]
         [StringLength(1000)]
         public string course_description { get; set; }
 
-        
+
 
         [Required]
         public string course_pic { get; set; }

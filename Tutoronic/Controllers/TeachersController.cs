@@ -1,25 +1,23 @@
-﻿using System.Data.Entity;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using Tutoronic.Models;
 using Tutoronic.Services.Interface;
 
 namespace Tutoronic.Controllers
 {
-    public class TeachersController : Controller
+    public class TeachersController : ServerMapPathController
     {
-        private Model1 db = new Model1();
-        private readonly ITeachers _teacher;
+        private readonly ITeachers _teacherService;
         public TeachersController(ITeachers teacher)
         {
-            _teacher = teacher;
+            _teacherService = teacher;
         }
         public async Task<ActionResult> Index()
         {
-            return View(await _teacher.GetAllTeachers());
+            return View(await _teacherService.GetAllTeachers());
         }
-        public ActionResult profile_update(Teacher teacher)
+        public async Task<ActionResult> profileupdate(Teacher teacher)
         {
             Teacher t = (Teacher)Session["tch"];
             teacher.teacher_pic = t.teacher_pic;
@@ -28,92 +26,120 @@ namespace Tutoronic.Controllers
             {
                 teacher.teacher_password = t.teacher_password;
             }
-            db.Entry(teacher).State = EntityState.Modified;
-            db.SaveChanges();
+            await _teacherService.UpdateTeacher(teacher);
             Session["tch"] = teacher;
-            return RedirectToAction("teacherprofile", "Teacher");
+            return RedirectToAction("teacherprofile", "teacher");
         }
         public ActionResult Details(int id)
         {
-            var teacher = _teacher.GetTeacherById(id);
+            var teacher = _teacherService.GetTeacherById(id);
             if (teacher == null)
             {
                 return HttpNotFound();
             }
             return View(teacher);
         }
-        public ActionResult Create()
+        //public ActionResult Create()
+        //{
+        //    ViewBag.Teacher_id = new SelectList(db.Comment_reply, "Comment_reply_id", "reply");
+        //    return View();
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Create(Teacher teacher)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        // await _teacher.CreateTeacher(teacher);
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewBag.Teacher_id = new SelectList(db.Comment_reply, "Comment_reply_id", "reply", teacher.Teacher_id);
+        //    return View(teacher);
+        //}
+        //public ActionResult Edit(int id)
+        //{
+
+        //    var teacher = _teacher.GetTeacherById(id);
+        //    if (teacher == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    ViewBag.Teacher_id = new SelectList(db.Comment_reply, "Comment_reply_id", "reply", teacher.Id);
+        //    return View(teacher);
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit(Teacher teacher)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _teacher.UpdateTeacher(teacher);
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewBag.Teacher_id = new SelectList(db.Comment_reply, "Comment_reply_id", "reply", teacher.Teacher_id);
+        //    return View(teacher);
+        //}
+        //public async Task<ActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+        //    var teacher = await _teacher.GetTeacherById(id);
+        //    if (teacher == null)
+        //        return HttpNotFound();
+
+        //    return View(teacher);
+        //}
+
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> DeleteConfirmed(int id)
+        //{
+        //    var isTeacherDelete = await _teacher.DeleteTeacher(id);
+        //    if (isTeacherDelete)
+        //        return RedirectToAction("Index");
+        //    return RedirectToAction("Index");
+        //}
+
+        [HttpPost]
+        public async Task<ActionResult> TeacherRegister(Teacher teacher, HttpPostedFileBase pic)
         {
-            ViewBag.Teacher_id = new SelectList(db.Comment_reply, "Comment_reply_id", "reply");
-            return View();
+            Session.Remove("tch");
+            var teacherImagePath = ServerMapPath(pic);
+            if (teacherImagePath == ViewBag.message)
+            {
+                TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
+                return RedirectToAction("Register", "Home");
+            }
+            var isTeacherCreated = await _teacherService.CreateTeacher(teacher, teacherImagePath);
+            if (!isTeacherCreated)
+            {
+                TempData["errormsg"] = "<script> alert('This Email is already Registered. Please enter new Email.')</script>";
+                if (!teacherImagePath.Contains("blank-profile-picture-973460_640.png"))
+                    _teacherService.DeleteTeacherImage(teacherImagePath);
+
+                return RedirectToAction("Register", "Home");
+            }
+            Session["tch"] = teacher;
+            return RedirectToAction("index", "teacher");
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Teacher teacher)
+        public async Task<ActionResult> TeacherLogin(Teacher teacher)
         {
-            if (ModelState.IsValid)
+            var teacherEntity = await _teacherService.Login(teacher);
+            if (teacherEntity == null)
             {
-                await _teacher.CreateTeacher(teacher);
-                return RedirectToAction("Index");
+                TempData["errormsg"] = "<script> alert('The Email you have entered is not registered yet. Please Register Your Account Here')</script>";
+                return RedirectToAction("login", "Home");
             }
-            ViewBag.Teacher_id = new SelectList(db.Comment_reply, "Comment_reply_id", "reply", teacher.Teacher_id);
-            return View(teacher);
-        }
-        public ActionResult Edit(int id)
-        {
+            Session.Remove("tch");
+            Session["tch"] = teacherEntity;
+            return RedirectToAction("index", "Teacher");
 
-            var teacher = _teacher.GetTeacherById(id);
-            if (teacher == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.Teacher_id = new SelectList(db.Comment_reply, "Comment_reply_id", "reply", teacher.Id);
-            return View(teacher);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Teacher teacher)
-        {
-            if (ModelState.IsValid)
-            {
-                _teacher.UpdateTeacher(teacher);
-                return RedirectToAction("Index");
-            }
-            ViewBag.Teacher_id = new SelectList(db.Comment_reply, "Comment_reply_id", "reply", teacher.Teacher_id);
-            return View(teacher);
-        }
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Teacher teacher = db.Teachers.Find(id);
-            if (teacher == null)
-            {
-                return HttpNotFound();
-            }
-            return View(teacher);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Teacher teacher = db.Teachers.Find(id);
-            db.Teachers.Remove(teacher);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

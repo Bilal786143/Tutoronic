@@ -1,5 +1,5 @@
 ﻿@using Tutoronic.Models;
-@{ 
+@{
     Layout = "~/Views/Shared/_Layout_adminpanel.cshtml";
     Model1 db = new Model1();
     Course_Video playvideo = new Course_Video();
@@ -7,10 +7,7 @@
     //TempData.Keep("pid");
     var item = db.Courses.Where(x => x.Course_id == id).FirstOrDefault();
     var itm = db.Course_Video.Where(x => x.course_fid == id).ToList();
-
-    
-
-    }
+}
 <div class="db-breadcrumb">
     <h4 class="breadcrumb-title">Courses</h4>
     <ul class="db-breadcrumb-list">
@@ -27,16 +24,16 @@
             </div>
             @foreach (var vid in db.Course_Video.Where(x => x.course_fid == id))
             {
-        <video width="70%" height="300px" controls>
-            <source src="@Url.Content(vid.video)" />
-        </video>
-                        <h3>@vid.video_title</h3>
-                                        <p>@vid.video_description</p>}
-
+                <video width="70%" height="300" controls>
+                    <source src="@Url.Content(vid.video)" />
+                </video>
+                <h3>@vid.video_title</h3>
+                <p>@vid.video_description</p>
+            }
             <div class="row card-courses-dec">
                 <div class="col-md-12">
-                    <a href="@Url.Action("approve","Admins", new { id=item.Course_id})" class="btn green radius-xl outline">Approve</a>
-                    <a href="#" class="btn red outline radius-xl ">Cancel</a>
+                    <a href="@Url.Action("Approve","Admins", new { id=item.Course_id})" class="btn green radius-xl outline">Approve</a>
+                    <a href="@Url.Action("DisApprove","Admins", new { id=item.Course_id})" class="btn red outline radius-xl ">DisApproved</a>
                 </div>
             </div>
         </div>

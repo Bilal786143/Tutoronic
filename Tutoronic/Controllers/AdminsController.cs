@@ -1,35 +1,37 @@
-﻿using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Tutoronic.Models;
+using Tutoronic.Services.Interface;
+using Tutoronic.ViewModels;
 
 namespace Tutoronic.Controllers
 {
     public class AdminsController : ServerMapPathController
     {
-        private Model1 db = new Model1();
-        public ActionResult alladmins()
+        private readonly IAdminService _adminService;
+        public AdminsController(IAdminService adminService)
         {
-            return View(db.Admins.ToList());
+            _adminService = adminService;
         }
-        public ActionResult reports()
+        public async Task<ActionResult> alladmins()
         {
-            return View(db.Admins.ToList());
+            return View(await _adminService.GetAllAdmins());
         }
-        public ActionResult Details(int? id)
+        public async Task<ActionResult> reports()
+        {
+            return View(await _adminService.GetAllAdmins());
+        }
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Admin admin = db.Admins.Find(id);
+
+            var admin = await _adminService.GetAdminById(id);
             if (admin == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(admin);
         }
         public ActionResult Create()
@@ -39,7 +41,7 @@ namespace Tutoronic.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Admin a, HttpPostedFileBase pic)
+        public async Task<ActionResult> Create(Admin admin, HttpPostedFileBase pic)
         {
             var imagePath = ServerMapPath(pic);
             if (imagePath == ViewBag.message)
@@ -47,28 +49,59 @@ namespace Tutoronic.Controllers
                 TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
                 return View("Create");
             }
-            a.admin_pic = imagePath;
-            db.Admins.Add(a);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            await _adminService.CreateNewAdmin(admin, imagePath);
+            return RedirectToAction("AllAdmins");
         }
-        public ActionResult Edit(int? id)
+
+        [HttpPost]
+        public async Task<ActionResult> Register(Admin admin, HttpPostedFileBase pic)
+        {
+            Session.Remove("adm");
+            var imagePath = ServerMapPath(pic);
+            if (imagePath == ViewBag.message)
+            {
+                TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
+                return RedirectToAction("Register", "Home");
+            }
+            var isAdminExist = await _adminService.CreateNewAdmin(admin, imagePath);
+            if (!isAdminExist)
+            {
+                TempData["errormsg"] = "<script> alert('This Email is already Registered. Please enter new Email.')</script>";
+                return RedirectToAction("Register", "Home");
+            }
+            Session["adm"] = admin;
+            //_home.SendMail(admin);
+            return RedirectToAction("index", "Admins");
+        }
+
+        public async Task<ActionResult> Login(Admin admin)
+        {
+            var adminEntity = await _adminService.Login(admin);
+            if (adminEntity == null)
+            {
+                ViewBag.message = "The Email you have entered is not registered yet. Please Register Your Account Here";
+                return RedirectToAction("login", "Home");
+            }
+            Session.Remove("adm");
+            Session["adm"] = adminEntity;
+            return RedirectToAction("index", "Admins");
+        }
+
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Admin admin = db.Admins.Find(id);
+
+            var admin = await _adminService.GetAdminById(id);
             if (admin == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(admin);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Admin admin, HttpPostedFileBase pic)
+        public async Task<ActionResult> Edit(AdminVM admin, HttpPostedFileBase pic)
         {
             if (pic != null)
             {
@@ -78,42 +111,29 @@ namespace Tutoronic.Controllers
                     TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
                     return RedirectToAction("Edit");
                 }
-                admin.admin_pic = imagePath;
+                admin.AdminPic = imagePath;
             }
-            db.Entry(admin).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            await _adminService.UpdateAdmin(admin);
+            return RedirectToAction("AllAdmins");
         }
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Admin admin = db.Admins.Find(id);
+
+            var admin = await _adminService.GetAdminById(id);
             if (admin == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(admin);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Admin admin = db.Admins.Find(id);
-            db.Admins.Remove(admin);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            await _adminService.DeleteAdmin(id);
+            return RedirectToAction("AllAdmins");
         }
         public ActionResult index()
         {
@@ -140,17 +160,20 @@ namespace Tutoronic.Controllers
             TempData["coursesid"] = id;
             return View();
         }
-        public ActionResult logout()
+        public ActionResult Logout()
         {
-            Session["adm"] = null;
+            Session.Remove("adm");
             return RedirectToAction("index", "Home");
         }
-        public ActionResult approve(int id)
+        public async Task<ActionResult> Approve(int id)
         {
-            var courseEntity = db.Courses.FirstOrDefault(x => x.Course_id == id);
-            courseEntity.approve = true;
-            db.Entry(courseEntity).State = EntityState.Modified;
-            db.SaveChanges();
+            await _adminService.AdminApproveCourse(id, true);
+            return RedirectToAction("courses");
+        }
+
+        public async Task<ActionResult> DisApprove(int id)
+        {
+            await _adminService.AdminApproveCourse(id, false);
             return RedirectToAction("courses");
         }
         public ActionResult listviewcalendar()

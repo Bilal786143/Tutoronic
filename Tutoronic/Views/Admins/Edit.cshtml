@@ -1,4 +1,4 @@
-﻿@model Tutoronic.Models.Admin
+﻿@model Tutoronic.Response.GetAdminByIdResponse
 
 @{
     ViewBag.Title = "Edit";
@@ -15,54 +15,54 @@
         <h4>Admin</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Admin_id)
+        @Html.HiddenFor(model => model.Admin.AdminId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.admin_name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <b class="control-label col-md-2">Name</b>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.admin_name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.admin_name, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Admin.AdminName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Admin.AdminName, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.admin_email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <b class="control-label col-md-2">Email</b>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.admin_email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.admin_email, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Admin.AdminEmail, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Admin.AdminEmail, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.admin_password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <b class="control-label col-md-2">Email</b>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.admin_password, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.admin_password, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Admin.AdminPassword, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Admin.AdminPassword, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.admin_pic, htmlAttributes: new { @class = "control-label col-md-2" })
+            <b class="control-label col-md-2">Image</b>
             <div class="col-md-10">
-                <img src="@Url.Content(Model.admin_pic)" height="120" width="180" />
+                <img src="@Url.Content(Model.Admin.AdminPic)" height="120" width="180" />
                 <input type="file" name="pic" />
-                @Html.EditorFor(model => model.admin_pic, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Admin.AdminPic, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.admin_adress, htmlAttributes: new { @class = "control-label col-md-2" })
+            <b class="control-label col-md-2">Address</b>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.admin_adress, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.admin_adress, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Admin.AdminAddress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Admin.AdminAddress, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.admin_contact, htmlAttributes: new { @class = "control-label col-md-2" })
+            <b class="control-label col-md-2">Contact</b>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.admin_contact, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.admin_contact, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Admin.AdminContact, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Admin.AdminContact, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -75,5 +75,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "AllAdmins")
 </div>

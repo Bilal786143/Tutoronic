@@ -1,4 +1,4 @@
-﻿@model Tutoronic.Models.Admin
+﻿@model Tutoronic.Response.GetAdminByIdResponse
 
 @{
     ViewBag.Title = "Details";
@@ -11,56 +11,56 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.admin_name)
+            <b>Name</b>
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.admin_name)
+            @Html.DisplayFor(model => model.Admin.AdminName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.admin_email)
+            <b>Email</b>
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.admin_email)
+            @Html.DisplayFor(model => model.Admin.AdminEmail)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.admin_password)
+            <b>Password</b>
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.admin_password)
+            @Html.DisplayFor(model => model.Admin.AdminPassword)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.admin_pic)
+            <b>Image</b>
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.admin_pic)
+            <img src="@Url.Content(Model.Admin.AdminPic)" height="120" width="120" />
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.admin_adress)
+            <b>Address</b>
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.admin_adress)
+            @Html.DisplayFor(model => model.Admin.AdminAddress)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.admin_contact)
+            <b>Contact</b>
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.admin_contact)
+            @Html.DisplayFor(model => model.Admin.AdminContact)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Admin_id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Admin.AdminId }) |
+    @Html.ActionLink("Back to List", "AllAdmins")
 </p>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using Tutoronic.Models;
 
@@ -19,6 +20,9 @@ namespace Tutoronic.Controllers
                     ViewBag.message = "Image Format is not supported";
                     return ViewBag.message;
                 }
+                var folderPic = "\\content\\pics\\";
+                var completeFolderPath=HostingEnvironment.ApplicationPhysicalPath+folderPic;
+                Directory.CreateDirectory(completeFolderPath);
                 //for live website return only picPath
                 picPath = "~/content/pics/" + Guid.NewGuid() + pic.FileName;
                 string fullPath = Server.MapPath(picPath);
@@ -33,6 +37,11 @@ namespace Tutoronic.Controllers
 
         public string ServerMapPathVideo(HttpPostedFileBase vid)
         {
+            if (!IsVideoFormatExist(vid.FileName))
+            {
+                ViewBag.message = "Video Format is not supported";
+                return ViewBag.message;
+            }
             //for live website return only picPath
             var videoPath = "~/content/videos/" + Guid.NewGuid() + vid.FileName;
             var fullPath = Server.MapPath(videoPath);
@@ -52,6 +61,5 @@ namespace Tutoronic.Controllers
             var cleanformat = imageExtension.Replace(".", string.Empty);
             return Enum.TryParse(cleanformat, out VideoFormat videoFormat);
         }
-
     }
 }
