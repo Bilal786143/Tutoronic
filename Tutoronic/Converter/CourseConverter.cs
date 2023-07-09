@@ -36,18 +36,32 @@ namespace Tutoronic.Converter
                 approve = false
             };
         }
-
-        public void UpdateCourseSuccessfully(Cours courseEntity, GetCourseByIdResponse request)
+        public EditCourseByIdResponse ConvertEditCourseEntityToResponseModel(Cours course)
         {
-            courseEntity.Subcat_fid = request.Course.SubCategoryId;
+            return new EditCourseByIdResponse()
+            {
+                CourseId = course.Course_id,
+                CourseName = course.course_name,
+                CourseImage = course.course_pic,
+                CourseDescription = course.course_description,
+                CoursePrice = course.course_price,
+                SubCategoryName = course.SubCategory.subcat_name,
+                TeacherName = course.Teacher.teacher_name,
+                SubCategoryId = course.Subcat_fid,
+            };
+        }
+
+        public void UpdateCourseSuccessfully(Cours courseEntity, EditCourseByIdResponse request)
+        {
+            courseEntity.Subcat_fid = request.SubCategoryId;
             courseEntity.approve = false;
-            courseEntity.course_price = request.Course.CoursePrice;
-            courseEntity.course_description = request.Course.CourseDescription;
-            courseEntity.course_name = request.Course.CourseName;
-            if (request.Course.CourseImage != courseEntity.course_pic)
+            courseEntity.course_price = request.CoursePrice;
+            courseEntity.course_description = request.CourseDescription;
+            courseEntity.course_name = request.CourseName;
+            if (request.CourseImage != courseEntity.course_pic)
             {
                 DeleteExistingImage(courseEntity.course_pic);
-                courseEntity.course_pic = request.Course.CourseImage;
+                courseEntity.course_pic = request.CourseImage;
             }
         }
     }

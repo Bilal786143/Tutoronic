@@ -2,7 +2,6 @@
 
 namespace Tutoronic.Response
 {
-
     public class EditSubCategoryByIdResponse
     {
         public int Id { get; set; }

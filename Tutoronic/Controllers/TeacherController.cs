@@ -14,7 +14,8 @@ namespace Tutoronic.Controllers
         }
         public ActionResult logout()
         {
-            Session["tch"] = null;
+            Session.Remove("tch");
+            Session.Remove("studentloging");
             return RedirectToAction("index", "Home");
         }
         public ActionResult addlisting()

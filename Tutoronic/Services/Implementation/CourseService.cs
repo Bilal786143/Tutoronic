@@ -21,14 +21,13 @@ namespace Tutoronic.Services.Implementation
         {
             _dbContext = dbContext;
             _courseConverter = new CourseConverter();
-
         }
 
         public async Task<GetAllCourseResponse> GetAllCourses(int teacherId)
         {
             var response = new GetAllCourseResponse();
-            var courseEntities = await (from course in _dbContext.Courses.Where(x => x.Teacher.Teacher_id == teacherId)
-
+            var courseEntities = await (from course in _dbContext.Courses
+                                        .Where(x => x.Teacher.Teacher_id == teacherId)
                                         select new CourseVM
                                         {
                                             CourseDescription = course.course_description,
@@ -65,23 +64,53 @@ namespace Tutoronic.Services.Implementation
                 return false;
             }
         }
+        
+        public async Task<EditCourseByIdResponse> EditCourseResponseById(int? id)
+        {
+            var editCourseResponse = new EditCourseByIdResponse();
+            var courseEntity = await GetCourseEntityById(id);
+            if (courseEntity != null)
+                editCourseResponse = _courseConverter.ConvertEditCourseEntityToResponseModel(courseEntity);
 
-        public async Task<bool> UpdateCourse(GetCourseByIdResponse request, int? teacherId)
+            return editCourseResponse;
+        }
+        
+        public async Task<bool> UpdateCourse(EditCourseByIdResponse request, int? teacherId)
         {
             try
             {
-                var courseEntity = await GetCourseEntityById(request.Course.CourseId);
-                if (courseEntity == null ||(courseEntity.teacher_fid!=teacherId))
+                var courseEntity = await GetCourseEntityById(request.CourseId);
+                if (courseEntity == null || (courseEntity.teacher_fid != teacherId))
                     return false;
 
                 _courseConverter.UpdateCourseSuccessfully(courseEntity, request);
                 await _dbContext.SaveChangesAsync();
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
+        }
+
+        public async Task<bool> DeleteCourse(int? id)
+        {
+            var courseEntity = await GetCourseEntityById(id);
+            if (courseEntity == null)
+                return false;
+
+            var isCourseExistsInTables = _dbContext.OrderDetails.Where(x => x.Cours.Course_id == id).Include(x => x.Cours).Include(x => x.Cours.Course_Video).Include(x => x.Cours.Course_teacher_registration).Include(x => x.Cours.Course_Student_Registration).FirstOrDefault();
+            if (isCourseExistsInTables.Order == null)
+                courseEntity.Active = false;
+            //_dbContext.Course_Student_Registration.RemoveRange(isCourseExistsInTables.Cours.Course_Student_Registration);
+            //_dbContext.Course_teacher_registration.RemoveRange(isCourseExistsInTables.Cours.Course_teacher_registration);
+            //_dbContext.Course_Video.RemoveRange(isCourseExistsInTables.Cours.Course_Video);
+            //_dbContext.OrderDetails.Remove(isCourseExistsInTables);
+            //_dbContext.Orders.Remove(isCourseExistsInTables.Order);
+            //_dbContext.Courses.Remove(courseEntity);
+            //await _dbContext.SaveChangesAsync();
+            //_courseConverter.DeleteExistingImage(courseEntity.course_pic);
+            return true;
         }
 
         private async Task<Cours> GetCourseEntityById(int? courseId)
@@ -89,11 +118,9 @@ namespace Tutoronic.Services.Implementation
             return await _dbContext.Courses.FirstOrDefaultAsync(c => c.Course_id == courseId);
         }
 
-        public SelectList DropDownList(string id, string name, int? primaryId)
+        public SelectList DropDownList(int? primaryId)
         {
-            var test = new SelectList(_dbContext.SubCategories, "Subcat_id", "subcat_name", primaryId);
-            return test;
+            return new SelectList(_dbContext.SubCategories, "Subcat_id", "subcat_name", primaryId);
         }
-
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Data.Entity;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -12,14 +11,12 @@ namespace Tutoronic.Controllers
 {
     public class CoursController : ServerMapPathController
     {
-        private Model1 db = new Model1();
         private readonly ICourseService _courseService;
 
         public CoursController(ICourseService courseService)
         {
             _courseService = courseService;
         }
-
         public async Task<ActionResult> Index()
         {
             return View(await _courseService.GetAllCourses(((Teacher)Session["tch"]).Teacher_id));
@@ -37,7 +34,7 @@ namespace Tutoronic.Controllers
         }
         public ActionResult Create()
         {
-            ViewBag.SubCategoryId = _courseService.DropDownList("Subcat_id", "subcat_name", null);
+            ViewBag.SubCategoryId = _courseService.DropDownList(null);
             return View();
         }
 
@@ -59,61 +56,54 @@ namespace Tutoronic.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var courseResponse = await _courseService.GetCourseById(id);
+            var courseResponse = await _courseService.EditCourseResponseById(id);
             if (courseResponse == null)
                 return HttpNotFound();
 
-            ViewBag.SubCategoryId = _courseService.DropDownList("Subcat_id", "subcat_name", courseResponse.Course.SubCategoryId);
+            ViewBag.SubCategoryId = _courseService.DropDownList(courseResponse.SubCategoryId);
             return View(courseResponse);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(GetCourseByIdResponse request, HttpPostedFileBase pic)
+        public async Task<ActionResult> Edit(EditCourseByIdResponse request, HttpPostedFileBase pic)
         {
             if (pic != null)
             {
-                var imagePath = ServerMapPath(pic);
-                if (imagePath == ViewBag.message)
+                var courseImagePath = ServerMapPath(pic);
+                if (courseImagePath == ViewBag.message)
                 {
                     TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
                     return RedirectToAction("Edit");
                 }
-                request.Course.CourseImage = imagePath;
+                request.CourseImage = courseImagePath;
             }
             await _courseService.UpdateCourse(request, ((Teacher)Session["tch"]).Teacher_id);
             return RedirectToAction("Index");
         }
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Cours cours = db.Courses.Find(id);
-            if (cours == null)
-            {
+
+            var courseResponse = await _courseService.GetCourseById(id);
+            if (courseResponse == null)
                 return HttpNotFound();
-            }
-            return View(cours);
+
+            return View(courseResponse);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Cours cours = db.Courses.Find(id);
-            db.Courses.Remove(cours);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
+            var isCourseDelete = await _courseService.DeleteCourse(id);
+            if (!isCourseDelete)
             {
-                db.Dispose();
+                TempData["errormsg"] = "<script> alert('Category Not Deleted Because It Already In Use')</script>";
+                return RedirectToAction("Delete");
             }
-            base.Dispose(disposing);
+            return RedirectToAction("Index");
         }
     }
 }

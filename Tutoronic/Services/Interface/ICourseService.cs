@@ -8,7 +8,9 @@ namespace Tutoronic.Services.Interface
     {
         Task<GetAllCourseResponse> GetAllCourses(int teacherId);
         Task<GetCourseByIdResponse> GetCourseById(int? courseId);
+        Task<EditCourseByIdResponse> EditCourseResponseById(int? id);
         Task<bool> CreateNewCourse(CreateNewCourseRequest request, string courseImagePath, int? teacherId);
-        Task<bool> UpdateCourse(GetCourseByIdResponse request, int? teacherId);
+        Task<bool> UpdateCourse(EditCourseByIdResponse request, int? teacherId);
+        Task<bool> DeleteCourse(int? id);
     }
 }

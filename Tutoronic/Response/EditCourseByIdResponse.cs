@@ -1,8 +1,8 @@
 ﻿using Tutoronic.Models;
 
-namespace Tutoronic.ViewModels
+namespace Tutoronic.Response
 {
-    public class CourseVM
+    public class EditCourseByIdResponse
     {
         public int CourseId { get; set; }
         public string CourseName { get; set; }
@@ -12,6 +12,6 @@ namespace Tutoronic.ViewModels
         public string SubCategoryName { get; set; }
         public string TeacherName { get; set; }
         public int SubCategoryId { get; set; }
-        //public virtual SubCategory SubCategory { get; set; }
+        public virtual SubCategory SubCategory { get; set; }
     }
 }
