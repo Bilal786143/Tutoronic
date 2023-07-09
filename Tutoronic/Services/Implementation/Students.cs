@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
@@ -57,7 +56,6 @@ namespace Tutoronic.Services.Implementation
             _db.SaveChanges();
             return true;
         }
-
 
         public bool SendMail<T>(T userDetail)
         {

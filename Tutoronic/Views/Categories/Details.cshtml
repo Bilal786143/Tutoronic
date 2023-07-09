@@ -1,4 +1,4 @@
-﻿@model Tutoronic.Models.Category
+﻿@model Tutoronic.Response.GetCategoryByIdResponse
 
 @{
     ViewBag.Title = "Details";
@@ -16,7 +16,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.cat_name)
+            @Html.DisplayFor(model => model.Category.CategoryName)
         </dd>
 
         <dt>
@@ -24,12 +24,12 @@
         </dt>
 
         <dd>
-            <img src="@Url.Content(Model.cat_pic)" height="250" width="250" />
+            <img src="@Url.Content(Model.Category.CategoryImage)" height="250" width="250" />
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Category_id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Category.CategoryId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

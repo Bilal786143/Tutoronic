@@ -1,4 +1,4 @@
-﻿@model Tutoronic.Models.Cours
+﻿@model Tutoronic.Request.CreateNewCourseRequest
 
 @{
     ViewBag.Title = "Create";
@@ -6,6 +6,7 @@
 <h2>
     Create
 </h2>
+@Html.Raw(TempData["errormsg"])
 <h3 style="color:red">@ViewBag.message</h3>
 @Html.Raw(TempData["errormsg"])
 
@@ -20,16 +21,16 @@
         <div class="form-group">
             <b class="control-label col-md-2">Course Name</b>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.course_name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.course_name, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.CourseName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CourseName, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <b class="control-label col-md-2">Description</b>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.course_description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.course_description, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.CourseDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CourseDescription, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -45,20 +46,18 @@
         <div class="form-group">
             <b class="control-label col-md-2">Price</b>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.course_price, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.course_price, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.CoursePrice, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CoursePrice, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <b class="control-label col-md-2">Subcategory</b>
             <div class="col-md-10">
-                @Html.DropDownList("Subcat_fid", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Subcat_fid, "", new { @class = "text-danger" })
+                @Html.DropDownList("SubCategoryId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SubCategoryId, "", new { @class = "text-danger" })
             </div>
         </div>
-
-
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

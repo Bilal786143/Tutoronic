@@ -1,4 +1,4 @@
-﻿@model Tutoronic.Models.Cours
+﻿@model Tutoronic.Response.GetCourseByIdResponse
 
 @{
     ViewBag.Title = "Details";
@@ -15,23 +15,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SubCategory.subcat_name)
+            @Html.DisplayFor(model => model.Course.SubCategoryName)
         </dd>
-
-        @*<dt>
-            @Html.DisplayNameFor(model => model.Teacher.teacher_name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Teacher.teacher_name)
-        </dd>*@
-
         <dt>
             <b>Course Name</b>
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.course_name)
+            @Html.DisplayFor(model => model.Course.CourseName)
         </dd>
 
         <dt>
@@ -39,7 +30,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.course_description)
+            @Html.DisplayFor(model => model.Course.CourseDescription)
         </dd>
 
         <dt>
@@ -47,7 +38,7 @@
         </dt>
 
         <dd>
-            <img src="@Url.Content(Model.course_pic)" height="250" width="250" />
+            <img src="@Url.Content(Model.Course.CourseImage)" height="250" width="250" />
         </dd>
 
         <dt>
@@ -55,12 +46,12 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.course_price)
+            @Html.DisplayFor(model => model.Course.CoursePrice)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Course_id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Course.CourseId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

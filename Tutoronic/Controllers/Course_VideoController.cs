@@ -40,13 +40,11 @@ namespace Tutoronic.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Course_Video course_Video, HttpPostedFileBase vid)
         {
-            if (vid != null)
+            var videoPath = ServerMapPathVideo(vid);
+            if (videoPath == ViewBag.message)
             {
-                if (!IsVideoFormatExist(vid.FileName))
-                {
-                    ViewBag.message = "Video Format is not supported.";
-                    return View("Create");
-                }
+                TempData["errormsg"] = "<script> alert('Video Format is not supported')</script>";
+                return View("create");
             }
             Teacher t = new Teacher();
             t = (Teacher)Session["tch"];
@@ -54,7 +52,7 @@ namespace Tutoronic.Controllers
             course_Video.course_fid = id;
             course_Video.teacher_fid = t.Teacher_id;
             //video added
-            course_Video.video = ServerMapPathVideo(vid);
+            course_Video.video = videoPath;
             db.Course_Video.Add(course_Video);
             db.SaveChanges();
             return RedirectToAction("Index", new { id = id });
@@ -81,12 +79,13 @@ namespace Tutoronic.Controllers
         {
             if (vid != null)
             {
-                if (!IsVideoFormatExist(vid.FileName))
+                var videoPath = ServerMapPathVideo(vid);
+                if (videoPath == ViewBag.message)
                 {
-                    ViewBag.message = "Video Format is not supported.";
+                    TempData["errormsg"] = "<script> alert('Video Format is not supported')</script>";
                     return View("Edit");
                 }
-                course_Video.video = ServerMapPathVideo(vid);
+                course_Video.video = videoPath;
             }
             var data = db.Course_Video.Find(course_Video.Course_vid_id);
             data.video_description = course_Video.video_description;
