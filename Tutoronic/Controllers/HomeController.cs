@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Tutoronic.Models;
 using Tutoronic.Services.Interface;
 
@@ -8,13 +6,10 @@ namespace Tutoronic.Controllers
 {
     public class HomeController : ServerMapPathController
     {
-        Model1 db = new Model1();
         private readonly IHome _home;
-        private readonly IStudents _students;
-        public HomeController(IHome home, IStudents students)
+        public HomeController(IHome home)
         {
             _home = home;
-            _students = students;
         }
         public ActionResult Index()
         {

@@ -90,6 +90,7 @@ namespace Tutoronic.Controllers
             var data = db.Course_Video.Find(course_Video.Course_vid_id);
             data.video_description = course_Video.video_description;
             data.video_title = course_Video.video_title;
+            data.video = course_Video.video;
             //var id = data.course_fid;
             db.Entry(data).State = EntityState.Modified;
             db.SaveChanges();
