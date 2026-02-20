@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Tutoronic.Models.SubCategory>
+﻿@model Tutoronic.Response.GetAllSubCategoryResponse
 
 @{
     ViewBag.Title = "Index";
@@ -13,34 +13,35 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Category.cat_name)
+            <b>Category Name</b>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.subcat_name)
+            <b>SubCategory Name</b>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.subcat_pic)
+            <b>SubCategory Image</b>
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.cat_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.subcat_name)
-        </td>
-        <td>
-            <img src="@Url.Content(item.subcat_pic)" height="100" width="100" />
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Subcat_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Subcat_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Subcat_id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model.SubCategories)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubCategoryName)
+            </td>
+            <td>
+                <img src="@Url.Content(item.SubCategoryImage)" height="100" width="100" />
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>

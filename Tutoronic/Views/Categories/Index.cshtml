@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Tutoronic.Models.Category>
+﻿@model Tutoronic.Response.GetAllCategoryResponse
 
 @{
     ViewBag.Title = "Index";
@@ -8,7 +8,7 @@
 <h2>Categories</h2>
 
 <p>
-    <a href="/Categories/create" class="btn btn-primary">Create New</a>
+    <a href="/Categories/Create" class="btn btn-primary">Create New</a>
 </p>
 <table class="table">
     <tr>
@@ -21,20 +21,21 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @item.cat_name
-        </td>
-        <td>
-            <img src="@Url.Content(item.cat_pic)" alt="@item.cat_name" class="img-responsive" height="80" width="120" />
-        </td>
-        <td>
-            <a href="@Url.Action("Edit","Categories", new { id = item.Category_id })" class="fa fa-edit"></a> |
-            <a href="@Url.Action("Details","Categories", new { id = item.Category_id })" class="fa fa-book"></a> |
-            <a href="@Url.Action("Delete","Categories", new { id = item.Category_id })" class="fa fa-remove"></a>
-        </td>
-    </tr>
-}
+    @foreach (var item in Model.Categories)
+    {
+        <tr>
+            <td>
+                @item.CategoryName
+            </td>
+            <td>
+                <img src="@Url.Content(item.CategoryImage)" alt="@item.CategoryName" class="img-responsive" height="80" width="120" />
+            </td>
+            <td>
+                <a href="@Url.Action("Edit","Categories", new { id = item.CategoryId })" class="fa fa-edit"></a> |
+                <a href="@Url.Action("Details","Categories", new { id = item.CategoryId })" class="fa fa-book"></a> |
+                <a href="@Url.Action("Delete","Categories", new { id = item.CategoryId })" class="fa fa-remove"></a>
+            </td>
+        </tr>
+    }
 
 </table>

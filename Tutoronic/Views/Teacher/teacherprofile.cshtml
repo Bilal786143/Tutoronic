@@ -1,5 +1,6 @@
 @using Tutoronic.Models;
-@{ Layout = "~/Views/Shared/_Layout_admin.cshtml";
+@{
+    Layout = "~/Views/Shared/_Layout_admin.cshtml";
     Model1 db = new Model1();
     Teacher tch = new Teacher();
     if (Session["tch"] != null)
@@ -23,12 +24,13 @@
                 <h4>Teacher Profile</h4>
             </div>
             <div class="widget-inner">
-                @using (Html.BeginForm("profile_update", "Teachers", FormMethod.Post))
+                @using (Html.BeginForm("profileupdate", "Teachers", FormMethod.Post))
                 {
                     <form class="edit-profile m-b30">
                         <div class="row">
                             <div class="col-12">
                                 <div class="ml-auto">
+                                    <input hidden value="@tch.Teacher_id">
                                     <h3>1. Personal Details</h3>
                                 </div>
                             </div>

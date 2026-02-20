@@ -44,9 +44,8 @@ namespace Tutoronic.Controllers
         {
             var student = await _students.GetStudentById(id);
             if (student == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(student);
         }
 
@@ -56,12 +55,13 @@ namespace Tutoronic.Controllers
         {
             if (pic != null)
             {
-                if (!IsImageFormatExist(pic.FileName))
+                var imagePath = ServerMapPath(pic);
+                if (imagePath == ViewBag.message)
                 {
-                    ViewBag.message = "Image Format is not supported";
+                    TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
                     return RedirectToAction("profile", "Home");
                 }
-                student.student_pic = ServerMapPath(pic);
+                student.student_pic = imagePath;
             }
             Student s = (Student)Session["studentloging"];
             await _students.UpdateStudent(student, s);
@@ -89,48 +89,37 @@ namespace Tutoronic.Controllers
         [HttpPost]
         public async Task<ActionResult> StudentRegister(Student student, HttpPostedFileBase pic)
         {
-            if (pic != null)
+            Session.Remove("studentloging");
+            var imagePath = ServerMapPath(pic);
+            if (imagePath == ViewBag.message)
             {
-                if (!IsImageFormatExist(pic.FileName))
-                {
-                    ViewBag.message = "Image Format is not supported";
-                    return View("Create");
-                }
+                TempData["errormsg"] = "<script> alert('Image Format is not supported')</script>";
+                return RedirectToAction("register", "Home");
             }
-            student.student_pic = ServerMapPath(pic);
+            student.student_pic = imagePath;
             var newStudent = await _students.CreateNewStudent(student);
             if (newStudent == null)
             {
                 ViewBag.message = "This Email is already Registered. Please enter new Email.";
                 return View("register", "Home");
             }
-            else
-            {
-                Session["studentloging"] = student;
-                _students.SendMail(student);
-                return RedirectToAction("index", "Home");
-            }
+            Session["studentloging"] = student;
+            _students.SendMail(student);
+            return RedirectToAction("index", "Home");
         }
 
         [HttpPost]
         public async Task<ActionResult> StudentLogin(Student student)
         {
+            Session.Remove("studentloging");
             var result = await _students.LoginStudent(student);
-            if (result != null)
-            {
-                Session["studentloging"] = result;
-                return RedirectToAction("index", "Home");
-            }
-            else if (result == null)
-            {
-                ViewBag.message = "The Email you have entered is not registered yet. Please Register Your Account Here";
-                return View("login", "Home");
-            }
-            else
+            if (result == null)
             {
                 ViewBag.message = "Email or Password is incorrect";
                 return View("login", "Home");
             }
+            Session["studentloging"] = result;
+            return RedirectToAction("index", "Home");
         }
     }
 }

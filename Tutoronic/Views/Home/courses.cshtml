@@ -2,6 +2,9 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model1 db = new Model1();
+    //Select Only Thoes Whoes Course Approved
+    var categoriesApprovedList = db.Courses.Where(x => x.approve).Select(x => x.SubCategory.Category).Distinct().ToList();
+    var subcategoryApprovedList = db.Courses.Where(x => x.approve).Select(x => x.SubCategory).Distinct().ToList();
 }
 
 <!-- Content -->
@@ -35,12 +38,12 @@
                         <div class="widget widget_archive">
                             <h5 class="widget-title style-1">All Courses</h5>
                             <ul>
-                                @foreach (var cat in db.Categories)
+                                @foreach (var cat in categoriesApprovedList)
                                 {
                                     <li>
                                         <a href="">@cat.cat_name</a>
                                         <ul style="line-height:normal">
-                                            @foreach (var subcat in db.SubCategories.Where(c => c.cat_fid == cat.Category_id).ToList())
+                                            @foreach (var subcat in subcategoryApprovedList.Where(x => x.cat_fid == cat.Category_id))
                                             {
                                                 <li><a href="">@subcat.subcat_name</a></li>
                                             }

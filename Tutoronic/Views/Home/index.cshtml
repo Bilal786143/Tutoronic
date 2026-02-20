@@ -395,7 +395,7 @@
                         </div>
                         <div class="row">
                             <div class="courses-carousel owl-carousel owl-btn-1 col-12 p-lr0">
-                                @foreach (var item in db.Courses)
+                                @foreach (var item in db.Courses.Where(c=>c.approve))
                                 {
                                     <div class="item">
                                         <div class="cours-bx">
